@@ -1,14 +1,24 @@
 import { notFound } from "next/navigation";
 import { ArrowRight, Download, ExternalLink, ShieldCheck } from "lucide-react";
 import { ButtonLink } from "@/components/button-link";
+import { CopyInstallCommand } from "@/components/copy-install-command";
+import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { PreviewRenderer } from "@/components/preview-renderer";
 import { copy } from "@/lib/copy";
-import { downloadPath, getPublishedStyle, previewPath, publishedStyles, type Locale, type PreviewType } from "@/lib/fronttaste";
+import { cn } from "@/lib/utils";
+import {
+  downloadPath,
+  getPublishedStyle,
+  previewPath,
+  styleSkills,
+  type Locale,
+  type PreviewType,
+} from "@/lib/fronttaste";
 
 export function generateStaticParams() {
-  return publishedStyles.flatMap((style) => [
+  return styleSkills.flatMap((style) => [
     { locale: "en", slug: style.slug },
     { locale: "zh", slug: style.slug },
   ]);
@@ -22,8 +32,76 @@ export default async function StyleDetailPage({
   const { locale, slug } = await params;
   const style = getPublishedStyle(slug);
   if (!style) notFound();
+
   const t = copy[locale];
   const Icon = style.theme.icon;
+
+  if (style.sourceType === "external") {
+    const source = style.externalSource;
+    return (
+      <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:px-8">
+        <Badge variant="secondary" className="mb-5 rounded-md">
+          External ready-made Skill
+        </Badge>
+        <div className="grid gap-8 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
+          <div>
+            <Icon className="mb-8 size-9" style={{ color: style.theme.accent }} />
+            <h1 className="text-5xl font-semibold tracking-tight">{style.name}</h1>
+            <p className="mt-5 text-xl leading-8 text-zinc-600">{style.description[locale]}</p>
+            <p className="mt-5 text-sm leading-6 text-zinc-500">{t.collections.externalDetail}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              {source ? (
+                <a
+                  href={source.officialUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={cn(buttonVariants({ size: "lg" }), "bg-zinc-950 text-white hover:bg-zinc-800")}
+                >
+                  {t.cta.official}
+                  <ExternalLink className="size-4" />
+                </a>
+              ) : null}
+              <ButtonLink href={`/${locale}/styles`} size="lg" variant="outline">
+                {t.cta.backToStyles}
+              </ButtonLink>
+            </div>
+          </div>
+
+          <Card className="border-zinc-200 bg-white p-5">
+            <h2 className="text-2xl font-semibold">{t.labels.source}</h2>
+            <div className="mt-5 space-y-4 text-sm leading-6">
+              <div>
+                <div className="font-mono text-xs uppercase text-zinc-500">{t.labels.provider}</div>
+                <div className="text-zinc-800">{source?.provider ?? "External"}</div>
+              </div>
+              <div>
+                <div className="font-mono text-xs uppercase text-zinc-500">{t.labels.verified}</div>
+                <div className="text-zinc-800">{source?.verifiedAt ?? "2026-05-11"}</div>
+              </div>
+              {source?.sourceUrl ? (
+                <div>
+                  <div className="font-mono text-xs uppercase text-zinc-500">{t.labels.sourceFile}</div>
+                  <a href={source.sourceUrl} target="_blank" rel="noreferrer" className="break-all text-zinc-950 underline">
+                    {source.sourceUrl}
+                  </a>
+                </div>
+              ) : null}
+            </div>
+            {source?.installCommand ? (
+              <div className="mt-6 rounded-lg border border-zinc-200 bg-zinc-50 p-4">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <h3 className="font-semibold">{t.cta.installCommand}</h3>
+                  <CopyInstallCommand command={source.installCommand} label={t.cta.copyInstall} copiedLabel={t.cta.copied} />
+                </div>
+                <code className="block break-all font-mono text-xs leading-6 text-zinc-700">{source.installCommand}</code>
+              </div>
+            ) : null}
+          </Card>
+        </div>
+      </section>
+    );
+  }
+
   const previews: PreviewType[] = ["landing", "dashboard", "settings"];
 
   return (
@@ -31,7 +109,7 @@ export default async function StyleDetailPage({
       <div className="grid gap-10 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
         <div>
           <Badge variant="secondary" className="mb-5 rounded-md">
-            {style.status}
+            FrontTaste Original
           </Badge>
           <h1 className="text-6xl font-semibold tracking-tight">{style.name}</h1>
           <p className="mt-5 text-xl leading-8 text-zinc-600">{style.description[locale]}</p>

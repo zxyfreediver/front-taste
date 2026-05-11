@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { StyleCard } from "@/components/style-card";
 import { copy } from "@/lib/copy";
-import { publishedStyles, type Locale } from "@/lib/fronttaste";
+import { externalDesignSkills, publishedStyles, type Locale } from "@/lib/fronttaste";
 
 export default async function HomePage({
   params,
@@ -34,9 +34,9 @@ export default async function HomePage({
           </div>
           <div className="mt-12 grid max-w-3xl gap-3 text-sm text-zinc-600 sm:grid-cols-3">
             {[
-              ["6", t.stats.styles],
-              ["18", t.stats.previews],
-              ["0", t.stats.scripts],
+              ["12", t.stats.styles],
+              ["36", t.stats.previews],
+              [String(externalDesignSkills.length), t.stats.external],
             ].map(([value, label]) => (
               <div key={label} className="border-t border-zinc-200 pt-3">
                 <div className="font-mono text-2xl font-semibold text-zinc-950">{value}</div>
@@ -51,7 +51,7 @@ export default async function HomePage({
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 className="text-3xl font-semibold tracking-tight">{t.sections.published}</h2>
-            <p className="mt-2 text-zinc-600">{t.sections.publishedIntro}</p>
+            <p className="mt-2 text-zinc-600">{t.collections.originalsIntro}</p>
           </div>
           <ButtonLink href={`/${locale}/styles`} variant="outline">
             {t.sections.viewAll} <ArrowRight className="size-4" />

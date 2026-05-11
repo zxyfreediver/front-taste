@@ -1,12 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getPublishedStyle } from "@/lib/fronttaste";
+import { getFronttasteStyle } from "@/lib/fronttaste";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
-  const style = getPublishedStyle(slug);
+  const style = getFronttasteStyle(slug);
 
   if (!style) {
     return NextResponse.json({ error: "Download is not available for this style." }, { status: 404 });

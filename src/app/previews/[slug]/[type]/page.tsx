@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Download } from "lucide-react";
 import { ButtonLink } from "@/components/button-link";
 import { PreviewRenderer } from "@/components/preview-renderer";
-import { downloadPath, getPublishedStyle, previewTypes, publishedStyles, type PreviewType } from "@/lib/fronttaste";
+import { downloadPath, getFronttasteStyle, previewTypes, publishedStyles, type PreviewType } from "@/lib/fronttaste";
 
 export function generateStaticParams() {
   return publishedStyles.flatMap((style) =>
@@ -19,7 +19,7 @@ export default async function PreviewPage({
   params: Promise<{ slug: string; type: string }>;
 }) {
   const { slug, type } = await params;
-  const style = getPublishedStyle(slug);
+  const style = getFronttasteStyle(slug);
 
   if (!style || !previewTypes.includes(type as PreviewType)) {
     notFound();

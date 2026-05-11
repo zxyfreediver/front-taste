@@ -2,9 +2,9 @@
 
 Preview frontend taste before installing the Skill.
 
-FrontTaste is a bilingual gallery of reusable frontend style Skills for AI coding agents. The MVP ships six complete styles, each with live landing, dashboard, and settings previews plus Markdown-only Skill downloads.
+FrontTaste is a bilingual gallery of reusable frontend style Skills for AI coding agents. It includes 12 downloadable FrontTaste-original style Skills plus a curated directory of ready-made external design Skills from official or directory sources.
 
-## MVP Styles
+## FrontTaste Originals
 
 - Quiet SaaS
 - Precision Ops
@@ -12,8 +12,18 @@ FrontTaste is a bilingual gallery of reusable frontend style Skills for AI codin
 - Brutal Grid
 - Editorial Launch
 - Cyber Infra
+- Playful Bento
+- Calm Workspace
+- Glass Agent
+- Dense Analytics
+- Hardware Premium
+- Retro Future
 
-Six more styles are listed as planned: Playful Bento, Calm Workspace, Glass Agent, Dense Analytics, Hardware Premium, and Retro Future.
+Each original style has three live previews: landing, dashboard, and settings.
+
+## External Skills
+
+External Skills are listed with official source links and install commands where available. FrontTaste does not host or repackage those files.
 
 ## Routes
 
