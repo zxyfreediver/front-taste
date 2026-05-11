@@ -1,0 +1,5 @@
+MIT License
+
+Copyright (c) 2026 FrontTaste
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of these Markdown Skill files to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the files, subject to including this license notice.
