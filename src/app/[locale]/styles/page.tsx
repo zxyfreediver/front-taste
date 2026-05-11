@@ -14,9 +14,7 @@ export default async function StylesPage({
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="mb-10 max-w-3xl">
         <h1 className="text-5xl font-semibold tracking-tight">{t.sections.published}</h1>
-        <p className="mt-4 text-lg leading-8 text-zinc-600">
-          Browse fixed frontend style Skills. Published styles include downloads and three live previews; planned styles are listed to show the roadmap.
-        </p>
+        <p className="mt-4 text-lg leading-8 text-zinc-600">{t.sections.styleListIntro}</p>
       </div>
       <div className="grid gap-5 lg:grid-cols-3">
         {publishedStyles.map((style) => (
@@ -25,7 +23,7 @@ export default async function StylesPage({
       </div>
       <div className="mt-16">
         <h2 className="text-3xl font-semibold tracking-tight">{t.sections.planned}</h2>
-        <p className="mt-2 text-zinc-600">These six are in the 12-style plan but intentionally outside the MVP build.</p>
+        <p className="mt-2 text-zinc-600">{t.sections.plannedIntro}</p>
         <div className="mt-6 grid gap-5 lg:grid-cols-3">
           {plannedStyles.map((style) => (
             <StyleCard key={style.slug} style={style} locale={locale} />

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { ButtonLink } from "@/components/button-link";
+import { LanguageSwitch } from "@/components/language-switch";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { copy, otherLocale } from "@/lib/copy";
+import { copy } from "@/lib/copy";
 import type { Locale } from "@/lib/fronttaste";
 import { cn } from "@/lib/utils";
 
@@ -40,9 +40,7 @@ export function SiteShell({
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <ButtonLink href={`/${otherLocale(locale)}`} variant="ghost" size="sm">
-              {t.nav.language}
-            </ButtonLink>
+            <LanguageSwitch locale={locale} label={t.nav.language} />
             <a
               href="https://github.com/fronttaste/frontend-style-skills"
               target="_blank"
@@ -58,13 +56,16 @@ export function SiteShell({
       <footer className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <Separator className="mb-6 bg-zinc-200" />
         <div className="flex flex-col gap-4 text-sm text-zinc-600 sm:flex-row sm:items-center sm:justify-between">
-          <p>FrontTaste v0.1 MVP · Preview-first frontend style Skills.</p>
-          <div className="flex gap-4">
+          <p>{t.footer.line}</p>
+          <div className="flex flex-wrap gap-4">
+            <a href="mailto:zxyfreediver@gmail.com" className="hover:text-zinc-950">
+              {t.footer.contact}: zxyfreediver@gmail.com
+            </a>
             <Link href={`/${locale}/docs/what-is-a-frontend-skill`} className="hover:text-zinc-950">
-              What is a frontend Skill
+              {t.footer.what}
             </Link>
             <Link href={`/${locale}/changelog`} className="inline-flex items-center gap-1 hover:text-zinc-950">
-              Changelog <ArrowUpRight className="size-3" />
+              {t.footer.changelog} <ArrowUpRight className="size-3" />
             </Link>
           </div>
         </div>

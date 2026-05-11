@@ -35,9 +35,9 @@ export default async function HomePage({
           </div>
           <div className="mt-10 grid gap-3 text-sm text-zinc-600 sm:grid-cols-3">
             {[
-              ["6", "published styles"],
-              ["18", "live previews"],
-              ["0", "scripts in skills"],
+              ["6", t.stats.styles],
+              ["18", t.stats.previews],
+              ["0", t.stats.scripts],
             ].map(([value, label]) => (
               <div key={label} className="border-t border-zinc-200 pt-3">
                 <div className="font-mono text-2xl font-semibold text-zinc-950">{value}</div>
@@ -55,10 +55,10 @@ export default async function HomePage({
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 className="text-3xl font-semibold tracking-tight">{t.sections.published}</h2>
-            <p className="mt-2 text-zinc-600">Six complete style Skills with live landing, dashboard, and settings previews.</p>
+            <p className="mt-2 text-zinc-600">{t.sections.publishedIntro}</p>
           </div>
           <ButtonLink href={`/${locale}/styles`} variant="outline">
-            View all <ArrowRight className="size-4" />
+            {t.sections.viewAll} <ArrowRight className="size-4" />
           </ButtonLink>
         </div>
         <div className="grid gap-5 lg:grid-cols-3">
@@ -73,9 +73,7 @@ export default async function HomePage({
           <div>
             <Badge className="mb-5 rounded-md bg-white text-zinc-950 hover:bg-white">{t.sections.samePrompt}</Badge>
             <h2 className="text-3xl font-semibold tracking-tight">{t.comparePrompt}</h2>
-            <p className="mt-4 text-zinc-300">
-              The point is not changing a color token. Each Skill changes layout rhythm, density, typography, and product detail.
-            </p>
+            <p className="mt-4 text-zinc-300">{t.sections.compareBody}</p>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
             {publishedStyles.slice(0, 3).map((style) => {
@@ -94,9 +92,9 @@ export default async function HomePage({
 
       <section className="mx-auto grid max-w-7xl gap-4 px-4 py-12 sm:px-6 md:grid-cols-3 lg:px-8">
         {[
-          [Eye, "Preview first", "Judge frontend taste from real pages instead of README promises."],
-          [Download, "Download Markdown Skills", "MVP Skills contain instructions only: no scripts, no external requests."],
-          [Layers3, "Reusable taste", "Install a style once and keep future AI-generated UI in the same direction."],
+          [Eye, t.valueCards.previewTitle, t.valueCards.previewBody],
+          [Download, t.valueCards.downloadTitle, t.valueCards.downloadBody],
+          [Layers3, t.valueCards.reuseTitle, t.valueCards.reuseBody],
         ].map(([Icon, title, body]) => (
           <Card key={title as string} className="border-zinc-200 bg-white p-5 shadow-sm">
             <Icon className="mb-8 size-6 text-zinc-950" />
