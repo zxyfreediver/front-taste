@@ -153,23 +153,29 @@
 }
 
 [data-style="liquid-glass"] {
-  --ft-bg: #eaf4ff;
-  --ft-bg-pattern: radial-gradient(circle at 20% 6%, rgba(105, 149, 255, 0.32), transparent 28%),
-    radial-gradient(circle at 80% 10%, rgba(130, 240, 210, 0.26), transparent 26%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(211, 225, 255, 0.16));
+  --ft-bg: #dce8ff;
+  --ft-bg-pattern: radial-gradient(circle at 12% 2%, rgba(72, 130, 255, 0.40), transparent 44%),
+    radial-gradient(circle at 88% 5%, rgba(90, 205, 195, 0.34), transparent 40%),
+    radial-gradient(circle at 55% 92%, rgba(148, 110, 255, 0.24), transparent 38%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.28), rgba(195, 215, 255, 0.20));
   --ft-bg-size: auto;
-  --ft-surface: rgba(255, 255, 255, 0.62);
-  --ft-surface-strong: rgba(220, 235, 255, 0.7);
+  --ft-surface: rgba(255, 255, 255, 0.56);
+  --ft-surface-strong: rgba(215, 232, 255, 0.62);
+  --ft-surface-weak: rgba(255, 255, 255, 0.38);
   --ft-text: #122033;
-  --ft-muted: #637084;
-  --ft-border: rgba(255, 255, 255, 0.78);
-  --ft-accent: #4f7cff;
-  --ft-accent-2: #7adfc9;
+  --ft-muted: #58697d;
+  --ft-border: rgba(255, 255, 255, 0.82);
+  --ft-accent: #4b74ff;
+  --ft-accent-2: #68d4c0;
   --ft-accent-text: #ffffff;
   --ft-radius: 28px;
-  --ft-shadow: 0 28px 90px rgba(67, 102, 166, 0.22);
+  --ft-shadow: 0 32px 100px rgba(54, 88, 158, 0.26);
   --ft-font: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --ft-border-width: 1px;
+  --ft-glass-blur-heavy: 48px;
+  --ft-glass-blur-medium: 36px;
+  --ft-glass-blur-light: 22px;
+  --ft-glass-saturate: 1.65;
 }
 
 [data-style="mono-ink"] {
@@ -1171,28 +1177,175 @@
   text-shadow: 2px 2px 0 var(--ft-border);
 }
 
+/* ===== Liquid Glass Layer 1: Header — heaviest frost ===== */
+[data-style="liquid-glass"] .ft-shell-header {
+  backdrop-filter: blur(var(--ft-glass-blur-heavy)) saturate(var(--ft-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--ft-glass-blur-heavy)) saturate(var(--ft-glass-saturate));
+  background: rgba(242, 248, 255, 0.74);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.88);
+}
+
+/* ===== Liquid Glass Layer 2: Panels — medium frost + rim light + inner glow ===== */
 [data-style="liquid-glass"] [data-ui="panel"],
 [data-style="liquid-glass"] [data-ui="window"],
 [data-style="liquid-glass"] [data-ui="row"],
-[data-style="liquid-glass"] [data-ui="metric"],
-[data-style="liquid-glass"] .ft-shell-header {
-  backdrop-filter: blur(24px) saturate(1.25);
+[data-style="liquid-glass"] [data-ui="metric"] {
+  backdrop-filter: blur(var(--ft-glass-blur-medium)) saturate(var(--ft-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--ft-glass-blur-medium)) saturate(var(--ft-glass-saturate));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 4px 32px rgba(54, 88, 158, 0.10),
+    0 20px 64px rgba(54, 88, 158, 0.14);
 }
 
+[data-style="liquid-glass"] .ft-install-card,
+[data-style="liquid-glass"] .ft-request-card,
+[data-style="liquid-glass"] .ft-signature-card,
+[data-style="liquid-glass"] .ft-demo-card,
+[data-style="liquid-glass"] .ft-product-window,
+[data-style="liquid-glass"] .ft-hero-copy,
+[data-style="liquid-glass"] .ft-preview-hero,
+[data-style="liquid-glass"] .ft-preview-side,
+[data-style="liquid-glass"] .ft-preview-table {
+  background:
+    radial-gradient(ellipse 75% 55% at 50% 28%, rgba(255, 255, 255, 0.35), transparent 68%),
+    rgba(255, 255, 255, 0.52);
+}
+
+[data-style="liquid-glass"] .ft-metric,
+[data-style="liquid-glass"] .ft-step {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+[data-style="liquid-glass"] .ft-metric:hover,
+[data-style="liquid-glass"] .ft-step:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.70),
+    0 6px 24px rgba(54, 88, 158, 0.12),
+    0 16px 48px rgba(54, 88, 158, 0.08);
+}
+
+/* ===== Liquid Glass Layer 3: Capsules — lightest frost + spring physics ===== */
 [data-style="liquid-glass"] .ft-style-button,
-[data-style="liquid-glass"] .ft-primary-action,
-[data-style="liquid-glass"] .ft-secondary-action,
-[data-style="liquid-glass"] .ft-preview button {
+[data-style="liquid-glass"] .ft-chip-row span,
+[data-style="liquid-glass"] .ft-download-list a {
+  backdrop-filter: blur(var(--ft-glass-blur-light)) saturate(var(--ft-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--ft-glass-blur-light)) saturate(var(--ft-glass-saturate));
+  background: var(--ft-surface-weak);
   border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.70),
+    0 2px 12px rgba(54, 88, 158, 0.08);
 }
 
+/* Style buttons — glass capsules with spring hover */
+[data-style="liquid-glass"] .ft-style-button {
+  transition:
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 220ms ease,
+    background 220ms ease;
+}
+[data-style="liquid-glass"] .ft-style-button:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 10px 28px rgba(54, 88, 158, 0.16),
+    0 20px 56px rgba(54, 88, 158, 0.09);
+}
+
+/* Active style button — accent glass capsule */
+[data-style="liquid-glass"] .ft-style-button[data-active="true"] {
+  background: linear-gradient(135deg, rgba(75, 116, 255, 0.88), rgba(90, 155, 255, 0.84));
+  backdrop-filter: blur(18px) saturate(1.8);
+  -webkit-backdrop-filter: blur(18px) saturate(1.8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.50),
+    0 4px 20px rgba(75, 116, 255, 0.28),
+    0 14px 46px rgba(75, 116, 255, 0.14);
+  color: #ffffff;
+}
+
+/* Primary action — accent glass pill */
+[data-style="liquid-glass"] .ft-primary-action,
+[data-style="liquid-glass"] .ft-preview [data-ui="cta"] {
+  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  background: linear-gradient(135deg, rgba(75, 116, 255, 0.88), rgba(100, 155, 255, 0.82));
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 3px 16px rgba(75, 116, 255, 0.24);
+  transition:
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 220ms ease;
+}
+[data-style="liquid-glass"] .ft-primary-action:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    0 8px 30px rgba(75, 116, 255, 0.30),
+    0 18px 52px rgba(75, 116, 255, 0.12);
+}
+
+/* Secondary action — ghost glass pill */
+[data-style="liquid-glass"] .ft-secondary-action,
+[data-style="liquid-glass"] .ft-preview [data-ui="button"] {
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  background: rgba(255, 255, 255, 0.44);
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 2px 10px rgba(54, 88, 158, 0.06);
+  transition:
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 200ms ease;
+}
+[data-style="liquid-glass"] .ft-secondary-action:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.70),
+    0 6px 22px rgba(54, 88, 158, 0.12);
+}
+
+/* Preview nav — frosted window bar */
+[data-style="liquid-glass"] .ft-preview-nav {
+  backdrop-filter: blur(36px) saturate(1.55);
+  -webkit-backdrop-filter: blur(36px) saturate(1.55);
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 4px 28px rgba(54, 88, 158, 0.08);
+}
+
+/* Hero grid ratio preserved */
 [data-style="liquid-glass"] .ft-hero {
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
 }
 
-[data-style="liquid-glass"] .ft-product-window,
-[data-style="liquid-glass"] .ft-demo-card {
-  background: rgba(255, 255, 255, 0.48);
+[data-style="liquid-glass"] .ft-style-deck {
+  padding: 48px 0 36px;
+}
+
+/* Ambient breathing light */
+@keyframes ft-glass-breathe {
+  0%   { opacity: 0.45; }
+  100% { opacity: 1; }
+}
+
+[data-style="liquid-glass"] .ft-page {
+  position: relative;
+}
+[data-style="liquid-glass"] .ft-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 25% 40%, rgba(255, 255, 255, 0.07), transparent 60%),
+    radial-gradient(circle at 75% 45%, rgba(170, 205, 255, 0.06), transparent 60%);
+  animation: ft-glass-breathe 14s ease-in-out infinite alternate;
 }
 
 [data-style="mono-ink"] .ft-style-deck,
