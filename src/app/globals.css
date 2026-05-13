@@ -234,29 +234,39 @@
 
 [data-style="fresh-minimal"] {
   --ft-bg: #f4fbf8;
-  --ft-bg-pattern: linear-gradient(135deg, rgba(32, 167, 121, 0.1), transparent 36%);
-  --ft-bg-size: auto;
+  /* faint dot grid + soft mint corner wash */
+  --ft-bg-pattern:
+    radial-gradient(circle, rgba(32, 167, 121, 0.16) 0.6px, transparent 1.2px),
+    linear-gradient(135deg, rgba(32, 167, 121, 0.10), transparent 36%);
+  --ft-bg-size: 26px 26px, auto;
   --ft-surface: #ffffff;
   --ft-surface-strong: #e5f5ef;
-  --ft-text: #10201a;
+  --ft-surface-weak: #f0f8f4;
+  --ft-text: #0e1e18;
   --ft-muted: #64746d;
-  --ft-border: #d8e8e1;
+  --ft-border: rgba(16, 32, 26, 0.08);
   --ft-accent: #20a779;
-  --ft-accent-2: #9bd9c6;
+  --ft-accent-2: #18b48b;
   --ft-accent-text: #ffffff;
   --ft-radius: 18px;
-  --ft-shadow: 0 24px 80px rgba(28, 112, 85, 0.12);
-  --ft-font: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --ft-shadow: 0 1px 2px rgba(16, 32, 26, 0.04), 0 12px 40px rgba(28, 112, 85, 0.10);
+  --ft-font: var(--font-geist-sans), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --ft-font-display: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
   --ft-border-width: 1px;
+  --ft-glow: 0 0 0 4px rgba(32, 167, 121, 0.14);
 }
 
 [data-style="vintage-computing"] {
   --ft-bg: #d7c7a3;
-  --ft-bg-pattern: linear-gradient(90deg, rgba(83, 69, 43, 0.12) 1px, transparent 1px),
-    linear-gradient(rgba(83, 69, 43, 0.1) 1px, transparent 1px);
-  --ft-bg-size: 28px 28px;
+  /* pixel grid + CRT corner vignette */
+  --ft-bg-pattern:
+    linear-gradient(90deg, rgba(83, 69, 43, 0.10) 1px, transparent 1px),
+    linear-gradient(rgba(83, 69, 43, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, transparent 55%, rgba(48, 40, 25, 0.22) 100%);
+  --ft-bg-size: 24px 24px, 24px 24px, auto;
   --ft-surface: #efe2bd;
   --ft-surface-strong: #1e2a1d;
+  --ft-surface-weak: #c7b78e;
   --ft-text: #2b261c;
   --ft-muted: #6f6148;
   --ft-border: #4d412c;
@@ -264,47 +274,68 @@
   --ft-accent-2: #d78d2f;
   --ft-accent-text: #f5edcf;
   --ft-radius: 2px;
-  --ft-shadow: 6px 6px 0 rgba(48, 40, 25, 0.32);
-  --ft-font: var(--font-geist-mono), ui-monospace, monospace;
+  --ft-shadow: 4px 4px 0 rgba(48, 40, 25, 0.40);
+  --ft-font: var(--font-geist-mono), "IBM Plex Mono", ui-monospace, monospace;
+  --ft-font-terminal: var(--font-vt323), "VT323", "IBM Plex Mono", monospace;
   --ft-border-width: 2px;
+  --ft-bevel-light: rgba(255, 246, 218, 0.85);
+  --ft-bevel-dark: rgba(70, 58, 38, 0.55);
+  --ft-crt-green: #6cff6c;
+  --ft-crt-amber: #ffb000;
 }
 
 [data-style="clay-play"] {
   --ft-bg: #fff1e6;
-  --ft-bg-pattern: radial-gradient(circle at 16% 14%, rgba(255, 122, 89, 0.2), transparent 25%),
-    radial-gradient(circle at 86% 12%, rgba(116, 211, 255, 0.18), transparent 24%);
+  /* pastel cloud blobs + gentle cross-grain noise for clay texture */
+  --ft-bg-pattern:
+    radial-gradient(circle at 14% 16%, rgba(255, 122, 89, 0.30), transparent 28%),
+    radial-gradient(circle at 86% 12%, rgba(116, 211, 255, 0.26), transparent 26%),
+    radial-gradient(circle at 22% 92%, rgba(255, 211, 110, 0.22), transparent 28%),
+    radial-gradient(circle at 82% 80%, rgba(196, 110, 255, 0.22), transparent 26%);
   --ft-bg-size: auto;
   --ft-surface: #ffffff;
   --ft-surface-strong: #ffd6e8;
+  --ft-surface-weak: #fff8f1;
   --ft-text: #272038;
   --ft-muted: #7b6c86;
-  --ft-border: #f0c8b5;
+  --ft-border: rgba(255, 122, 89, 0.18);
   --ft-accent: #ff7a59;
   --ft-accent-2: #74d3ff;
-  --ft-accent-text: #271725;
-  --ft-radius: 30px;
-  --ft-shadow: 0 16px 0 rgba(103, 74, 92, 0.18), 0 28px 70px rgba(255, 122, 89, 0.18);
-  --ft-font: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --ft-border-width: 1px;
+  --ft-accent-text: #ffffff;
+  --ft-radius: 32px;
+  --ft-shadow: 0 16px 0 rgba(103, 74, 92, 0.16), 0 28px 70px rgba(255, 122, 89, 0.18);
+  --ft-font: var(--font-fredoka), "Fredoka", "Quicksand", "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --ft-border-width: 0;
+  --ft-clay-highlight: rgba(255, 255, 255, 0.95);
+  --ft-clay-shade: rgba(103, 74, 92, 0.18);
+  --ft-clay-deep: rgba(103, 74, 92, 0.30);
 }
 
 [data-style="luxury-noir"] {
   --ft-bg: #080706;
-  --ft-bg-pattern: radial-gradient(circle at 18% 0%, rgba(215, 180, 106, 0.18), transparent 34%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent 44%);
+  /* warm gold spotlight + diagonal sheen + cinematic vignette */
+  --ft-bg-pattern:
+    radial-gradient(circle at 18% 0%, rgba(215, 180, 106, 0.22), transparent 36%),
+    radial-gradient(circle at 82% 100%, rgba(176, 138, 60, 0.16), transparent 38%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent 44%),
+    radial-gradient(circle at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
   --ft-bg-size: auto;
   --ft-surface: #14110d;
   --ft-surface-strong: #211a12;
+  --ft-surface-weak: #1c1812;
   --ft-text: #f7ecd8;
   --ft-muted: #b6a485;
   --ft-border: #4a3823;
   --ft-accent: #d7b46a;
   --ft-accent-2: #f7ecd8;
   --ft-accent-text: #120d08;
-  --ft-radius: 14px;
+  --ft-radius: 12px;
   --ft-shadow: 0 34px 90px rgba(0, 0, 0, 0.52);
-  --ft-font: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --ft-font: var(--font-eb-garamond), "Cormorant Garamond", Georgia, serif;
+  --ft-font-display: var(--font-bodoni-moda), "Bodoni 72", "Playfair Display", Georgia, serif;
   --ft-border-width: 1px;
+  --ft-gold-foil: linear-gradient(135deg, #b8923a 0%, #f3deb1 35%, #d7b46a 60%, #876c2d 100%);
+  --ft-gold-line: linear-gradient(90deg, transparent, #d7b46a 30%, #f3deb1 50%, #d7b46a 70%, transparent);
 }
 
 .ft-root,
@@ -2000,20 +2031,28 @@
   [data-style="neon-cyberpunk"] .ft-preview-hero h1,
   [data-style="neon-cyberpunk"] .ft-brand,
   [data-style="neon-cyberpunk"] p,
-  [data-style="neon-cyberpunk"] li {
+  [data-style="neon-cyberpunk"] li,
+  [data-style="vintage-computing"] .ft-product-side,
+  [data-style="vintage-computing"] .ft-preview-side,
+  [data-style="clay-play"] .ft-primary-action,
+  [data-style="clay-play"] .ft-preview [data-ui="cta"] {
     animation: none;
   }
 }
 
-[data-style="fresh-minimal"] .ft-style-deck {
-  padding-top: 42px;
+/* ============================================================
+   Fresh Minimal — calm modern SaaS
+   Generous whitespace, hairline borders, dot-grid background,
+   editorial-serif moments via Instrument Serif on hero copy.
+   Focus rings breathe; cards lift on hover with a soft mint glow.
+   ============================================================ */
+
+[data-style="fresh-minimal"] {
+  font-feature-settings: "tnum" on, "ss01" on, "cv11" on;
 }
 
-[data-style="fresh-minimal"] [data-ui="panel"],
-[data-style="fresh-minimal"] [data-ui="window"],
-[data-style="fresh-minimal"] [data-ui="row"],
-[data-style="fresh-minimal"] [data-ui="metric"] {
-  box-shadow: none;
+[data-style="fresh-minimal"] .ft-style-deck {
+  padding-top: 42px;
 }
 
 [data-style="fresh-minimal"] .ft-hero {
@@ -2021,28 +2060,352 @@
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
 }
 
+/* Display headings — Instrument Serif italic for the editorial pull-quote moment */
 [data-style="fresh-minimal"] .ft-style-deck-copy h1,
-[data-style="fresh-minimal"] .ft-hero h2 {
-  font-weight: 850;
+[data-style="fresh-minimal"] .ft-hero h2,
+[data-style="fresh-minimal"] .ft-preview-hero h1 {
+  font-family: var(--ft-font-display);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
 }
 
+/* Cards & panels — borderless, soft elevation, hover lift + mint inner glow */
+[data-style="fresh-minimal"] [data-ui="panel"],
+[data-style="fresh-minimal"] [data-ui="window"],
+[data-style="fresh-minimal"] [data-ui="row"],
+[data-style="fresh-minimal"] [data-ui="metric"],
+[data-style="fresh-minimal"] .ft-install-card,
+[data-style="fresh-minimal"] .ft-request-card,
+[data-style="fresh-minimal"] .ft-signature-card,
+[data-style="fresh-minimal"] .ft-demo-card,
+[data-style="fresh-minimal"] .ft-product-window,
+[data-style="fresh-minimal"] .ft-hero-copy,
+[data-style="fresh-minimal"] .ft-preview-hero,
+[data-style="fresh-minimal"] .ft-preview-side,
+[data-style="fresh-minimal"] .ft-preview-table {
+  background: #ffffff;
+  border: 1px solid var(--ft-border);
+  border-radius: 18px;
+  box-shadow: 0 1px 2px rgba(16, 32, 26, 0.04), 0 8px 28px rgba(28, 112, 85, 0.06);
+  transition:
+    transform 220ms cubic-bezier(0.32, 0.72, 0.34, 1),
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+[data-style="fresh-minimal"] [data-ui="metric"]:hover,
+[data-style="fresh-minimal"] .ft-install-card:hover,
+[data-style="fresh-minimal"] .ft-request-card:hover,
+[data-style="fresh-minimal"] .ft-signature-card:hover,
+[data-style="fresh-minimal"] .ft-demo-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(32, 167, 121, 0.20);
+  box-shadow:
+    0 1px 2px rgba(16, 32, 26, 0.04),
+    0 18px 48px rgba(28, 112, 85, 0.12),
+    inset 0 0 0 1px rgba(32, 167, 121, 0.06);
+}
+
+/* Buttons & chips — pill shape, ultra-light surface, soft mint focus */
+[data-style="fresh-minimal"] .ft-style-button,
+[data-style="fresh-minimal"] .ft-secondary-action,
+[data-style="fresh-minimal"] .ft-chip-row span,
+[data-style="fresh-minimal"] .ft-download-list a,
+[data-style="fresh-minimal"] .ft-preview [data-ui="button"] {
+  background: #ffffff;
+  border: 1px solid var(--ft-border);
+  border-radius: 999px;
+  color: var(--ft-text);
+  font-family: var(--ft-font);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  box-shadow: 0 1px 2px rgba(16, 32, 26, 0.04);
+  transition:
+    transform 160ms cubic-bezier(0.32, 0.72, 0.34, 1),
+    box-shadow 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+[data-style="fresh-minimal"] .ft-style-button:hover,
+[data-style="fresh-minimal"] .ft-secondary-action:hover,
+[data-style="fresh-minimal"] .ft-preview [data-ui="button"]:hover {
+  background: var(--ft-surface-weak);
+  border-color: rgba(32, 167, 121, 0.30);
+  transform: translateY(-1px);
+  box-shadow: 0 1px 2px rgba(16, 32, 26, 0.04), 0 8px 22px rgba(28, 112, 85, 0.10);
+}
+[data-style="fresh-minimal"] .ft-style-button:active,
+[data-style="fresh-minimal"] .ft-secondary-action:active,
+[data-style="fresh-minimal"] .ft-preview [data-ui="button"]:active {
+  transform: scale(0.98);
+  transition-duration: 80ms;
+}
+[data-style="fresh-minimal"] .ft-style-button:focus-visible,
+[data-style="fresh-minimal"] .ft-secondary-action:focus-visible {
+  box-shadow: var(--ft-glow);
+  outline: none;
+}
+
+/* Active style button — mint fill */
+[data-style="fresh-minimal"] .ft-style-button[data-active="true"] {
+  background: var(--ft-accent);
+  color: var(--ft-accent-text);
+  border-color: var(--ft-accent);
+  box-shadow: 0 1px 2px rgba(16, 32, 26, 0.04), 0 8px 22px rgba(32, 167, 121, 0.30);
+}
+
+/* Chips — feather-light tonal mint, no border */
+[data-style="fresh-minimal"] .ft-chip-row span,
+[data-style="fresh-minimal"] .ft-download-list a {
+  background: rgba(32, 167, 121, 0.08);
+  border-color: transparent;
+  color: var(--ft-accent);
+  font-size: 0.84em;
+  letter-spacing: -0.005em;
+  padding: 4px 12px;
+}
+
+/* Primary action — mint fill, soft press */
+[data-style="fresh-minimal"] .ft-primary-action,
+[data-style="fresh-minimal"] .ft-preview [data-ui="cta"] {
+  background: var(--ft-accent);
+  color: var(--ft-accent-text);
+  border: 1px solid var(--ft-accent);
+  border-radius: 999px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  box-shadow: 0 1px 2px rgba(16, 32, 26, 0.06), 0 8px 22px rgba(32, 167, 121, 0.28);
+  transition: transform 160ms cubic-bezier(0.32, 0.72, 0.34, 1), box-shadow 160ms ease, background 160ms ease;
+}
+[data-style="fresh-minimal"] .ft-primary-action:hover,
+[data-style="fresh-minimal"] .ft-preview [data-ui="cta"]:hover {
+  background: var(--ft-accent-2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(16, 32, 26, 0.08), 0 14px 32px rgba(32, 167, 121, 0.36);
+}
+[data-style="fresh-minimal"] .ft-primary-action:active,
+[data-style="fresh-minimal"] .ft-preview [data-ui="cta"]:active {
+  transform: scale(0.98);
+  transition-duration: 80ms;
+}
+
+/* Header — flat white, hairline rule */
+[data-style="fresh-minimal"] .ft-shell-header {
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid var(--ft-border);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+}
+
+/* Numbers — tabular figures everywhere */
+[data-style="fresh-minimal"] [data-ui="metric"] strong,
+[data-style="fresh-minimal"] .ft-metric-value {
+  font-feature-settings: "tnum" on;
+  letter-spacing: -0.02em;
+}
+
+/* ============================================================
+   Vintage Computing — CRT terminal + old window chrome
+   Beige plastic shell, beveled buttons, scanlined terminal
+   panels with phosphor-glow VT323 text.
+   ============================================================ */
+
+@keyframes ft-crt-flicker {
+  0%, 96%, 100% { opacity: 1; }
+  97% { opacity: 0.92; }
+  98% { opacity: 0.97; }
+  99% { opacity: 0.94; }
+}
+
+[data-style="vintage-computing"] {
+  font-family: var(--ft-font);
+}
+
+/* Header — pinstripe title bar */
 [data-style="vintage-computing"] .ft-shell-header,
 [data-style="vintage-computing"] .ft-window-bar,
 [data-style="vintage-computing"] .ft-preview-nav {
-  background: #c7b78e;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      #c7b78e 0px,
+      #c7b78e 2px,
+      #b3a47b 2px,
+      #b3a47b 3px
+    );
+  border-bottom: 2px solid var(--ft-border);
+  box-shadow: inset 0 1px 0 var(--ft-bevel-light), inset 0 -1px 0 var(--ft-bevel-dark);
 }
 
+[data-style="vintage-computing"] .ft-brand {
+  font-family: var(--ft-font-terminal);
+  font-size: 1.4em;
+  letter-spacing: 0.04em;
+  text-shadow: 1px 1px 0 var(--ft-bevel-light);
+}
+
+/* Cards = beige plastic panels with bevel + drop shadow */
+[data-style="vintage-computing"] [data-ui="panel"],
+[data-style="vintage-computing"] [data-ui="window"],
+[data-style="vintage-computing"] [data-ui="row"],
+[data-style="vintage-computing"] [data-ui="metric"],
+[data-style="vintage-computing"] .ft-install-card,
+[data-style="vintage-computing"] .ft-request-card,
+[data-style="vintage-computing"] .ft-signature-card,
+[data-style="vintage-computing"] .ft-demo-card,
+[data-style="vintage-computing"] .ft-product-window,
+[data-style="vintage-computing"] .ft-hero-copy,
+[data-style="vintage-computing"] .ft-preview-hero,
+[data-style="vintage-computing"] .ft-preview-table {
+  background: var(--ft-surface);
+  border: 2px solid var(--ft-border);
+  border-radius: 2px;
+  box-shadow:
+    inset 0 1px 0 var(--ft-bevel-light),
+    inset 0 -1px 0 var(--ft-bevel-dark),
+    inset 1px 0 0 var(--ft-bevel-light),
+    inset -1px 0 0 var(--ft-bevel-dark),
+    4px 4px 0 rgba(48, 40, 25, 0.40);
+}
+
+/* Terminal panels — green phosphor on black with scanlines + CRT flicker */
 [data-style="vintage-computing"] .ft-product-side,
 [data-style="vintage-computing"] .ft-preview-side {
-  background: var(--ft-surface-strong);
-  color: #bcff9f;
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 2px,
+      rgba(0, 0, 0, 0.18) 2px 3px
+    ),
+    var(--ft-surface-strong);
+  color: var(--ft-crt-green);
+  font-family: var(--ft-font-terminal);
+  font-size: 1.05em;
+  text-shadow: 0 0 4px rgba(108, 255, 108, 0.55), 0 0 10px rgba(108, 255, 108, 0.25);
+  border: 2px solid var(--ft-border);
+  box-shadow:
+    inset 0 0 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(108, 255, 108, 0.22),
+    4px 4px 0 rgba(48, 40, 25, 0.40);
+  animation: ft-crt-flicker 6s infinite;
+}
+
+[data-style="vintage-computing"] .ft-product-side::before,
+[data-style="vintage-computing"] .ft-preview-side::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.45) 100%);
 }
 
 [data-style="vintage-computing"] .ft-product-side .ft-metric,
 [data-style="vintage-computing"] .ft-preview-side [data-ui="metric"] {
-  border-color: rgba(188, 255, 159, 0.42);
-  background: rgba(0, 0, 0, 0.16);
-  color: #bcff9f;
+  border: 1px dashed rgba(108, 255, 108, 0.5);
+  background: rgba(108, 255, 108, 0.05);
+  color: var(--ft-crt-green);
+  text-shadow: 0 0 4px rgba(108, 255, 108, 0.55);
+  font-family: var(--ft-font-terminal);
+  box-shadow: none;
+}
+
+/* Buttons = beveled keys (raised by default, pressed on active) */
+[data-style="vintage-computing"] .ft-style-button,
+[data-style="vintage-computing"] .ft-secondary-action,
+[data-style="vintage-computing"] .ft-chip-row span,
+[data-style="vintage-computing"] .ft-download-list a,
+[data-style="vintage-computing"] .ft-preview [data-ui="button"] {
+  background: var(--ft-surface);
+  border: 2px solid var(--ft-border);
+  border-radius: 2px;
+  color: var(--ft-text);
+  font-family: var(--ft-font);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.86em;
+  font-weight: 600;
+  box-shadow:
+    inset 1px 1px 0 var(--ft-bevel-light),
+    inset -1px -1px 0 var(--ft-bevel-dark),
+    2px 2px 0 rgba(48, 40, 25, 0.40);
+  transition: transform 80ms ease, box-shadow 80ms ease, background 80ms ease;
+}
+[data-style="vintage-computing"] .ft-style-button:hover,
+[data-style="vintage-computing"] .ft-secondary-action:hover,
+[data-style="vintage-computing"] .ft-preview [data-ui="button"]:hover {
+  background: var(--ft-surface-weak);
+}
+[data-style="vintage-computing"] .ft-style-button:active,
+[data-style="vintage-computing"] .ft-secondary-action:active,
+[data-style="vintage-computing"] .ft-preview [data-ui="button"]:active {
+  /* bevel inverts — button looks pushed in */
+  box-shadow:
+    inset 1px 1px 0 var(--ft-bevel-dark),
+    inset -1px -1px 0 var(--ft-bevel-light),
+    1px 1px 0 rgba(48, 40, 25, 0.20);
+  transform: translate(2px, 2px);
+}
+
+/* Active style button — pushed-in keycap state */
+[data-style="vintage-computing"] .ft-style-button[data-active="true"] {
+  background: var(--ft-accent);
+  color: var(--ft-accent-text);
+  border-color: var(--ft-accent);
+  box-shadow:
+    inset 1px 1px 0 var(--ft-bevel-dark),
+    inset -1px -1px 0 rgba(255, 255, 255, 0.20),
+    1px 1px 0 rgba(48, 40, 25, 0.20);
+  transform: translate(1px, 1px);
+}
+
+/* Chips — small monospace labels with terminal feel */
+[data-style="vintage-computing"] .ft-chip-row span {
+  font-family: var(--ft-font);
+  font-size: 0.78em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  letter-spacing: 0.04em;
+}
+
+/* Primary CTA — green keycap with strong bevel */
+[data-style="vintage-computing"] .ft-primary-action,
+[data-style="vintage-computing"] .ft-status-pill,
+[data-style="vintage-computing"] .ft-preview [data-ui="cta"] {
+  background: var(--ft-accent);
+  color: var(--ft-accent-text);
+  border: 2px solid var(--ft-border);
+  border-radius: 2px;
+  font-family: var(--ft-font);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.30),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.30),
+    3px 3px 0 rgba(48, 40, 25, 0.40);
+  transition: transform 80ms ease, box-shadow 80ms ease;
+}
+[data-style="vintage-computing"] .ft-primary-action:active,
+[data-style="vintage-computing"] .ft-preview [data-ui="cta"]:active {
+  box-shadow:
+    inset 1px 1px 0 rgba(0, 0, 0, 0.30),
+    inset -1px -1px 0 rgba(255, 255, 255, 0.20),
+    1px 1px 0 rgba(48, 40, 25, 0.30);
+  transform: translate(2px, 2px);
+}
+
+/* Display headings — chunky monospace with hard drop-shadow */
+[data-style="vintage-computing"] h1,
+[data-style="vintage-computing"] h2,
+[data-style="vintage-computing"] .ft-style-deck-copy h1,
+[data-style="vintage-computing"] .ft-hero h2,
+[data-style="vintage-computing"] .ft-preview-hero h1 {
+  font-family: var(--ft-font-terminal);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-shadow: 2px 2px 0 var(--ft-bevel-light), 3px 3px 0 var(--ft-border);
 }
 
 [data-style="vintage-computing"] .ft-hero,
@@ -2050,26 +2413,81 @@
   filter: contrast(1.02);
 }
 
-[data-style="vintage-computing"] .ft-status-pill,
-[data-style="vintage-computing"] .ft-primary-action {
-  border-style: outset;
+/* ============================================================
+   Clay Play — real claymorphism (4-layer pillow shadow)
+   Fredoka friendly font + pastel pillow surfaces + squashy press
+   on buttons + gentle idle wobble on primary CTA.
+   ============================================================ */
+
+@keyframes ft-clay-wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-1deg); }
+  50%      { transform: rotate(0deg); }
+  75%      { transform: rotate(1deg); }
 }
 
-[data-style="clay-play"] [data-ui="panel"],
-[data-style="clay-play"] [data-ui="window"],
-[data-style="clay-play"] [data-ui="row"],
-[data-style="clay-play"] [data-ui="metric"],
-[data-style="clay-play"] .ft-style-button {
-  border-width: 0;
-}
-
-[data-style="clay-play"] .ft-style-button[data-active="true"],
-[data-style="clay-play"] .ft-primary-action {
-  box-shadow: inset 0 -5px 0 rgba(39, 32, 56, 0.14), var(--ft-shadow);
+[data-style="clay-play"] {
+  font-family: var(--ft-font);
+  font-weight: 500;
 }
 
 [data-style="clay-play"] .ft-hero {
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+
+/* Display headings — chunky rounded Fredoka */
+[data-style="clay-play"] h1,
+[data-style="clay-play"] h2,
+[data-style="clay-play"] h3,
+[data-style="clay-play"] .ft-style-deck-copy h1,
+[data-style="clay-play"] .ft-hero h2,
+[data-style="clay-play"] .ft-preview-hero h1 {
+  font-family: var(--ft-font);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Cards = pillow-inflated 3D claymorphism (4-layer shadow) */
+[data-style="clay-play"] [data-ui="panel"],
+[data-style="clay-play"] [data-ui="window"],
+[data-style="clay-play"] [data-ui="row"],
+[data-style="clay-play"] [data-ui="metric"],
+[data-style="clay-play"] .ft-install-card,
+[data-style="clay-play"] .ft-request-card,
+[data-style="clay-play"] .ft-signature-card,
+[data-style="clay-play"] .ft-demo-card,
+[data-style="clay-play"] .ft-product-window,
+[data-style="clay-play"] .ft-hero-copy,
+[data-style="clay-play"] .ft-preview-hero,
+[data-style="clay-play"] .ft-preview-side,
+[data-style="clay-play"] .ft-preview-table {
+  background: var(--ft-surface);
+  border: 0;
+  border-radius: 32px;
+  /* the signature pillow effect */
+  box-shadow:
+    inset 0 3px 0 var(--ft-clay-highlight),
+    inset 0 -4px 0 var(--ft-clay-shade),
+    0 2px 0 rgba(255, 255, 255, 0.6),
+    0 14px 0 var(--ft-clay-shade),
+    0 32px 70px rgba(255, 122, 89, 0.22);
+  transition:
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 220ms ease;
+}
+
+[data-style="clay-play"] .ft-metric:hover,
+[data-style="clay-play"] .ft-install-card:hover,
+[data-style="clay-play"] .ft-request-card:hover,
+[data-style="clay-play"] .ft-signature-card:hover,
+[data-style="clay-play"] .ft-demo-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 3px 0 var(--ft-clay-highlight),
+    inset 0 -4px 0 var(--ft-clay-shade),
+    0 2px 0 rgba(255, 255, 255, 0.6),
+    0 18px 0 var(--ft-clay-shade),
+    0 40px 80px rgba(255, 122, 89, 0.28);
 }
 
 [data-style="clay-play"] .ft-metric:nth-child(2),
@@ -2077,31 +2495,353 @@
   transform: translateY(18px);
 }
 
-[data-style="luxury-noir"] .ft-style-deck,
-[data-style="luxury-noir"] .ft-hero {
-  padding-top: 48px;
+/* Buttons & chips = chunky pillows */
+[data-style="clay-play"] .ft-style-button,
+[data-style="clay-play"] .ft-secondary-action,
+[data-style="clay-play"] .ft-chip-row span,
+[data-style="clay-play"] .ft-download-list a,
+[data-style="clay-play"] .ft-preview [data-ui="button"] {
+  background: var(--ft-surface);
+  border: 0;
+  border-radius: 999px;
+  color: var(--ft-text);
+  font-family: var(--ft-font);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  box-shadow:
+    inset 0 2px 0 var(--ft-clay-highlight),
+    inset 0 -3px 0 var(--ft-clay-shade),
+    0 6px 0 var(--ft-clay-shade),
+    0 14px 28px rgba(255, 122, 89, 0.20);
+  transition:
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 200ms ease,
+    background 200ms ease;
 }
 
-[data-style="luxury-noir"] .ft-style-deck-copy h1,
-[data-style="luxury-noir"] .ft-hero h2,
-[data-style="luxury-noir"] .ft-preview-hero h1 {
-  font-weight: 850;
+[data-style="clay-play"] .ft-style-button:hover,
+[data-style="clay-play"] .ft-secondary-action:hover,
+[data-style="clay-play"] .ft-preview [data-ui="button"]:hover {
+  transform: translateY(-2px);
+  background: var(--ft-surface-weak);
+  box-shadow:
+    inset 0 2px 0 var(--ft-clay-highlight),
+    inset 0 -3px 0 var(--ft-clay-shade),
+    0 8px 0 var(--ft-clay-shade),
+    0 18px 36px rgba(255, 122, 89, 0.26);
+}
+
+/* Press = squash (collapse vertical shadow) */
+[data-style="clay-play"] .ft-style-button:active,
+[data-style="clay-play"] .ft-secondary-action:active,
+[data-style="clay-play"] .ft-preview [data-ui="button"]:active {
+  transform: translateY(4px) scale(0.97);
+  box-shadow:
+    inset 0 2px 0 var(--ft-clay-highlight),
+    inset 0 -2px 0 var(--ft-clay-shade),
+    0 1px 0 var(--ft-clay-shade),
+    0 4px 12px rgba(255, 122, 89, 0.18);
+}
+
+/* Active style button — coral pillow with deep highlight */
+[data-style="clay-play"] .ft-style-button[data-active="true"] {
+  background: var(--ft-accent);
+  color: var(--ft-accent-text);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -4px 0 rgba(180, 50, 30, 0.30),
+    0 6px 0 rgba(180, 50, 30, 0.30),
+    0 18px 36px rgba(255, 122, 89, 0.40);
+}
+
+/* Primary CTA — coral pillow with idle wobble */
+[data-style="clay-play"] .ft-primary-action,
+[data-style="clay-play"] .ft-preview [data-ui="cta"] {
+  background: var(--ft-accent);
+  color: var(--ft-accent-text);
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--ft-font);
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -4px 0 rgba(180, 50, 30, 0.30),
+    0 8px 0 rgba(180, 50, 30, 0.30),
+    0 22px 44px rgba(255, 122, 89, 0.36);
+  animation: ft-clay-wobble 4.6s ease-in-out infinite;
+  transform-origin: center;
+  transition:
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 200ms ease;
+}
+[data-style="clay-play"] .ft-primary-action:hover,
+[data-style="clay-play"] .ft-preview [data-ui="cta"]:hover {
+  animation: none;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -4px 0 rgba(180, 50, 30, 0.30),
+    0 12px 0 rgba(180, 50, 30, 0.30),
+    0 28px 52px rgba(255, 122, 89, 0.46);
+}
+[data-style="clay-play"] .ft-primary-action:active,
+[data-style="clay-play"] .ft-preview [data-ui="cta"]:active {
+  animation: none;
+  transform: translateY(4px) scale(0.96);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -2px 0 rgba(180, 50, 30, 0.30),
+    0 1px 0 rgba(180, 50, 30, 0.30),
+    0 6px 14px rgba(255, 122, 89, 0.30);
+}
+
+/* Header — pillow band with soft pastel tint */
+[data-style="clay-play"] .ft-shell-header {
+  background: rgba(255, 255, 255, 0.65);
+  border-bottom: 0;
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 rgba(255, 122, 89, 0.16),
+    0 6px 24px rgba(255, 122, 89, 0.10);
+}
+
+/* ============================================================
+   Luxury Noir — black-gold magazine
+   Bodoni Moda gold-foil display + EB Garamond body, hairline
+   gold rules, champagne shimmer on primary CTA.
+   ============================================================ */
+
+[data-style="luxury-noir"] {
+  font-family: var(--ft-font);
+  font-feature-settings: "lnum" on, "kern" on, "liga" on;
+  letter-spacing: 0.005em;
+}
+
+[data-style="luxury-noir"] p,
+[data-style="luxury-noir"] li {
+  line-height: 1.7;
+}
+
+[data-style="luxury-noir"] .ft-style-deck,
+[data-style="luxury-noir"] .ft-hero {
+  padding-top: 56px;
 }
 
 [data-style="luxury-noir"] .ft-hero {
   grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
 }
 
+/* Display headings — Bodoni Moda with gold-foil text gradient */
+[data-style="luxury-noir"] h1,
+[data-style="luxury-noir"] h2,
+[data-style="luxury-noir"] .ft-style-deck-copy h1,
+[data-style="luxury-noir"] .ft-hero h2,
+[data-style="luxury-noir"] .ft-preview-hero h1 {
+  font-family: var(--ft-font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  background: var(--ft-gold-foil);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+[data-style="luxury-noir"] h3,
+[data-style="luxury-noir"] h4 {
+  font-family: var(--ft-font-display);
+  font-weight: 500;
+  color: var(--ft-text);
+  letter-spacing: -0.005em;
+}
+
+/* Wide-tracked uppercase kickers */
+[data-style="luxury-noir"] .ft-section-kicker,
+[data-style="luxury-noir"] .ft-action-row em {
+  font-family: var(--ft-font);
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.74em;
+  color: var(--ft-accent);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* Section dividers — hairline gold fading-line rule */
+[data-style="luxury-noir"] .ft-style-deck::before,
+[data-style="luxury-noir"] .ft-demo::before,
+[data-style="luxury-noir"] .ft-install::before,
+[data-style="luxury-noir"] .ft-request::before {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: var(--ft-gold-line);
+  margin-bottom: 56px;
+}
+
+/* Cards & panels — dark sheen + hairline brass border + warm hover glow */
 [data-style="luxury-noir"] [data-ui="panel"],
 [data-style="luxury-noir"] [data-ui="window"],
 [data-style="luxury-noir"] [data-ui="row"],
-[data-style="luxury-noir"] [data-ui="metric"] {
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent 42%);
+[data-style="luxury-noir"] [data-ui="metric"],
+[data-style="luxury-noir"] .ft-install-card,
+[data-style="luxury-noir"] .ft-request-card,
+[data-style="luxury-noir"] .ft-signature-card,
+[data-style="luxury-noir"] .ft-demo-card,
+[data-style="luxury-noir"] .ft-product-window,
+[data-style="luxury-noir"] .ft-hero-copy,
+[data-style="luxury-noir"] .ft-preview-hero,
+[data-style="luxury-noir"] .ft-preview-side,
+[data-style="luxury-noir"] .ft-preview-table {
+  background:
+    linear-gradient(135deg, rgba(215, 180, 106, 0.06), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 30%),
+    var(--ft-surface);
+  border: 1px solid var(--ft-border);
+  border-radius: 12px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 24px 64px rgba(0, 0, 0, 0.55);
+  transition:
+    border-color 360ms ease,
+    box-shadow 360ms ease,
+    background 360ms ease;
 }
 
-[data-style="luxury-noir"] .ft-primary-action,
+[data-style="luxury-noir"] [data-ui="metric"]:hover,
+[data-style="luxury-noir"] .ft-install-card:hover,
+[data-style="luxury-noir"] .ft-request-card:hover,
+[data-style="luxury-noir"] .ft-signature-card:hover,
+[data-style="luxury-noir"] .ft-demo-card:hover {
+  border-color: rgba(215, 180, 106, 0.55);
+  box-shadow:
+    inset 0 0 0 1px rgba(215, 180, 106, 0.20),
+    inset 0 0 60px rgba(215, 180, 106, 0.08),
+    0 28px 72px rgba(0, 0, 0, 0.60),
+    0 0 80px rgba(215, 180, 106, 0.10);
+}
+
+/* Buttons & chips — brass hairline outline */
+[data-style="luxury-noir"] .ft-style-button,
+[data-style="luxury-noir"] .ft-secondary-action,
+[data-style="luxury-noir"] .ft-chip-row span,
+[data-style="luxury-noir"] .ft-download-list a,
+[data-style="luxury-noir"] .ft-preview [data-ui="button"] {
+  background: var(--ft-surface-weak);
+  border: 1px solid var(--ft-border);
+  border-radius: 4px;
+  color: var(--ft-text);
+  font-family: var(--ft-font);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  font-size: 0.86em;
+  text-transform: uppercase;
+  transition: border-color 320ms ease, color 320ms ease, background 320ms ease;
+}
+[data-style="luxury-noir"] .ft-style-button:hover,
+[data-style="luxury-noir"] .ft-secondary-action:hover,
+[data-style="luxury-noir"] .ft-preview [data-ui="button"]:hover {
+  border-color: var(--ft-accent);
+  color: var(--ft-accent);
+  background: rgba(215, 180, 106, 0.06);
+}
+
+/* Active style button — brass-filled */
 [data-style="luxury-noir"] .ft-style-button[data-active="true"] {
   background: linear-gradient(135deg, #f0d890, var(--ft-accent));
+  color: var(--ft-accent-text);
+  border-color: var(--ft-accent);
+}
+
+/* Chips — hairline gold border with leading dot */
+[data-style="luxury-noir"] .ft-chip-row span {
+  position: relative;
+  padding-left: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72em;
+  color: var(--ft-accent);
+  border-color: rgba(215, 180, 106, 0.35);
+}
+[data-style="luxury-noir"] .ft-chip-row span::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ft-accent);
+  box-shadow: 0 0 6px rgba(215, 180, 106, 0.50);
+}
+
+/* Primary CTA — gold gradient with champagne hover shimmer */
+[data-style="luxury-noir"] .ft-primary-action,
+[data-style="luxury-noir"] .ft-preview [data-ui="cta"] {
+  background: linear-gradient(120deg, #b8923a 0%, #f3deb1 35%, #d7b46a 65%, #b8923a 100%);
+  background-size: 220% 100%;
+  background-position: 0% 0;
+  border: 1px solid #f3deb1;
+  border-radius: 4px;
+  color: var(--ft-accent-text);
+  font-family: var(--ft-font);
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-size: 0.86em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.40),
+    0 1px 2px rgba(0, 0, 0, 0.30),
+    0 18px 48px rgba(215, 180, 106, 0.30);
+  transition: background-position 700ms ease, box-shadow 700ms ease, transform 200ms ease;
+}
+[data-style="luxury-noir"] .ft-primary-action:hover,
+[data-style="luxury-noir"] .ft-preview [data-ui="cta"]:hover {
+  background-position: -120% 0;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 2px 4px rgba(0, 0, 0, 0.30),
+    0 22px 56px rgba(215, 180, 106, 0.42);
+}
+[data-style="luxury-noir"] .ft-primary-action:active,
+[data-style="luxury-noir"] .ft-preview [data-ui="cta"]:active {
+  transform: translateY(1px);
+}
+
+/* Header — hairline gold underline */
+[data-style="luxury-noir"] .ft-shell-header {
+  background: rgba(8, 7, 6, 0.85);
+  border-bottom: 0;
+  position: relative;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+[data-style="luxury-noir"] .ft-shell-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--ft-gold-line);
+  pointer-events: none;
+}
+[data-style="luxury-noir"] .ft-brand {
+  font-family: var(--ft-font-display);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.88em;
+  background: var(--ft-gold-foil);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @media (max-width: 900px) {
