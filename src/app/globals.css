@@ -203,22 +203,33 @@
 }
 
 [data-style="neon-cyberpunk"] {
-  --ft-bg: #080713;
-  --ft-bg-pattern: linear-gradient(90deg, rgba(49, 247, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(rgba(255, 47, 185, 0.08) 1px, transparent 1px);
-  --ft-bg-size: 34px 34px;
-  --ft-surface: rgba(17, 20, 38, 0.92);
+  --ft-bg: #050410;
+  --ft-bg-pattern:
+    /* fine tech grid */
+    linear-gradient(90deg, rgba(49, 247, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(255, 47, 185, 0.06) 1px, transparent 1px),
+    /* periodic hot spots — like data nodes lighting the grid */
+    radial-gradient(circle at 18% 22%, rgba(49, 247, 255, 0.18), transparent 22%),
+    radial-gradient(circle at 82% 78%, rgba(255, 47, 185, 0.16), transparent 22%),
+    radial-gradient(circle at 50% 50%, rgba(120, 80, 255, 0.10), transparent 50%);
+  --ft-bg-size: 28px 28px, 28px 28px, auto, auto, auto;
+  --ft-surface: rgba(13, 16, 32, 0.88);
   --ft-surface-strong: #1d1234;
+  --ft-surface-weak: rgba(20, 26, 50, 0.70);
   --ft-text: #f8f7ff;
   --ft-muted: #8ea0ff;
   --ft-border: #31f7ff;
   --ft-accent: #ff2fb9;
   --ft-accent-2: #31f7ff;
   --ft-accent-text: #090714;
-  --ft-radius: 4px;
+  --ft-radius: 2px;
   --ft-shadow: 0 0 28px rgba(49, 247, 255, 0.28);
-  --ft-font: var(--font-geist-mono), ui-monospace, monospace;
+  --ft-font: var(--font-geist-mono), ui-monospace, "JetBrains Mono", monospace;
   --ft-border-width: 1px;
+  --ft-cyan: #31f7ff;
+  --ft-magenta: #ff2fb9;
+  --ft-violet: #8a5fff;
+  --ft-amber: #ffcc33;
 }
 
 [data-style="fresh-minimal"] {
@@ -1537,11 +1548,82 @@
   -webkit-backdrop-filter: none;
 }
 
+/* ============================================================
+   Neon Cyberpunk — mechanical HUD with traveling neon borders
+   Cards have a rotating conic-gradient ring (data-flow effect),
+   corner brackets like targeting reticles, and clipped-corner
+   panels. Buttons get a hover shimmer sweep + active pulse.
+   ============================================================ */
+
+@keyframes ft-cyber-scan {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 0.9; }
+  90%  { opacity: 0.9; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+@keyframes ft-cyber-sweep {
+  0%   { transform: translateX(-100%) skewX(-20deg); }
+  100% { transform: translateX(220%) skewX(-20deg); }
+}
+
+@keyframes ft-cyber-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px var(--ft-cyan),
+      0 0 14px rgba(49, 247, 255, 0.35),
+      0 0 32px rgba(49, 247, 255, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px var(--ft-cyan),
+      0 0 22px rgba(49, 247, 255, 0.65),
+      0 0 56px rgba(49, 247, 255, 0.30);
+  }
+}
+
+/* Headings: continuous slow RGB-shadow wobble (subtle CRT misregistration) */
+@keyframes ft-cyber-rgb-shift {
+  0%, 100% {
+    text-shadow:
+      -1.5px 0 0 rgba(255, 47, 185, 0.65),
+       1.5px 0 0 rgba(49, 247, 255, 0.65),
+      0 0 18px rgba(255, 255, 255, 0.20);
+  }
+  50% {
+    text-shadow:
+      -2.6px 0 0 rgba(255, 47, 185, 0.55),
+       2.6px 0 0 rgba(49, 247, 255, 0.55),
+      0 0 24px rgba(255, 255, 255, 0.32);
+  }
+}
+
+/* Headings: occasional glitch — opacity dip + tiny horizontal jitter */
+@keyframes ft-cyber-glitch {
+  0%, 88%, 100% { opacity: 1; transform: translateX(0); }
+  89% { opacity: 0.55; transform: translateX(1px); }
+  90% { opacity: 0.95; transform: translateX(-1.5px); }
+  91% { opacity: 0.5;  transform: translateX(0.8px); }
+  92% { opacity: 1;    transform: translateX(0); }
+  /* second glitch burst */
+  43% { opacity: 0.7;  transform: translateX(-0.8px); }
+  43.5% { opacity: 1;  transform: translateX(0.6px); }
+  44% { opacity: 1;    transform: translateX(0); }
+}
+
+/* Body text: ultra-subtle opacity flicker only (preserves readability) */
+@keyframes ft-cyber-text-flicker {
+  0%, 4%, 8%, 53%, 56%, 100% { opacity: 1; }
+  5%, 7% { opacity: 0.94; }
+  54%, 55% { opacity: 0.96; }
+}
+
 [data-style="neon-cyberpunk"] .ft-shell,
 [data-style="neon-cyberpunk"].ft-preview {
   position: relative;
 }
 
+/* Background scanlines + slow vertical scan beam */
 [data-style="neon-cyberpunk"] .ft-shell::before,
 .ft-preview[data-style="neon-cyberpunk"]::before {
   pointer-events: none;
@@ -1549,8 +1631,28 @@
   position: fixed;
   inset: 0;
   z-index: 0;
-  background: repeating-linear-gradient(180deg, transparent 0 7px, rgba(255, 255, 255, 0.08) 8px);
-  opacity: 0.28;
+  background: repeating-linear-gradient(180deg, transparent 0 7px, rgba(255, 255, 255, 0.06) 8px);
+  opacity: 0.32;
+}
+
+[data-style="neon-cyberpunk"] .ft-shell::after,
+.ft-preview[data-style="neon-cyberpunk"]::after {
+  pointer-events: none;
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 28vh;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(49, 247, 255, 0.04) 40%,
+    rgba(49, 247, 255, 0.10) 50%,
+    rgba(49, 247, 255, 0.04) 60%,
+    transparent 100%
+  );
+  animation: ft-cyber-scan 9s linear infinite;
 }
 
 [data-style="neon-cyberpunk"] .ft-shell > *,
@@ -1559,20 +1661,348 @@
   z-index: 1;
 }
 
+/* ============================================================
+   Cards & panels — clipped corners + rotating neon ring +
+   corner brackets (machine-UI targeting reticles)
+   ============================================================ */
 [data-style="neon-cyberpunk"] [data-ui="panel"],
 [data-style="neon-cyberpunk"] [data-ui="window"],
 [data-style="neon-cyberpunk"] [data-ui="row"],
-[data-style="neon-cyberpunk"] [data-ui="metric"] {
-  clip-path: polygon(0 0, 96% 0, 100% 10%, 100% 100%, 4% 100%, 0 90%);
+[data-style="neon-cyberpunk"] [data-ui="metric"],
+[data-style="neon-cyberpunk"] .ft-install-card,
+[data-style="neon-cyberpunk"] .ft-request-card,
+[data-style="neon-cyberpunk"] .ft-signature-card,
+[data-style="neon-cyberpunk"] .ft-demo-card,
+[data-style="neon-cyberpunk"] .ft-product-window,
+[data-style="neon-cyberpunk"] .ft-hero-copy,
+[data-style="neon-cyberpunk"] .ft-preview-hero,
+[data-style="neon-cyberpunk"] .ft-preview-side,
+[data-style="neon-cyberpunk"] .ft-preview-table {
+  position: relative;
+  clip-path: polygon(
+    0 12px, 12px 0,
+    calc(100% - 24px) 0, 100% 24px,
+    100% calc(100% - 12px), calc(100% - 12px) 100%,
+    24px 100%, 0 calc(100% - 24px)
+  );
+  background:
+    linear-gradient(135deg, rgba(49, 247, 255, 0.06), transparent 35%, rgba(255, 47, 185, 0.05)),
+    var(--ft-surface);
+  border: 1px solid rgba(49, 247, 255, 0.30);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    inset 0 0 24px rgba(49, 247, 255, 0.06),
+    0 0 0 1px rgba(0, 0, 0, 0.5),
+    0 24px 48px rgba(0, 0, 0, 0.5),
+    0 0 32px rgba(49, 247, 255, 0.10);
+  /* corner brackets — 4 L-shapes drawn with backgrounds */
+  background-image:
+    /* card surface gradient (kept as the last layer below) */
+    linear-gradient(135deg, rgba(49, 247, 255, 0.06), transparent 35%, rgba(255, 47, 185, 0.05)),
+    /* top-left bracket */
+    linear-gradient(var(--ft-cyan), var(--ft-cyan)),
+    linear-gradient(var(--ft-cyan), var(--ft-cyan)),
+    /* top-right bracket */
+    linear-gradient(var(--ft-magenta), var(--ft-magenta)),
+    linear-gradient(var(--ft-magenta), var(--ft-magenta)),
+    /* bottom-left bracket */
+    linear-gradient(var(--ft-magenta), var(--ft-magenta)),
+    linear-gradient(var(--ft-magenta), var(--ft-magenta)),
+    /* bottom-right bracket */
+    linear-gradient(var(--ft-cyan), var(--ft-cyan)),
+    linear-gradient(var(--ft-cyan), var(--ft-cyan));
+  background-position:
+    0 0,
+    14px 14px, 14px 14px,
+    calc(100% - 14px) 14px, calc(100% - 14px) 14px,
+    14px calc(100% - 14px), 14px calc(100% - 14px),
+    calc(100% - 14px) calc(100% - 14px), calc(100% - 14px) calc(100% - 14px);
+  background-size:
+    100% 100%,
+    14px 1px, 1px 14px,
+    14px 1px, 1px 14px,
+    14px 1px, 1px 14px,
+    14px 1px, 1px 14px;
+  background-repeat: no-repeat;
+  transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
+/* Card hover shimmer — same diagonal streak as buttons, rides across the card */
+[data-style="neon-cyberpunk"] [data-ui="panel"]::before,
+[data-style="neon-cyberpunk"] [data-ui="window"]::before,
+[data-style="neon-cyberpunk"] [data-ui="metric"]::before,
+[data-style="neon-cyberpunk"] .ft-install-card::before,
+[data-style="neon-cyberpunk"] .ft-request-card::before,
+[data-style="neon-cyberpunk"] .ft-signature-card::before,
+[data-style="neon-cyberpunk"] .ft-demo-card::before,
+[data-style="neon-cyberpunk"] .ft-product-window::before,
+[data-style="neon-cyberpunk"] .ft-hero-copy::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 35%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(49, 247, 255, 0) 20%,
+    rgba(49, 247, 255, 0.45) 50%,
+    rgba(49, 247, 255, 0) 80%,
+    transparent 100%
+  );
+  transform: translateX(-100%) skewX(-20deg);
+  pointer-events: none;
+  z-index: 1;
+}
+
+[data-style="neon-cyberpunk"] [data-ui="metric"]:hover,
+[data-style="neon-cyberpunk"] [data-ui="panel"]:hover,
+[data-style="neon-cyberpunk"] [data-ui="window"]:hover,
+[data-style="neon-cyberpunk"] .ft-install-card:hover,
+[data-style="neon-cyberpunk"] .ft-request-card:hover,
+[data-style="neon-cyberpunk"] .ft-signature-card:hover,
+[data-style="neon-cyberpunk"] .ft-demo-card:hover,
+[data-style="neon-cyberpunk"] .ft-product-window:hover,
+[data-style="neon-cyberpunk"] .ft-hero-copy:hover {
+  transform: translateY(-2px);
+  border-color: rgba(49, 247, 255, 0.55);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 0 32px rgba(49, 247, 255, 0.14),
+    0 0 0 1px rgba(0, 0, 0, 0.5),
+    0 32px 64px rgba(0, 0, 0, 0.6),
+    0 0 48px rgba(49, 247, 255, 0.28);
+}
+
+[data-style="neon-cyberpunk"] [data-ui="panel"]:hover::before,
+[data-style="neon-cyberpunk"] [data-ui="window"]:hover::before,
+[data-style="neon-cyberpunk"] [data-ui="metric"]:hover::before,
+[data-style="neon-cyberpunk"] .ft-install-card:hover::before,
+[data-style="neon-cyberpunk"] .ft-request-card:hover::before,
+[data-style="neon-cyberpunk"] .ft-signature-card:hover::before,
+[data-style="neon-cyberpunk"] .ft-demo-card:hover::before,
+[data-style="neon-cyberpunk"] .ft-product-window:hover::before,
+[data-style="neon-cyberpunk"] .ft-hero-copy:hover::before {
+  animation: ft-cyber-sweep 0.9s ease-out;
+}
+
+/* ============================================================
+   Buttons — clipped mechanical slabs with shimmer sweep
+   ============================================================ */
+[data-style="neon-cyberpunk"] .ft-style-button,
+[data-style="neon-cyberpunk"] .ft-secondary-action,
+[data-style="neon-cyberpunk"] .ft-chip-row span,
+[data-style="neon-cyberpunk"] .ft-download-list a,
+[data-style="neon-cyberpunk"] .ft-preview [data-ui="button"] {
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(
+    8px 0, 100% 0,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    0 100%, 0 8px
+  );
+  background:
+    linear-gradient(180deg, rgba(49, 247, 255, 0.10), rgba(49, 247, 255, 0.02)),
+    var(--ft-surface);
+  border: 1px solid var(--ft-cyan);
+  border-radius: 0;
+  color: var(--ft-text);
+  font-family: var(--ft-font);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.86em;
+  box-shadow:
+    inset 0 0 0 1px rgba(49, 247, 255, 0.10),
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 0 14px rgba(49, 247, 255, 0.18);
+  transition: color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+/* Shimmer sweep on hover — bright streak races across the slab */
+[data-style="neon-cyberpunk"] .ft-style-button::before,
+[data-style="neon-cyberpunk"] .ft-secondary-action::before,
+[data-style="neon-cyberpunk"] .ft-preview [data-ui="button"]::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(49, 247, 255, 0) 20%,
+    rgba(49, 247, 255, 0.55) 50%,
+    rgba(49, 247, 255, 0) 80%,
+    transparent 100%
+  );
+  transform: translateX(-100%) skewX(-20deg);
+  pointer-events: none;
+}
+[data-style="neon-cyberpunk"] .ft-style-button:hover,
+[data-style="neon-cyberpunk"] .ft-secondary-action:hover,
+[data-style="neon-cyberpunk"] .ft-preview [data-ui="button"]:hover {
+  color: var(--ft-cyan);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 0 0 1px rgba(49, 247, 255, 0.30),
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 0 22px rgba(49, 247, 255, 0.45);
+}
+[data-style="neon-cyberpunk"] .ft-style-button:hover::before,
+[data-style="neon-cyberpunk"] .ft-secondary-action:hover::before,
+[data-style="neon-cyberpunk"] .ft-preview [data-ui="button"]:hover::before {
+  animation: ft-cyber-sweep 0.7s ease-out;
+}
+
+/* Active style button — magenta-fill with constant pulse */
+[data-style="neon-cyberpunk"] .ft-style-button[data-active="true"] {
+  background:
+    linear-gradient(180deg, rgba(255, 47, 185, 0.30), rgba(255, 47, 185, 0.08)),
+    var(--ft-surface-strong);
+  border-color: var(--ft-magenta);
+  color: var(--ft-magenta);
+  animation: ft-cyber-pulse 2.4s ease-in-out infinite;
+  --ft-cyan: var(--ft-magenta);
+}
+
+/* Primary action — magenta-fill mechanical slab */
+[data-style="neon-cyberpunk"] .ft-primary-action,
+[data-style="neon-cyberpunk"] .ft-preview [data-ui="cta"] {
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(
+    10px 0, 100% 0,
+    100% calc(100% - 10px),
+    calc(100% - 10px) 100%,
+    0 100%, 0 10px
+  );
+  background:
+    linear-gradient(180deg, rgba(255, 47, 185, 0.30), rgba(255, 47, 185, 0.10)),
+    #1a0a24;
+  border: 1px solid var(--ft-magenta);
+  border-radius: 0;
+  color: var(--ft-magenta);
+  font-family: var(--ft-font);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 12px rgba(255, 47, 185, 0.65);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 47, 185, 0.20),
+    0 0 18px rgba(255, 47, 185, 0.30),
+    0 0 36px rgba(255, 47, 185, 0.16);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+[data-style="neon-cyberpunk"] .ft-primary-action::before,
+[data-style="neon-cyberpunk"] .ft-preview [data-ui="cta"]::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; width: 40%;
+  background: linear-gradient(
+    90deg, transparent 0%,
+    rgba(255, 47, 185, 0.65) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%) skewX(-20deg);
+  pointer-events: none;
+}
+[data-style="neon-cyberpunk"] .ft-primary-action:hover,
+[data-style="neon-cyberpunk"] .ft-preview [data-ui="cta"]:hover {
+  transform: translateY(-1px);
+  color: #ffffff;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 47, 185, 0.40),
+    0 0 28px rgba(255, 47, 185, 0.55),
+    0 0 56px rgba(255, 47, 185, 0.30);
+}
+[data-style="neon-cyberpunk"] .ft-primary-action:hover::before,
+[data-style="neon-cyberpunk"] .ft-preview [data-ui="cta"]:hover::before {
+  animation: ft-cyber-sweep 0.7s ease-out;
+}
+
+/* Chips — bracket-style status indicators with LED dot */
+[data-style="neon-cyberpunk"] .ft-chip-row span {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 4px 12px 4px 22px;
+  font-size: 0.78em;
+}
+[data-style="neon-cyberpunk"] .ft-chip-row span::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ft-cyan);
+  box-shadow: 0 0 8px var(--ft-cyan), 0 0 14px rgba(49, 247, 255, 0.5);
+}
+
+/* Display headings — RGB-split shadow that continuously wobbles + occasional glitch jitter */
+[data-style="neon-cyberpunk"] h1,
+[data-style="neon-cyberpunk"] h2,
+[data-style="neon-cyberpunk"] h3,
+[data-style="neon-cyberpunk"] .ft-style-deck-copy h1,
+[data-style="neon-cyberpunk"] .ft-hero h2,
+[data-style="neon-cyberpunk"] .ft-preview-hero h1,
+[data-style="neon-cyberpunk"] .ft-brand {
+  letter-spacing: 0.02em;
+  display: inline-block;
+  /* compose two animations: continuous RGB wobble + occasional glitch burst */
+  animation:
+    ft-cyber-rgb-shift 3.4s ease-in-out infinite alternate,
+    ft-cyber-glitch 6.5s steps(40) infinite;
+}
+
+/* Kickers / inline accents — glow-only, no glitch (small, must stay readable) */
 [data-style="neon-cyberpunk"] .ft-section-kicker,
 [data-style="neon-cyberpunk"] .ft-action-row em {
   text-shadow: 0 0 14px var(--ft-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
 }
+
+/* Body text — ultra-subtle flicker so even paragraphs feel like a CRT, but stay readable */
+[data-style="neon-cyberpunk"] p,
+[data-style="neon-cyberpunk"] li {
+  animation: ft-cyber-text-flicker 9.7s infinite;
+}
+[data-style="neon-cyberpunk"] li:nth-child(2n) { animation-delay: -2.3s; }
+[data-style="neon-cyberpunk"] li:nth-child(3n) { animation-delay: -5.1s; }
 
 [data-style="neon-cyberpunk"] .ft-hero {
   grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+}
+
+/* Header — neon underline rule, no frost */
+[data-style="neon-cyberpunk"] .ft-shell-header {
+  background: rgba(5, 4, 16, 0.86);
+  border-bottom: 1px solid rgba(49, 247, 255, 0.40);
+  box-shadow:
+    0 1px 0 rgba(49, 247, 255, 0.25),
+    0 2px 24px rgba(49, 247, 255, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Reduced motion — respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  [data-style="neon-cyberpunk"] .ft-shell::after,
+  [data-style="neon-cyberpunk"] .ft-style-button[data-active="true"],
+  [data-style="neon-cyberpunk"] h1,
+  [data-style="neon-cyberpunk"] h2,
+  [data-style="neon-cyberpunk"] h3,
+  [data-style="neon-cyberpunk"] .ft-style-deck-copy h1,
+  [data-style="neon-cyberpunk"] .ft-hero h2,
+  [data-style="neon-cyberpunk"] .ft-preview-hero h1,
+  [data-style="neon-cyberpunk"] .ft-brand,
+  [data-style="neon-cyberpunk"] p,
+  [data-style="neon-cyberpunk"] li {
+    animation: none;
+  }
 }
 
 [data-style="fresh-minimal"] .ft-style-deck {
