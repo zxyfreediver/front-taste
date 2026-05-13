@@ -155,14 +155,14 @@ export const fronttasteStyles: StyleSkill[] = [
     },
     styleSignature: {
       variant: "pixel-arcade",
-      typography: "monospace uppercase labels, chunky counters, compact game hierarchy",
+      typography: "Silkscreen pixel font, uppercase labels, chunky counters, compact game hierarchy",
       texture: "pixel grid, tile maps, block shadows, low-resolution status fills",
       componentShape: "square panels, stepped buttons, inventory slots, score cards",
       motif: "mission console, player owners, quest follow-ups, risk hazards",
       promptEffect: "The same AI meeting notes prompt becomes an arcade mission dashboard.",
     },
     visualDNA: {
-      typography: "Chunky mono labels and large game-title headings.",
+      typography: "Silkscreen pixel font (8-bit bitmap) with uppercase labels and chunky game-title headings.",
       color: "Purple arcade base with cyan, yellow, and pink power-up accents.",
       layout: "Tile maps, score windows, inventory rows, and blocky status panels.",
       motion: "Snap transitions and one-step hover offsets.",

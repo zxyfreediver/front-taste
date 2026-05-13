@@ -148,7 +148,7 @@
   --ft-accent-text: #12091c;
   --ft-radius: 0;
   --ft-shadow: 8px 8px 0 #08050d;
-  --ft-font: var(--font-geist-mono), ui-monospace, monospace;
+  --ft-font: var(--font-silkscreen), "Courier New", monospace;
   --ft-border-width: 4px;
 }
 
@@ -1127,6 +1127,7 @@
 
 .ft-root[data-style="pixel-arcade"],
 .ft-preview[data-style="pixel-arcade"] {
+  image-rendering: crisp-edges;
   image-rendering: pixelated;
 }
 
@@ -1154,6 +1155,20 @@
 [data-style="pixel-arcade"] .ft-preview-metric {
   background-image: linear-gradient(90deg, color-mix(in srgb, var(--ft-accent), transparent 70%) 50%, transparent 50%);
   background-size: 16px 16px;
+}
+
+[data-style="pixel-arcade"] {
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  text-rendering: optimizeSpeed;
+  letter-spacing: 0.02em;
+}
+
+[data-style="pixel-arcade"] h1,
+[data-style="pixel-arcade"] h2,
+[data-style="pixel-arcade"] h3,
+[data-style="pixel-arcade"] .ft-section-kicker {
+  text-shadow: 2px 2px 0 var(--ft-border);
 }
 
 [data-style="liquid-glass"] [data-ui="panel"],

@@ -14,6 +14,15 @@ Use this style when the interface should feel playable, blocky, and memorable wh
 - Convert product concepts into game concepts: owners become players, tasks become quests, risks become hazards.
 - Keep text readable; the pixel feeling comes from layout, controls, and rhythm, not unreadable fonts.
 
+## Typography
+
+- Use Silkscreen (Google Fonts, bitmap pixel font, weights 400/700) as the primary UI font.
+- Disable font anti-aliasing: `-webkit-font-smoothing: none; -moz-osx-font-smoothing: unset`.
+- Set `text-rendering: optimizeSpeed` for crisp pixel edges.
+- Use uppercase text for all buttons, kickers, and status labels.
+- Add a 2px solid text-shadow matching the border color on headings for pixel depth.
+- Letter-spacing: add 0.02em to prevent glyph collision at small sizes.
+
 ## Layout Rules
 
 - Use tile-map sections, inventory slots, score counters, mission panels, and status bars.
@@ -38,3 +47,4 @@ Use this style when the interface should feel playable, blocky, and memorable wh
 - The first viewport reads as an 8-bit product mission console.
 - At least three UI elements are visibly pixel-specific.
 - The same product content remains understandable without the style name.
+- Typography uses a pixel/bitmap font (Silkscreen) with anti-aliasing disabled.
