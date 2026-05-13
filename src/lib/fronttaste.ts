@@ -1,68 +1,32 @@
 import {
-  BarChart3,
-  Bot,
-  Boxes,
-  Braces,
-  Building2,
-  CircuitBoard,
-  FileText,
+  Apple,
+  Gamepad2,
   Gem,
-  Grid3X3,
-  Layers3,
-  MonitorCog,
-  Palette,
-  PenTool,
+  Monitor,
+  Newspaper,
+  ScanLine,
   Shapes,
   Sparkles,
-  SwatchBook,
-  WandSparkles,
   type LucideIcon,
 } from "lucide-react";
 
 export type Locale = "en" | "zh";
 export type StyleStatus = "published" | "planned";
 export type PreviewType = "landing" | "dashboard" | "settings";
-export type SkillSourceType = "fronttaste" | "external";
-export type SkillCollection = "FrontTaste Originals" | "External Ready-made Skills";
 
-export type ExternalSkillSource = {
-  provider: string;
-  officialUrl: string;
-  sourceUrl?: string;
-  installCommand?: string;
-  verifiedAt: string;
-};
+export const styleSlugs = [
+  "pixel-arcade",
+  "liquid-glass",
+  "mono-ink",
+  "neon-cyberpunk",
+  "fresh-minimal",
+  "vintage-computing",
+  "clay-play",
+  "luxury-noir",
+] as const;
 
-export type StyleSkill = {
-  slug: string;
-  name: string;
-  status: StyleStatus;
-  sourceType: SkillSourceType;
-  collection: SkillCollection;
-  localDownloadPath?: string;
-  externalSource?: ExternalSkillSource;
-  tagline: Record<Locale, string>;
-  description: Record<Locale, string>;
-  tags: string[];
-  useCases: string[];
-  stack: string[];
-  compatibleAgents: string[];
-  theme: StyleTheme;
-  visualDNA: {
-    typography: string;
-    color: string;
-    layout: string;
-    motion: string;
-    density: string;
-  };
-  skillMeta: {
-    fileSize: string;
-    hasScripts: boolean;
-    hasExternalRequests: boolean;
-    lastUpdated: string;
-    license: string;
-  };
-};
+export type StyleSlug = (typeof styleSlugs)[number];
+export type StyleVariant = StyleSlug;
 
 export type StyleTheme = {
   icon: LucideIcon;
@@ -80,690 +44,454 @@ export type StyleTheme = {
   density: "loose" | "balanced" | "compact";
 };
 
+export type StyleSkill = {
+  slug: StyleSlug;
+  name: string;
+  status: StyleStatus;
+  localDownloadPath: string;
+  tagline: Record<Locale, string>;
+  description: Record<Locale, string>;
+  tags: string[];
+  useCases: string[];
+  stack: string[];
+  compatibleAgents: string[];
+  theme: StyleTheme;
+  styleSignature: {
+    variant: StyleSlug;
+    typography: string;
+    texture: string;
+    componentShape: string;
+    motif: string;
+    promptEffect: string;
+  };
+  visualDNA: {
+    typography: string;
+    color: string;
+    layout: string;
+    motion: string;
+    density: string;
+  };
+  demoScreenshots: Record<PreviewType, string>;
+  skillMeta: {
+    fileSize: string;
+    hasScripts: boolean;
+    hasExternalRequests: boolean;
+    lastUpdated: string;
+    license: string;
+  };
+};
+
 export const locales: Locale[] = ["en", "zh"];
+export const previewTypes: PreviewType[] = ["landing", "dashboard", "settings"];
+export const defaultStyleSlug: StyleSlug = "pixel-arcade";
 
 export function isLocale(value: string): value is Locale {
   return locales.includes(value as Locale);
 }
 
-export const previewTypes: PreviewType[] = ["landing", "dashboard", "settings"];
+export function isStyleSlug(value: string | null | undefined): value is StyleSlug {
+  return Boolean(value && styleSlugs.includes(value as StyleSlug));
+}
 
-const originalCommon = {
+function demoScreenshots(slug: StyleSlug): Record<PreviewType, string> {
+  return {
+    landing: `/demos/${slug}-landing.png`,
+    dashboard: `/demos/${slug}-dashboard.png`,
+    settings: `/demos/${slug}-settings.png`,
+  };
+}
+
+const common = {
   status: "published" as const,
-  sourceType: "fronttaste" as const,
-  collection: "FrontTaste Originals" as const,
   stack: ["React", "Next.js", "Tailwind CSS", "shadcn/ui"],
   compatibleAgents: ["ChatGPT", "Codex", "Claude Code", "Cursor"],
   skillMeta: {
     fileSize: "18KB",
     hasScripts: false,
     hasExternalRequests: false,
-    lastUpdated: "2026-05-11",
+    lastUpdated: "2026-05-12",
     license: "MIT",
   },
 };
 
-function originalSkill(skill: Omit<StyleSkill, keyof typeof originalCommon | "localDownloadPath" | "externalSource">): StyleSkill {
+function style(skill: Omit<StyleSkill, keyof typeof common | "localDownloadPath" | "demoScreenshots">): StyleSkill {
   return {
     ...skill,
-    ...originalCommon,
-    localDownloadPath: `/downloads/${skill.slug}`,
+    ...common,
+    localDownloadPath: downloadPath(skill.slug),
+    demoScreenshots: demoScreenshots(skill.slug),
   };
 }
 
-function externalSkill(skill: Omit<StyleSkill, "status" | "sourceType" | "collection" | "localDownloadPath" | "skillMeta">): StyleSkill {
-  return {
-    ...skill,
-    status: "published",
-    sourceType: "external",
-    collection: "External Ready-made Skills",
-    skillMeta: {
-      fileSize: "External",
-      hasScripts: false,
-      hasExternalRequests: true,
-      lastUpdated: skill.externalSource?.verifiedAt ?? "2026-05-11",
-      license: "See official source",
-    },
-  };
-}
-
-export const fronttasteOriginals: StyleSkill[] = [
-  originalSkill({
-    slug: "quiet-saas",
-    name: "Quiet SaaS",
+export const fronttasteStyles: StyleSkill[] = [
+  style({
+    slug: "pixel-arcade",
+    name: "Pixel Arcade",
     tagline: {
-      en: "Calm, premium SaaS interfaces for AI tools.",
-      zh: "克制、柔和、适合 AI 工具的高级 SaaS 审美。",
+      en: "8-bit product UI with hard pixels, chunky controls, and arcade status cards.",
+      zh: "8-bit 像素产品 UI：硬边格子、块状控件和街机状态牌。",
     },
     description: {
-      en: "A restrained style for product marketing, onboarding, pricing, and dashboards that should feel trustworthy without looking generic.",
-      zh: "适合产品官网、onboarding、pricing 和 dashboard 的克制风格，可信但不模板化。",
+      en: "Turns MemoPilot into a playable mission console with pixel windows, scoreboards, inventory slots, and crisp game feedback.",
+      zh: "把 MemoPilot 变成可玩的任务控制台：像素窗口、计分板、道具栏和清晰的游戏反馈。",
     },
-    tags: ["SaaS", "Landing", "Dashboard", "Light", "Minimal"],
-    useCases: ["AI tools", "B2B SaaS", "Product marketing", "Pricing"],
+    tags: ["Pixel", "8-bit", "Game UI", "Grid"],
+    useCases: ["Game launches", "Creator tools", "Playful onboarding", "Community apps"],
     theme: {
-      icon: Sparkles,
-      bg: "#f7f6f2",
-      surface: "#ffffff",
-      surfaceAlt: "#eeece6",
-      text: "#171717",
-      muted: "#6d6a62",
-      border: "#dedbd2",
-      accent: "#3e7668",
+      icon: Gamepad2,
+      bg: "#171022",
+      surface: "#241734",
+      surfaceAlt: "#ffd447",
+      text: "#fff7d6",
+      muted: "#b6a4d8",
+      border: "#08050d",
+      accent: "#4df7ff",
+      accentText: "#12091c",
+      radius: "0px",
+      shadow: "8px 8px 0 #08050d",
+      pattern:
+        "linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px)",
+      density: "balanced",
+    },
+    styleSignature: {
+      variant: "pixel-arcade",
+      typography: "monospace uppercase labels, chunky counters, compact game hierarchy",
+      texture: "pixel grid, tile maps, block shadows, low-resolution status fills",
+      componentShape: "square panels, stepped buttons, inventory slots, score cards",
+      motif: "mission console, player owners, quest follow-ups, risk hazards",
+      promptEffect: "The same AI meeting notes prompt becomes an arcade mission dashboard.",
+    },
+    visualDNA: {
+      typography: "Chunky mono labels and large game-title headings.",
+      color: "Purple arcade base with cyan, yellow, and pink power-up accents.",
+      layout: "Tile maps, score windows, inventory rows, and blocky status panels.",
+      motion: "Snap transitions and one-step hover offsets.",
+      density: "Medium density with obvious modular grouping.",
+    },
+  }),
+  style({
+    slug: "liquid-glass",
+    name: "Liquid Glass",
+    tagline: {
+      en: "Apple-like translucent UI with floating glass, blur, and soft layered depth.",
+      zh: "苹果式半透明 UI：漂浮玻璃、模糊背景和柔和层叠。",
+    },
+    description: {
+      en: "Turns MemoPilot into a light OS-native workspace with frosted surfaces, capsule controls, soft color fields, and airy depth.",
+      zh: "把 MemoPilot 变成轻盈的系统级工作区：毛玻璃表面、胶囊控件、柔和彩色背景和空气感层次。",
+    },
+    tags: ["Glass", "Apple-like", "Translucent", "Light"],
+    useCases: ["AI assistants", "Productivity apps", "OS-like tools", "Consumer SaaS"],
+    theme: {
+      icon: Apple,
+      bg: "#eaf4ff",
+      surface: "rgba(255,255,255,0.62)",
+      surfaceAlt: "rgba(210,231,255,0.62)",
+      text: "#122033",
+      muted: "#637084",
+      border: "rgba(255,255,255,0.72)",
+      accent: "#4f7cff",
       accentText: "#ffffff",
-      radius: "14px",
-      shadow: "0 22px 70px rgba(36, 38, 34, 0.12)",
-      pattern: "linear-gradient(135deg, rgba(62,118,104,.12), transparent 38%)",
+      radius: "28px",
+      shadow: "0 28px 90px rgba(67, 102, 166, 0.22)",
+      pattern:
+        "radial-gradient(circle at 18% 8%, rgba(105,149,255,.26), transparent 30%), radial-gradient(circle at 82% 12%, rgba(130,240,210,.22), transparent 28%)",
       density: "loose",
     },
+    styleSignature: {
+      variant: "liquid-glass",
+      typography: "clean system UI, calm headings, small capsule labels",
+      texture: "blurred glass, soft highlights, liquid color fields",
+      componentShape: "capsules, floating panes, translucent sheets, soft depth",
+      motif: "assistant layers, OS dock, frosted workspace",
+      promptEffect: "The prompt feels like an ambient AI layer inside a modern operating system.",
+    },
     visualDNA: {
-      typography: "Clear, precise, high-readability hierarchy.",
-      color: "Muted neutrals with one restrained green accent.",
-      layout: "Generous whitespace, centered sections, calm grids.",
-      motion: "Subtle fade and slide transitions.",
-      density: "Medium-low information density.",
+      typography: "Spacious system type with light native hierarchy.",
+      color: "Mist blue base, translucent white panels, and crisp blue actions.",
+      layout: "Floating glass layers, pill controls, stacked assistant sheets.",
+      motion: "Gentle blur, opacity, and hover lift transitions.",
+      density: "Low-to-medium density with airy depth.",
     },
   }),
-  originalSkill({
-    slug: "precision-ops",
-    name: "Precision Ops",
+  style({
+    slug: "mono-ink",
+    name: "Mono Ink",
     tagline: {
-      en: "Compact operational interfaces for dashboards and admins.",
-      zh: "面向 dashboard 和 admin 的紧凑、清晰运营界面。",
+      en: "Black-and-white editorial UI with severe typography and print-like rules.",
+      zh: "黑白墨水风 UI：强排版、粗分割线和印刷式秩序。",
     },
     description: {
-      en: "A sharp product-ops system for dense data, status surfaces, tables, filters, and production-like admin workflows.",
-      zh: "适合高密度数据、状态面板、表格、筛选器和真实后台流程的产品运营风格。",
+      en: "Turns MemoPilot into a stark operating paper with thick rules, ledger tables, oversized typography, and almost no decorative color.",
+      zh: "把 MemoPilot 变成强烈黑白工作报纸：粗线、账本表格、超大排版和几乎没有装饰色。",
     },
-    tags: ["Ops", "Admin", "Dashboard", "Data", "Compact"],
-    useCases: ["Admin panels", "Team analytics", "Operations", "Back office"],
+    tags: ["Black White", "Editorial", "Typography", "Minimal"],
+    useCases: ["Serious tools", "Research products", "Founder pages", "Knowledge apps"],
     theme: {
-      icon: MonitorCog,
-      bg: "#f4f7fb",
+      icon: Newspaper,
+      bg: "#f7f7f2",
       surface: "#ffffff",
-      surfaceAlt: "#e8eef7",
-      text: "#0d1625",
-      muted: "#596579",
-      border: "#ccd7e5",
-      accent: "#2251d1",
+      surfaceAlt: "#111111",
+      text: "#0a0a0a",
+      muted: "#4d4d4d",
+      border: "#0a0a0a",
+      accent: "#0a0a0a",
       accentText: "#ffffff",
-      radius: "8px",
-      shadow: "0 18px 50px rgba(15, 35, 74, 0.15)",
-      pattern: "linear-gradient(90deg, rgba(34,81,209,.12) 1px, transparent 1px)",
-      density: "compact",
+      radius: "0px",
+      shadow: "0 0 0 2px #0a0a0a",
+      pattern: "linear-gradient(#0a0a0a 1px, transparent 1px)",
+      density: "balanced",
+    },
+    styleSignature: {
+      variant: "mono-ink",
+      typography: "oversized black headlines, mono captions, editorial columns",
+      texture: "paper white, black ink, thick rules, newspaper grids",
+      componentShape: "rectangular slabs, ledger rows, typographic badges",
+      motif: "executive brief, operating memo, printed command sheet",
+      promptEffect: "The prompt becomes a decisive black-and-white meeting brief.",
     },
     visualDNA: {
-      typography: "Small, legible, system-like labels and metrics.",
-      color: "Cool light surfaces, blue action states, crisp borders.",
-      layout: "Split panes, tables, status rows, predictable controls.",
-      motion: "Fast utility transitions.",
-      density: "High information density.",
+      typography: "Oversized black headings, tiny mono captions, and rigid rules.",
+      color: "Pure black and paper white with gray only for secondary copy.",
+      layout: "Editorial columns, ledgers, horizontal dividers, and stark whitespace.",
+      motion: "Minimal state changes that feel like marking ink on paper.",
+      density: "Medium density with high scan clarity.",
     },
   }),
-  originalSkill({
+  style({
+    slug: "neon-cyberpunk",
+    name: "Neon Cyberpunk",
+    tagline: {
+      en: "Game HUD cyberpunk UI with neon rails, scanlines, and mission panels.",
+      zh: "游戏 HUD 赛博朋克 UI：霓虹轨道、扫描线和任务面板。",
+    },
+    description: {
+      en: "Turns MemoPilot into a night-city command HUD with angled panels, glowing risk signals, radar cards, and hot pink/cyan contrast.",
+      zh: "把 MemoPilot 变成夜城指挥 HUD：斜切面板、发光风险信号、雷达卡和粉蓝霓虹对比。",
+    },
+    tags: ["Cyberpunk", "HUD", "Neon", "Game"],
+    useCases: ["Game tools", "Security demos", "Technical launches", "Developer communities"],
+    theme: {
+      icon: ScanLine,
+      bg: "#080713",
+      surface: "#111426",
+      surfaceAlt: "#1d1234",
+      text: "#f8f7ff",
+      muted: "#8ea0ff",
+      border: "#31f7ff",
+      accent: "#ff2fb9",
+      accentText: "#090714",
+      radius: "4px",
+      shadow: "0 0 28px rgba(49, 247, 255, 0.26)",
+      pattern:
+        "linear-gradient(90deg, rgba(49,247,255,.10) 1px, transparent 1px), linear-gradient(rgba(255,47,185,.08) 1px, transparent 1px)",
+      density: "compact",
+    },
+    styleSignature: {
+      variant: "neon-cyberpunk",
+      typography: "condensed mono labels, HUD counters, aggressive uppercase headings",
+      texture: "scanlines, neon glow, angular rails, dark glass",
+      componentShape: "clipped panels, slanted tabs, radar modules, glowing borders",
+      motif: "mission control, threat levels, night-city operations",
+      promptEffect: "The prompt becomes a mission interface for decisions, owners, and risks.",
+    },
+    visualDNA: {
+      typography: "Tense mono interface labels with bold game-HUD hierarchy.",
+      color: "Near-black base, cyan rails, hot pink actions, violet surfaces.",
+      layout: "Angled HUD panels, radar modules, dense command strips.",
+      motion: "Scanline reveals, electric hovers, and fast status pulses.",
+      density: "High density without sacrificing contrast.",
+    },
+  }),
+  style({
+    slug: "fresh-minimal",
+    name: "Fresh Minimal",
+    tagline: {
+      en: "Modern fresh minimal SaaS with whitespace, thin lines, and soft greens.",
+      zh: "现代清新简约 SaaS：大留白、细线和柔和蓝绿色。",
+    },
+    description: {
+      en: "Turns MemoPilot into a clean, breathable product surface with careful spacing, pale color, thin dividers, and practical SaaS clarity.",
+      zh: "把 MemoPilot 变成清爽可呼吸的产品界面：精确留白、淡色、细分割线和实用 SaaS 清晰度。",
+    },
+    tags: ["Minimal", "Fresh", "SaaS", "Clean"],
+    useCases: ["Productivity apps", "AI SaaS", "Team tools", "Wellness tech"],
+    theme: {
+      icon: Sparkles,
+      bg: "#f4fbf8",
+      surface: "#ffffff",
+      surfaceAlt: "#e5f5ef",
+      text: "#10201a",
+      muted: "#64746d",
+      border: "#d8e8e1",
+      accent: "#20a779",
+      accentText: "#ffffff",
+      radius: "18px",
+      shadow: "0 24px 80px rgba(28, 112, 85, 0.12)",
+      pattern: "linear-gradient(135deg, rgba(32,167,121,.10), transparent 36%)",
+      density: "loose",
+    },
+    styleSignature: {
+      variant: "fresh-minimal",
+      typography: "modern sans, generous leading, quiet product labels",
+      texture: "clean white space, thin dividers, pale green wash",
+      componentShape: "rounded cards, precise pills, fine-line controls",
+      motif: "breathable workspace, calm summaries, focused product clarity",
+      promptEffect: "The prompt feels simple, fresh, and immediately useful.",
+    },
+    visualDNA: {
+      typography: "Clean product hierarchy with relaxed spacing and readable body text.",
+      color: "White and pale mint with one confident green action color.",
+      layout: "Large whitespace, thin dividers, simple grids, calm summary rows.",
+      motion: "Soft fades and tiny hover lifts only.",
+      density: "Low density with strong clarity.",
+    },
+  }),
+  style({
+    slug: "vintage-computing",
+    name: "Vintage Computing",
+    tagline: {
+      en: "Retro computer UI with beige shells, CRT glow, and old window chrome.",
+      zh: "复古电脑 UI：米色外壳、CRT 光感和旧系统窗口。",
+    },
+    description: {
+      en: "Turns MemoPilot into a classic desktop utility with old window frames, amber terminals, floppy-style buttons, and durable system charm.",
+      zh: "把 MemoPilot 变成经典桌面工具：旧窗口框、琥珀终端、软盘式按钮和耐看的系统感。",
+    },
+    tags: ["Retro", "CRT", "Desktop", "Terminal"],
+    useCases: ["Developer tools", "Nostalgic apps", "Personal knowledge bases", "Utilities"],
+    theme: {
+      icon: Monitor,
+      bg: "#d7c7a3",
+      surface: "#efe2bd",
+      surfaceAlt: "#1e2a1d",
+      text: "#2b261c",
+      muted: "#6f6148",
+      border: "#4d412c",
+      accent: "#2f6b3f",
+      accentText: "#f5edcf",
+      radius: "2px",
+      shadow: "6px 6px 0 rgba(48, 40, 25, 0.32)",
+      pattern:
+        "linear-gradient(90deg, rgba(83,69,43,.12) 1px, transparent 1px), linear-gradient(rgba(83,69,43,.10) 1px, transparent 1px)",
+      density: "balanced",
+    },
+    styleSignature: {
+      variant: "vintage-computing",
+      typography: "old terminal mono, menu labels, utility headings",
+      texture: "beige plastic, CRT lines, inset controls, window chrome",
+      componentShape: "beveled buttons, status bars, desktop windows, terminal panes",
+      motif: "classic desktop, command prompt, floppy utility",
+      promptEffect: "The prompt feels like a trustworthy old-school desktop app.",
+    },
+    visualDNA: {
+      typography: "Terminal-like text, menu labels, and utilitarian headings.",
+      color: "Beige hardware surfaces with green terminal and amber highlights.",
+      layout: "Window chrome, menu bars, inset panels, and status strips.",
+      motion: "Low-motion cursor cues and simple selected states.",
+      density: "Medium density with compact utility grouping.",
+    },
+  }),
+  style({
+    slug: "clay-play",
+    name: "Clay Play",
+    tagline: {
+      en: "Soft 3D clay UI with rounded modules, plush shadows, and playful depth.",
+      zh: "软 3D 黏土 UI：厚圆角、柔和投影和玩具感层次。",
+    },
+    description: {
+      en: "Turns MemoPilot into a friendly clay-like product with chunky controls, pill dashboards, soft 3D cards, and playful but usable states.",
+      zh: "把 MemoPilot 变成友好的黏土产品：厚控件、胶囊 dashboard、软 3D 卡片和可用的玩具感状态。",
+    },
+    tags: ["Clay", "3D", "Playful", "Soft"],
+    useCases: ["Consumer AI", "Creator apps", "Education", "Friendly onboarding"],
+    theme: {
+      icon: Shapes,
+      bg: "#fff1e6",
+      surface: "#ffffff",
+      surfaceAlt: "#ffd6e8",
+      text: "#272038",
+      muted: "#7b6c86",
+      border: "#f0c8b5",
+      accent: "#ff7a59",
+      accentText: "#271725",
+      radius: "28px",
+      shadow: "0 16px 0 rgba(103, 74, 92, 0.18), 0 28px 70px rgba(255, 122, 89, 0.18)",
+      pattern:
+        "radial-gradient(circle at 16% 14%, rgba(255,122,89,.20), transparent 25%), radial-gradient(circle at 86% 12%, rgba(116,211,255,.18), transparent 24%)",
+      density: "balanced",
+    },
+    styleSignature: {
+      variant: "clay-play",
+      typography: "rounded friendly hierarchy, warm labels, clear numbers",
+      texture: "soft 3D clay, plush shadows, pastel surfaces",
+      componentShape: "chunky pills, inflated cards, tactile toggles",
+      motif: "toy-like productivity desk, friendly AI helper",
+      promptEffect: "The prompt feels approachable, playful, and touchable.",
+    },
+    visualDNA: {
+      typography: "Rounded friendly headings with clear operational labels.",
+      color: "Pastel peach, pink, sky blue, and coral action color.",
+      layout: "Soft 3D modules, chunky controls, playful staggered panels.",
+      motion: "Tactile press and plush lift transitions.",
+      density: "Medium density with generous touch targets.",
+    },
+  }),
+  style({
     slug: "luxury-noir",
     name: "Luxury Noir",
     tagline: {
-      en: "Dark cinematic interfaces for premium AI and finance.",
-      zh: "适合高端 AI、金融和会员产品的暗色精品审美。",
+      en: "Black-gold premium UI with cinematic spacing and curated decision cards.",
+      zh: "黑金高级 UI：电影感留白和精致会员级决策卡片。",
     },
     description: {
-      en: "A premium dark style with restrained metallic warmth, editorial spacing, and product surfaces that feel expensive.",
-      zh: "暗色、金属暖调、编辑式留白与高质感产品界面组合成的高级风格。",
+      en: "Turns MemoPilot into a premium executive intelligence product with blackened surfaces, metallic hairlines, slow rhythm, and expensive decision cards.",
+      zh: "把 MemoPilot 变成高端执行情报产品：黑色表面、金属细线、慢节奏和昂贵感决策卡片。",
     },
-    tags: ["Dark", "Premium", "Finance", "Cinematic", "Luxury"],
-    useCases: ["Premium AI", "Finance", "Membership", "Founder products"],
+    tags: ["Luxury", "Noir", "Premium", "Cinematic"],
+    useCases: ["Executive tools", "Finance", "Premium AI", "Membership products"],
     theme: {
       icon: Gem,
-      bg: "#090806",
+      bg: "#080706",
       surface: "#14110d",
       surfaceAlt: "#211a12",
-      text: "#f5ead8",
-      muted: "#b9a98e",
-      border: "#3d3021",
-      accent: "#c9a15d",
-      accentText: "#15100a",
-      radius: "10px",
-      shadow: "0 30px 80px rgba(0, 0, 0, 0.45)",
-      pattern: "radial-gradient(circle at 20% 0%, rgba(201,161,93,.22), transparent 32%)",
+      text: "#f7ecd8",
+      muted: "#b6a485",
+      border: "#4a3823",
+      accent: "#d7b46a",
+      accentText: "#120d08",
+      radius: "14px",
+      shadow: "0 34px 90px rgba(0, 0, 0, 0.52)",
+      pattern:
+        "radial-gradient(circle at 18% 0%, rgba(215,180,106,.18), transparent 34%), linear-gradient(135deg, rgba(255,255,255,.05), transparent 44%)",
       density: "balanced",
     },
-    visualDNA: {
-      typography: "Elegant contrast, larger headings, refined labels.",
-      color: "Blackened surfaces with brass accent and warm text.",
-      layout: "Cinematic sections, premium panels, deliberate spacing.",
-      motion: "Slow fades and subtle reveals.",
-      density: "Medium information density.",
-    },
-  }),
-  originalSkill({
-    slug: "brutal-grid",
-    name: "Brutal Grid",
-    tagline: {
-      en: "Bold asymmetric pages for open-source and design tools.",
-      zh: "适合开源项目和设计工具的强对比、粗网格风格。",
-    },
-    description: {
-      en: "A direct, high-contrast system with hard borders, asymmetric grids, oversized type, and unapologetic interaction states.",
-      zh: "硬边框、不对称网格、大字号和强交互状态构成的直接表达系统。",
-    },
-    tags: ["Brutalist", "Grid", "Open Source", "High Contrast"],
-    useCases: ["Open-source tools", "Design tools", "Dev products", "Launches"],
-    theme: {
-      icon: Grid3X3,
-      bg: "#f8f24b",
-      surface: "#fffef2",
-      surfaceAlt: "#151515",
-      text: "#111111",
-      muted: "#3b3b3b",
-      border: "#111111",
-      accent: "#ff4d00",
-      accentText: "#111111",
-      radius: "0px",
-      shadow: "10px 10px 0 #111111",
-      pattern: "linear-gradient(90deg, rgba(17,17,17,.16) 1px, transparent 1px), linear-gradient(rgba(17,17,17,.16) 1px, transparent 1px)",
-      density: "balanced",
+    styleSignature: {
+      variant: "luxury-noir",
+      typography: "cinematic headings, fine labels, elegant number treatment",
+      texture: "black lacquer, brass hairlines, soft spotlight",
+      componentShape: "premium cards, fine dividers, quiet controls",
+      motif: "private intelligence room, executive brief, membership console",
+      promptEffect: "The prompt feels like a premium decision intelligence suite.",
     },
     visualDNA: {
-      typography: "Large, blunt, highly structured hierarchy.",
-      color: "High-contrast black, off-white, yellow, and orange.",
-      layout: "Asymmetric grids, exposed borders, sharp modules.",
-      motion: "Immediate state changes and punchy hover offsets.",
-      density: "Medium information density.",
-    },
-  }),
-  originalSkill({
-    slug: "editorial-launch",
-    name: "Editorial Launch",
-    tagline: {
-      en: "Magazine-like launches for founders and content products.",
-      zh: "适合创始人主页和内容产品的杂志式发布风格。",
-    },
-    description: {
-      en: "An editorial style for narrative launches, founder-led pages, essays, changelogs, and thoughtful product storytelling.",
-      zh: "为叙事型发布、创始人主页、文章、更新日志和产品故事准备的编辑风格。",
-    },
-    tags: ["Editorial", "Launch", "Content", "Story"],
-    useCases: ["Founder pages", "Content products", "Product essays", "Launch pages"],
-    theme: {
-      icon: FileText,
-      bg: "#fbf5ea",
-      surface: "#fffaf1",
-      surfaceAlt: "#ede1cc",
-      text: "#201915",
-      muted: "#715f50",
-      border: "#d8c8ae",
-      accent: "#9f3d25",
-      accentText: "#fff8ed",
-      radius: "6px",
-      shadow: "0 22px 60px rgba(69, 45, 25, 0.14)",
-      pattern: "linear-gradient(180deg, rgba(159,61,37,.12), transparent 44%)",
-      density: "loose",
-    },
-    visualDNA: {
-      typography: "Editorial scale, strong headlines, readable prose.",
-      color: "Paper tones, warm ink, restrained clay accent.",
-      layout: "Article rhythm, side notes, feature-led sections.",
-      motion: "Quiet section reveals.",
-      density: "Medium-low information density.",
-    },
-  }),
-  originalSkill({
-    slug: "cyber-infra",
-    name: "Cyber Infra",
-    tagline: {
-      en: "Terminal-like interfaces for security and developer tools.",
-      zh: "适合安全、开发者工具和基础设施产品的终端感风格。",
-    },
-    description: {
-      en: "A technical dark style with terminal panels, protocol details, infrastructure maps, and sharp green signal states.",
-      zh: "终端面板、协议细节、基础设施地图和绿色状态信号组成的技术暗色风格。",
-    },
-    tags: ["Cyber", "Infra", "Terminal", "Security", "Dark"],
-    useCases: ["Security", "Developer tools", "Infra", "Monitoring"],
-    theme: {
-      icon: CircuitBoard,
-      bg: "#05100d",
-      surface: "#0b1a16",
-      surfaceAlt: "#102821",
-      text: "#dcfff4",
-      muted: "#82b7a7",
-      border: "#1f4c3d",
-      accent: "#30e69b",
-      accentText: "#04100c",
-      radius: "4px",
-      shadow: "0 25px 70px rgba(17, 255, 157, 0.12)",
-      pattern: "linear-gradient(90deg, rgba(48,230,155,.12) 1px, transparent 1px), linear-gradient(rgba(48,230,155,.08) 1px, transparent 1px)",
-      density: "compact",
-    },
-    visualDNA: {
-      typography: "Mono-heavy labels, technical hierarchy, compact metrics.",
-      color: "Dark green-black surfaces with electric signal accents.",
-      layout: "Terminal panels, command rows, network maps.",
-      motion: "Scanning, status pulses, fast feedback.",
-      density: "High information density.",
-    },
-  }),
-  originalSkill({
-    slug: "playful-bento",
-    name: "Playful Bento",
-    tagline: {
-      en: "Colorful modular pages for consumer and creative apps.",
-      zh: "适合消费级和创意工具的彩色模块化风格。",
-    },
-    description: {
-      en: "A cheerful style for consumer apps, creator tools, lightweight onboarding, and playful product surfaces that still need structure.",
-      zh: "适合消费级应用、创意工具和轻量 onboarding 的明亮模块化风格，活泼但不散乱。",
-    },
-    tags: ["Consumer", "Creative", "Bento", "Colorful"],
-    useCases: ["Consumer apps", "Creative tools", "Personal products"],
-    theme: {
-      icon: Boxes,
-      bg: "#fff7db",
-      surface: "#ffffff",
-      surfaceAlt: "#ffe9a8",
-      text: "#1b1830",
-      muted: "#786f58",
-      border: "#ead489",
-      accent: "#ff7a59",
-      accentText: "#1b1830",
-      radius: "18px",
-      shadow: "0 20px 58px rgba(255, 122, 89, 0.16)",
-      pattern: "radial-gradient(circle at 15% 10%, rgba(80,151,255,.20), transparent 28%), radial-gradient(circle at 85% 20%, rgba(255,122,89,.20), transparent 24%)",
-      density: "balanced",
-    },
-    visualDNA: {
-      typography: "Friendly rounded hierarchy with clear product labels.",
-      color: "Warm yellow base, coral actions, small blue moments.",
-      layout: "Bento modules, playful offsets, stable responsive tiles.",
-      motion: "Small, tactile hover lifts and soft transitions.",
-      density: "Medium information density.",
-    },
-  }),
-  originalSkill({
-    slug: "calm-workspace",
-    name: "Calm Workspace",
-    tagline: {
-      en: "Quiet workspace surfaces for docs and collaboration.",
-      zh: "适合知识库和协作工具的克制 workspace 风格。",
-    },
-    description: {
-      en: "A document-first style for knowledge bases, collaboration spaces, project notes, and work surfaces that should feel calm and durable.",
-      zh: "以文档为核心，适合知识库、协作空间和项目记录的安静耐看型界面。",
-    },
-    tags: ["Workspace", "Docs", "Collaboration"],
-    useCases: ["Knowledge bases", "Collaboration", "Docs"],
-    theme: {
-      icon: Layers3,
-      bg: "#f3f1eb",
-      surface: "#fffdf8",
-      surfaceAlt: "#e7e2d8",
-      text: "#20201d",
-      muted: "#6f6a60",
-      border: "#d8d1c2",
-      accent: "#6f8f83",
-      accentText: "#ffffff",
-      radius: "10px",
-      shadow: "0 18px 54px rgba(53, 48, 40, 0.12)",
-      pattern: "linear-gradient(180deg, rgba(111,143,131,.12), transparent 42%)",
-      density: "balanced",
-    },
-    visualDNA: {
-      typography: "Document rhythm with readable headings and quiet metadata.",
-      color: "Warm workspace neutrals with a muted sage accent.",
-      layout: "Sidebars, document columns, calm panels, and collaboration cues.",
-      motion: "Subtle focus and selected states.",
-      density: "Medium information density.",
-    },
-  }),
-  originalSkill({
-    slug: "glass-agent",
-    name: "Glass Agent",
-    tagline: {
-      en: "Layered translucent interfaces for AI agents.",
-      zh: "适合 AI agent 和聊天产品的半透明层叠风格。",
-    },
-    description: {
-      en: "A layered style for agent timelines, assistant chat, tool calls, and AI workflow products that need depth without visual noise.",
-      zh: "适合 agent 时间线、聊天、工具调用和 AI 工作流产品的轻透明层叠风格。",
-    },
-    tags: ["AI Agent", "Chat", "Glass", "Layered"],
-    useCases: ["AI agents", "Chat products", "Assistants"],
-    theme: {
-      icon: Bot,
-      bg: "#eef5ff",
-      surface: "rgba(255,255,255,0.78)",
-      surfaceAlt: "rgba(226,237,255,0.72)",
-      text: "#132033",
-      muted: "#637084",
-      border: "rgba(133,160,196,0.45)",
-      accent: "#5b7cfa",
-      accentText: "#ffffff",
-      radius: "16px",
-      shadow: "0 24px 70px rgba(40, 74, 130, 0.16)",
-      pattern: "radial-gradient(circle at 20% 10%, rgba(91,124,250,.18), transparent 30%), radial-gradient(circle at 80% 0%, rgba(96,211,196,.16), transparent 26%)",
-      density: "balanced",
-    },
-    visualDNA: {
-      typography: "Precise UI labels with soft assistant-style hierarchy.",
-      color: "Cool blue glass layers with controlled contrast.",
-      layout: "Layered panels, agent timelines, message surfaces, and tool call cards.",
-      motion: "Light reveals, progress states, and gentle depth changes.",
-      density: "Medium information density.",
-    },
-  }),
-  originalSkill({
-    slug: "dense-analytics",
-    name: "Dense Analytics",
-    tagline: {
-      en: "Dense BI and trading surfaces for data-heavy products.",
-      zh: "适合 BI、数据产品和交易后台的高信息密度风格。",
-    },
-    description: {
-      en: "A high-density style for BI dashboards, trading consoles, analytics products, and data-heavy operational tools.",
-      zh: "适合 BI dashboard、交易后台、数据产品和高密度运营工具的专业界面。",
-    },
-    tags: ["BI", "Analytics", "Trading", "Dense"],
-    useCases: ["BI", "Trading", "Analytics", "Data products"],
-    theme: {
-      icon: BarChart3,
-      bg: "#111827",
-      surface: "#172033",
-      surfaceAlt: "#202b43",
-      text: "#eef4ff",
-      muted: "#9fb0ca",
-      border: "#33415f",
-      accent: "#72a7ff",
-      accentText: "#08111f",
-      radius: "6px",
-      shadow: "0 20px 60px rgba(0, 0, 0, 0.28)",
-      pattern: "linear-gradient(90deg, rgba(114,167,255,.10) 1px, transparent 1px), linear-gradient(rgba(114,167,255,.08) 1px, transparent 1px)",
-      density: "compact",
-    },
-    visualDNA: {
-      typography: "Compact mono metrics and table-first hierarchy.",
-      color: "Deep navy surfaces with blue data highlights.",
-      layout: "Metric grids, filters, split charts, and dense comparison rows.",
-      motion: "Fast state updates and minimal animated feedback.",
-      density: "Very high information density.",
-    },
-  }),
-  originalSkill({
-    slug: "hardware-premium",
-    name: "Hardware Premium",
-    tagline: {
-      en: "Minimal product pages for hardware and polished app launches.",
-      zh: "适合硬件和 App 官网的大图极简质感风格。",
-    },
-    description: {
-      en: "A refined product style for hardware launches, device pages, polished app websites, and premium product storytelling.",
-      zh: "适合硬件发布页、设备官网、精品 App 官网和高质感产品叙事。",
-    },
-    tags: ["Hardware", "Product", "Minimal", "Premium"],
-    useCases: ["Hardware", "App launches", "Product sites"],
-    theme: {
-      icon: Building2,
-      bg: "#f0f0ed",
-      surface: "#ffffff",
-      surfaceAlt: "#d9d9d2",
-      text: "#111111",
-      muted: "#6b6b66",
-      border: "#d0d0c9",
-      accent: "#2f3136",
-      accentText: "#ffffff",
-      radius: "12px",
-      shadow: "0 28px 80px rgba(35, 35, 32, 0.14)",
-      pattern: "linear-gradient(145deg, rgba(0,0,0,.08), transparent 35%)",
-      density: "loose",
-    },
-    visualDNA: {
-      typography: "Quiet premium hierarchy with product-led pacing.",
-      color: "True neutrals, soft metal tones, and restrained dark actions.",
-      layout: "Large product moments, precise spec rows, and minimal framing.",
-      motion: "Slow product reveals and smooth section transitions.",
-      density: "Low-to-medium information density.",
-    },
-  }),
-  originalSkill({
-    slug: "retro-future",
-    name: "Retro Future",
-    tagline: {
-      en: "Retro neon surfaces for games, creative coding, and Web3.",
-      zh: "适合游戏、创意 coding 和 Web3 的复古未来风格。",
-    },
-    description: {
-      en: "A high-character style for games, creative coding tools, Web3 communities, and expressive launch pages with retro-future energy.",
-      zh: "适合游戏、创意 coding、Web3 社区和表达型发布页的复古未来风格。",
-    },
-    tags: ["Retro", "Neon", "Game", "Web3"],
-    useCases: ["Games", "Creative coding", "Web3", "Communities"],
-    theme: {
-      icon: Braces,
-      bg: "#160d2b",
-      surface: "#24163d",
-      surfaceAlt: "#331f52",
-      text: "#fff7ff",
-      muted: "#cab7e8",
-      border: "#62448f",
-      accent: "#ff79c6",
-      accentText: "#160d2b",
-      radius: "8px",
-      shadow: "0 24px 70px rgba(255, 121, 198, 0.18)",
-      pattern: "linear-gradient(90deg, rgba(255,121,198,.16) 1px, transparent 1px), linear-gradient(rgba(83,255,219,.10) 1px, transparent 1px)",
-      density: "balanced",
-    },
-    visualDNA: {
-      typography: "Retro display moments with readable UI text.",
-      color: "Purple night base, neon pink and cyan signal accents.",
-      layout: "Pixel grids, arcade panels, expressive hero rhythm.",
-      motion: "Scanline-inspired transitions and crisp hover feedback.",
-      density: "Medium information density.",
+      typography: "Elegant hierarchy with fine metadata and confident headings.",
+      color: "Blackened surfaces, warm ivory text, brass highlights.",
+      layout: "Cinematic hero, curated cards, fine dividers, premium spacing.",
+      motion: "Slow fades and restrained hover highlights.",
+      density: "Medium density with high perceived value.",
     },
   }),
 ];
 
-const externalTheme = (icon: LucideIcon, accent: string): StyleTheme => ({
-  icon,
-  bg: "#f6f5f1",
-  surface: "#ffffff",
-  surfaceAlt: "#efede6",
-  text: "#171717",
-  muted: "#6b675f",
-  border: "#dedbd2",
-  accent,
-  accentText: "#ffffff",
-  radius: "10px",
-  shadow: "0 18px 54px rgba(24, 24, 20, 0.1)",
-  pattern: "linear-gradient(135deg, rgba(0,0,0,.06), transparent 42%)",
-  density: "balanced",
-});
-
-const externalCommon = {
-  stack: ["Skill", "Prompting", "Frontend design"],
-  compatibleAgents: ["Claude Code", "Codex", "ChatGPT", "Cursor"],
-};
-
-export const externalDesignSkills: StyleSkill[] = [
-  externalSkill({
-    slug: "anthropic-frontend-design",
-    name: "Anthropic Frontend Design",
-    tagline: {
-      en: "Official Claude frontend design Skill for distinctive, production-grade UI.",
-      zh: "Claude 官方前端设计 Skill，强调高质量、非模板化 UI。",
-    },
-    description: {
-      en: "A strong external reference for anti-generic frontend design, visual craft, and production-grade interface direction.",
-      zh: "非常适合作为 anti-generic 前端审美参考，覆盖视觉质量、界面完成度和生产级设计要求。",
-    },
-    tags: ["Official", "Claude", "Frontend Design", "Anti-generic"],
-    useCases: ["Frontend design", "UI taste", "Production UI"],
-    ...externalCommon,
-    theme: externalTheme(Palette, "#5c6bc0"),
-    visualDNA: externalDNA("Official Claude frontend design workflow with strong anti-generic taste constraints."),
-    externalSource: {
-      provider: "Anthropic / Claude",
-      officialUrl: "https://claude.com/plugins/frontend-design",
-      sourceUrl: "https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md",
-      verifiedAt: "2026-05-11",
-    },
-  }),
-  externalSkill({
-    slug: "openai-frontend-skill",
-    name: "OpenAI Frontend Skill",
-    tagline: {
-      en: "OpenAI curated frontend Skill for visual quality, composition, imagery, and motion.",
-      zh: "OpenAI curated 前端 Skill，强调构图、图像、动效和整体视觉质量。",
-    },
-    description: {
-      en: "A curated external Skill for building visually stronger landing pages, apps, dashboards, and games with better hierarchy and restraint.",
-      zh: "适合参考更强的 landing、app、dashboard 和 game UI 生成标准，重点是层级、克制和视觉完整度。",
-    },
-    tags: ["Official", "OpenAI", "Curated", "Frontend"],
-    useCases: ["Landing pages", "Apps", "Dashboards", "Games"],
-    ...externalCommon,
-    theme: externalTheme(Sparkles, "#111111"),
-    visualDNA: externalDNA("OpenAI curated frontend visual-quality guidance."),
-    externalSource: {
-      provider: "OpenAI",
-      officialUrl: "https://officialskills.sh/openai/skills/frontend-skill",
-      sourceUrl: "https://github.com/openai/skills/blob/main/skills/.curated/frontend-skill/SKILL.md",
-      verifiedAt: "2026-05-11",
-    },
-  }),
-  ...[
-    ["design-taste-frontend", "Taste Skill", "Default anti-slop frontend taste framework.", "默认 anti-slop 前端审美框架。"],
-    ["gpt-taste", "GPT Taste", "Taste Skill variant tuned for GPT and Codex workflows.", "面向 GPT / Codex 工作流的 Taste Skill 变体。"],
-    ["minimalist-ui", "Minimalist UI", "Minimal, editorial, clarity-first Taste Skill variant.", "极简、编辑感、清晰结构优先的 Taste Skill 变体。"],
-    ["industrial-brutalist-ui", "Industrial Brutalist UI", "Raw mechanical and brutalist Taste Skill variant.", "粗粝、机械、brutalist 方向的 Taste Skill 变体。"],
-    ["high-end-visual-design", "High-end Visual Design", "Premium visual-design Taste Skill variant.", "高端视觉设计方向的 Taste Skill 变体。"],
-    ["redesign-existing-projects", "Redesign Existing Projects", "Taste Skill workflow for visual audits and redesigns.", "用于现有项目视觉审计和重设计的 Taste Skill 工作流。"],
-    ["imagegen-frontend-web", "Imagegen Frontend Web", "Taste Skill workflow for generating frontend web reference images.", "用于生成前端网页参考图的 Taste Skill 工作流。"],
-  ].map(([slug, name, en, zh]) =>
-    externalSkill({
-      slug,
-      name,
-      tagline: { en, zh },
-      description: {
-        en: "Part of the Taste Skill family. Included as an external ready-made Skill because it provides a clear reusable design direction.",
-        zh: "Taste Skill 系列的一部分。作为现成外部 Skill 收录，因为它提供了明确可复用的审美方向。",
-      },
-      tags: ["Taste Skill", "External", "Design Taste"],
-      useCases: ["Style exploration", "Frontend generation", "Design rules"],
-      ...externalCommon,
-      theme: externalTheme(SwatchBook, "#9f3dff"),
-      visualDNA: externalDNA(`Taste Skill variant: ${name}.`),
-      externalSource: {
-        provider: "Taste Skill",
-        officialUrl: "https://www.tasteskill.dev/",
-        sourceUrl: "https://github.com/Leonxlnx/taste-skill",
-        installCommand: `npx skills add https://github.com/Leonxlnx/taste-skill --skill ${slug}`,
-        verifiedAt: "2026-05-11",
-      },
-    }),
-  ),
-  externalSkill({
-    slug: "microsoft-frontend-ui-dark-ts",
-    name: "Microsoft frontend-ui-dark-ts",
-    tagline: {
-      en: "Dark React UI system Skill for dashboards, admin, and data-heavy products.",
-      zh: "微软 agent-skills 中的暗色 React UI system，适合 dashboard/admin/data 产品。",
-    },
-    description: {
-      en: "A ready-made external Skill focused on modern dark React UI, Tailwind, and motion for operational interfaces.",
-      zh: "一个现成外部 Skill，聚焦现代暗色 React UI、Tailwind 和面向运营界面的动效。",
-    },
-    tags: ["Microsoft", "Dark UI", "Dashboard", "React"],
-    useCases: ["Dashboards", "Admin", "Data-heavy apps"],
-    ...externalCommon,
-    theme: externalTheme(MonitorCog, "#2563eb"),
-    visualDNA: externalDNA("Dark operational React UI system."),
-    externalSource: {
-      provider: "Microsoft / agent-skills",
-      officialUrl: "https://skills.sh/microsoft/agent-skills/frontend-ui-dark-ts",
-      verifiedAt: "2026-05-11",
-    },
-  }),
-  externalSkill({
-    slug: "impeccable",
-    name: "Impeccable",
-    tagline: {
-      en: "Production-grade frontend design iteration Skill.",
-      zh: "强调生产级前端设计打磨和迭代质量的 Skill。",
-    },
-    description: {
-      en: "A craft-focused external Skill for improving frontend quality with design gates and stronger implementation standards.",
-      zh: "偏设计打磨和质量门槛的外部 Skill，适合参考如何把前端做到更精致。",
-    },
-    tags: ["Craft", "Production UI", "Design QA"],
-    useCases: ["Frontend polish", "Design iteration", "Quality gates"],
-    ...externalCommon,
-    theme: externalTheme(WandSparkles, "#0f766e"),
-    visualDNA: externalDNA("Frontend craft and design QA workflow."),
-    externalSource: {
-      provider: "pbakaus",
-      officialUrl: "https://skills.sh/pbakaus/impeccable/impeccable",
-      verifiedAt: "2026-05-11",
-    },
-  }),
-  externalSkill({
-    slug: "web-design-studio",
-    name: "Web Design Studio",
-    tagline: {
-      en: "Frontend design plus AI image generation workflow for complete web demos.",
-      zh: "前端设计加 AI 图像资产工作流，适合完整网页 demo。",
-    },
-    description: {
-      en: "A complete-page external Skill that combines frontend design direction with visual asset generation.",
-      zh: "完整网页设计型外部 Skill，把前端设计方向和视觉资产生成结合起来。",
-    },
-    tags: ["Web Design", "Image Assets", "Landing"],
-    useCases: ["Landing pages", "Visual assets", "Full-page demos"],
-    ...externalCommon,
-    theme: externalTheme(PenTool, "#d97706"),
-    visualDNA: externalDNA("Full-page frontend design and visual asset workflow."),
-    externalSource: {
-      provider: "xiaodong-wu",
-      officialUrl: "https://skills.sh/xiaodong-wu/web-design-studio/web-design-studio",
-      verifiedAt: "2026-05-11",
-    },
-  }),
-  externalSkill({
-    slug: "frontend-design-pro",
-    name: "Frontend Design Pro",
-    tagline: {
-      en: "Frontend interface design Skill with hero image and visual asset direction.",
-      zh: "前端界面设计 Skill，包含 hero image 和视觉资产方向。",
-    },
-    description: {
-      en: "A ready-made external Skill for production frontend interfaces with stronger image and asset guidance.",
-      zh: "用于生产级前端界面的现成外部 Skill，补充图片和视觉资产策略。",
-    },
-    tags: ["ClaudSkills", "Visual Assets", "Frontend Design"],
-    useCases: ["Product sites", "Hero imagery", "Interface design"],
-    ...externalCommon,
-    theme: externalTheme(Shapes, "#e11d48"),
-    visualDNA: externalDNA("Frontend interface craft with image and asset guidance."),
-    externalSource: {
-      provider: "ClaudSkills",
-      officialUrl: "https://claudskills.com/skills/frontend-design-pro/",
-      verifiedAt: "2026-05-11",
-    },
-  }),
-];
-
-function externalDNA(summary: string) {
-  return {
-    typography: summary,
-    color: "See the official Skill source for exact rules.",
-    layout: "External ready-made Skill; FrontTaste does not repackage the source.",
-    motion: "See official guidance.",
-    density: "Varies by external Skill.",
-  };
-}
-
-export const styleSkills: StyleSkill[] = [...fronttasteOriginals, ...externalDesignSkills];
-export const publishedStyles = fronttasteOriginals;
+export const styleSkills = fronttasteStyles;
+export const fronttasteOriginals = fronttasteStyles;
+export const publishedStyles = fronttasteStyles;
 export const plannedStyles: StyleSkill[] = [];
+
+export const allDemoScreenshots = fronttasteStyles.flatMap((style) =>
+  previewTypes.map((type) => style.demoScreenshots[type]),
+);
 
 export function getStyle(slug: string) {
   return styleSkills.find((style) => style.slug === slug);
@@ -775,8 +503,7 @@ export function getPublishedStyle(slug: string) {
 }
 
 export function getFronttasteStyle(slug: string) {
-  const style = getStyle(slug);
-  return style?.sourceType === "fronttaste" ? style : undefined;
+  return getStyle(slug);
 }
 
 export function previewPath(slug: string, type: PreviewType) {

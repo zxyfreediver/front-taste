@@ -1,38 +1,40 @@
 ---
 name: luxury-noir
-description: Create dark, cinematic, premium interfaces for high-end AI, finance, membership, and founder-led products.
+description: Create black-gold premium frontend UI with cinematic spacing, brass hairlines, curated cards, and executive polish.
 ---
 
 # Luxury Noir Style
 
-Use this style when the product should feel expensive, calm, and cinematic without becoming flashy or nightclub-like.
+Use this style when the product should feel premium, private, expensive, and calm.
 
 ## Core Principles
 
-- Use blackened surfaces, warm text, and restrained brass accents.
-- Prefer elegant contrast and deliberate negative space.
-- Avoid neon overload, cheap glassmorphism, and generic dark dashboards.
-- Make product panels feel curated and premium.
+- Use blackened surfaces, ivory text, brass highlights, and restrained contrast.
+- Make the product feel like an executive intelligence suite.
+- Prefer fine detail, slow rhythm, and curated composition over loud effects.
+- Avoid cheap neon, generic dark dashboards, and excessive glass.
 
 ## Layout Rules
 
-- Use cinematic hero composition and strong spacing.
-- Keep grids simple and symmetrical unless the story requires editorial tension.
-- Use fewer, larger visual moments instead of many small widgets.
+- Use cinematic hero spacing, curated cards, fine dividers, and premium side panels.
+- In dashboards, show metrics as executive signal cards.
+- In settings, use membership-like control groups and elegant confirmation states.
+- Keep density moderate; luxury needs room.
 
 ## Component Rules
 
-- Buttons can use brass accents with crisp type.
-- Cards should feel like premium panels, not default dark blocks.
-- Forms and settings should feel secure and discreet.
+- Buttons are quiet, confident, and brass-accented.
+- Badges are small private labels, not colorful pills.
+- Cards should feel expensive through spacing, material, and hairline borders.
+- Tables should use fine rules and careful numeric alignment.
 
 ## Motion Rules
 
-- Use slow fades and subtle reveals.
-- Avoid springy or playful animation.
+- Use slow fades, subtle reveals, and restrained hover highlights.
+- Avoid fast game effects, bouncy interactions, and noisy pulses.
 
 ## Output Checklist
 
 - The page feels premium before any copy explains it.
-- Accent color is restrained.
-- Dark surfaces retain readable contrast.
+- Brass and black are used with restraint.
+- Core product actions remain clear and accessible.

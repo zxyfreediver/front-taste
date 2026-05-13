@@ -4,9 +4,9 @@
 
 | Type | Fixed Prompt | Purpose |
 |---|---|---|
-| Landing | Build a landing page for an AI meeting notes app | Show marketing-page taste |
-| Dashboard | Build a dashboard for a team analytics product | Show complex product UI capability |
-| Settings | Build a billing and settings page for a SaaS product | Show realistic product details |
+| Landing | Build a landing page for an AI meeting notes app | Show first-viewport product taste |
+| Dashboard | Build a landing page for an AI meeting notes app | Show the same product as an operational surface |
+| Settings | Build a landing page for an AI meeting notes app | Show the same product through settings and admin controls |
 
 ## Quality Standard
 
@@ -15,3 +15,4 @@
 - The three previews for one style must feel like one coherent system.
 - Components should look realistic enough for production UI.
 - No known brand names, trademarked style names, or direct imitation of a famous product.
+- The homepage carousel uses pre-rendered local screenshots generated from the hidden preview routes.

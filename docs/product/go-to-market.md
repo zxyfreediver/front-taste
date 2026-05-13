@@ -15,4 +15,4 @@
 
 ## 30-Day Direction
 
-Week 1 ships the 12-style FrontTaste originals and external Skill directory. Week 2 adds compare polish and feedback loops. Week 3 expands source coverage and community posts. Week 4 prepares Product Hunt assets if early feedback is positive.
+Week 1 ships the 8-style immersive FrontTaste originals. Week 2 adds preview polish and feedback loops. Week 3 expands source coverage and community posts. Week 4 prepares Product Hunt assets if early feedback is positive.

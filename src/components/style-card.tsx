@@ -1,16 +1,13 @@
 import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/button-link";
 import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { copy } from "@/lib/copy";
 import { downloadPath, previewPath, type Locale, type StyleSkill } from "@/lib/fronttaste";
-import { cn } from "@/lib/utils";
 
 export function StyleCard({ style, locale }: { style: StyleSkill; locale: Locale }) {
   const t = copy[locale];
   const Icon = style.theme.icon;
-  const isExternal = style.sourceType === "external";
 
   return (
     <Card className="overflow-hidden border-zinc-200 bg-white p-0 shadow-sm">
@@ -34,7 +31,7 @@ export function StyleCard({ style, locale }: { style: StyleSkill; locale: Locale
           <div className="flex items-start justify-between gap-4">
             <Icon className="size-7" style={{ color: style.theme.accent }} />
             <span className="font-mono text-xs" style={{ color: style.theme.muted }}>
-              {isExternal ? "external" : "fronttaste"}
+              fronttaste
             </span>
           </div>
           <div>
@@ -55,37 +52,16 @@ export function StyleCard({ style, locale }: { style: StyleSkill; locale: Locale
         </div>
         <p className="text-sm leading-6 text-zinc-600">{style.description[locale]}</p>
         <div className="flex flex-wrap gap-2">
-          {isExternal ? (
-            <>
-              <ButtonLink href={`/${locale}/styles/${style.slug}`} size="sm" className="bg-zinc-950 text-white hover:bg-zinc-800">
-                {t.cta.details}
-                <ArrowRight className="size-4" />
-              </ButtonLink>
-              {style.externalSource ? (
-                <a
-                  href={style.externalSource.officialUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={cn(buttonVariants({ size: "sm", variant: "outline" }))}
-                >
-                  {t.cta.official}
-                </a>
-              ) : null}
-            </>
-          ) : (
-            <>
-              <ButtonLink href={`/${locale}/styles/${style.slug}`} size="sm" className="bg-zinc-950 text-white hover:bg-zinc-800">
-                {t.cta.details}
-                <ArrowRight className="size-4" />
-              </ButtonLink>
-              <ButtonLink href={previewPath(style.slug, "landing")} size="sm" variant="outline">
-                {t.cta.preview}
-              </ButtonLink>
-              <ButtonLink href={downloadPath(style.slug)} size="sm" variant="ghost">
-                {t.cta.download}
-              </ButtonLink>
-            </>
-          )}
+          <ButtonLink href={`/${locale}/styles/${style.slug}`} size="sm" className="bg-zinc-950 text-white hover:bg-zinc-800">
+            {t.cta.details}
+            <ArrowRight className="size-4" />
+          </ButtonLink>
+          <ButtonLink href={previewPath(style.slug, "landing")} size="sm" variant="outline">
+            {t.cta.preview}
+          </ButtonLink>
+          <ButtonLink href={downloadPath(style.slug)} size="sm" variant="ghost">
+            {t.cta.download}
+          </ButtonLink>
         </div>
       </div>
     </Card>

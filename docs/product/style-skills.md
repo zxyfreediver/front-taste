@@ -2,25 +2,15 @@
 
 ## FrontTaste Originals
 
-These are written and packaged by FrontTaste. Each one has a local `SKILL.md`, a local zip download, and three preview routes: landing, dashboard, and settings.
+These are written and packaged by FrontTaste. Each one has a local `SKILL.md`, a local zip download, and three pre-rendered MemoPilot demos: landing, dashboard, and settings.
 
 | Slug | Name | Scenario | Visual Keywords |
 |---|---|---|---|
-| `quiet-saas` | Quiet SaaS | AI tools, B2B SaaS | restrained, soft, spacious, professional |
-| `precision-ops` | Precision Ops | Dashboard, admin | compact, clear, table-driven, operational |
-| `luxury-noir` | Luxury Noir | Premium AI, finance, membership | dark, metallic, cinematic, premium |
-| `brutal-grid` | Brutal Grid | Open-source, design tools | hard borders, asymmetric, high contrast |
-| `editorial-launch` | Editorial Launch | Founder pages, content products | magazine-like, large type, narrative |
-| `cyber-infra` | Cyber Infra | Security, developer tools, infra | terminal-like, dark, technical details |
-| `playful-bento` | Playful Bento | Consumer apps, creative tools | colorful, modular, tactile, friendly |
-| `calm-workspace` | Calm Workspace | Knowledge bases, collaboration | document-first, quiet, workspace-like |
-| `glass-agent` | Glass Agent | AI agents, chat products | translucent, layered, assistant-native |
-| `dense-analytics` | Dense Analytics | BI, data products, trading backends | dense, charts, filters, comparison |
-| `hardware-premium` | Hardware Premium | Hardware and app websites | minimal, product-led, premium |
-| `retro-future` | Retro Future | Games, creative coding, Web3 | retro, neon, pixel grid, expressive |
-
-## External Ready-made Skills
-
-External Skills are not hosted by FrontTaste. They are listed as official or directory source links so users can install them from their own source.
-
-See `docs/product/external-skill-sources.md`.
+| `pixel-arcade` | Pixel Arcade | Game-like apps, creator tools | 8-bit, tile grid, chunky, arcade |
+| `liquid-glass` | Liquid Glass | AI assistants, OS-like tools | frosted glass, blur, floating layers |
+| `mono-ink` | Mono Ink | Serious tools, research products | black-white, editorial, rules, ledger |
+| `neon-cyberpunk` | Neon Cyberpunk | Game HUDs, technical launches | neon, scanlines, angled HUD, mission |
+| `fresh-minimal` | Fresh Minimal | SaaS, productivity, team tools | white space, soft green, thin lines |
+| `vintage-computing` | Vintage Computing | Developer utilities, retro apps | beige desktop, CRT, window chrome |
+| `clay-play` | Clay Play | Consumer AI, education, creators | soft 3D, plush shadows, pastel |
+| `luxury-noir` | Luxury Noir | Executive tools, finance, premium AI | black-gold, cinematic, premium |

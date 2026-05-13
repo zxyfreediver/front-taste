@@ -2,37 +2,28 @@
 
 Preview frontend taste before installing the Skill.
 
-FrontTaste is a bilingual gallery of reusable frontend style Skills for AI coding agents. It includes 12 downloadable FrontTaste-original style Skills plus a curated directory of ready-made external design Skills from official or directory sources.
+FrontTaste is a bilingual, CSS-driven gallery of reusable frontend style Skills for AI coding agents. It ships 8 downloadable FrontTaste-original style Skills and an immersive homepage that switches the entire page by changing the selected style.
 
 ## FrontTaste Originals
 
-- Quiet SaaS
-- Precision Ops
+- Pixel Arcade
+- Liquid Glass
+- Mono Ink
+- Neon Cyberpunk
+- Fresh Minimal
+- Vintage Computing
+- Clay Play
 - Luxury Noir
-- Brutal Grid
-- Editorial Launch
-- Cyber Infra
-- Playful Bento
-- Calm Workspace
-- Glass Agent
-- Dense Analytics
-- Hardware Premium
-- Retro Future
 
-Each original style has three live previews: landing, dashboard, and settings.
-
-## External Skills
-
-External Skills are listed with official source links and install commands where available. FrontTaste does not host or repackage those files.
+The homepage uses the same MemoPilot prompt for every style and shows pre-rendered landing, dashboard, and settings demos.
 
 ## Routes
 
 - `/en` and `/zh`
-- `/[locale]/styles`
-- `/[locale]/styles/[slug]`
-- `/[locale]/compare`
-- `/[locale]/docs/install`
-- `/[locale]/docs/what-is-a-frontend-skill`
+- `/[locale]/docs/install` redirects to the homepage install section
+- `/[locale]/request` redirects to the homepage request section
+- `/[locale]/styles` redirects to the homepage
+- `/[locale]/styles/[slug]` redirects to `/?style=[slug]#demo`
 - `/previews/[slug]/landing`
 - `/previews/[slug]/dashboard`
 - `/previews/[slug]/settings`

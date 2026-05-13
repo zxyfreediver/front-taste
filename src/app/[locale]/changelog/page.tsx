@@ -17,8 +17,8 @@ export default async function ChangelogPage({
         <h2 className="mt-2 text-2xl font-semibold">FrontTaste v0.1 MVP</h2>
         <p className="mt-3 text-zinc-600">
           {isZh
-            ? "扩展为 12 个 FrontTaste 自写风格、36 个真实预览，并加入现成外部设计 Skill 目录。"
-            : "Expanded to twelve FrontTaste originals, thirty-six live previews, and a ready-made external design Skill directory."}
+            ? "收敛为 8 个强识别风格，并改为首页沉浸式即时切换。"
+            : "Refined to eight strong styles with immersive homepage switching."}
         </p>
       </Card>
     </section>
