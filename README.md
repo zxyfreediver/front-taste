@@ -3,6 +3,8 @@
   <p align="center">
     Preview a frontend style before you download the Skill.<br>
     <a href="https://front-taste.vercel.app/en">https://front-taste.vercel.app/en</a>
+    <br><br>
+    <a href="./README.zh.md">中文文档</a>
   </p>
 </p>
 
