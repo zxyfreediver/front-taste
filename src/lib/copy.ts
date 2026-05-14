@@ -25,7 +25,7 @@ export const copy = {
       styleListIntro:
         "Choose one of eight distinctive frontend Skills. The page, demos, install panel, and request panel all render in the selected style.",
       plannedIntro: "More FrontTaste originals can be added later based on requests.",
-      publishedIntro: "Eight complete FrontTaste style Skills with pre-rendered landing, dashboard, and settings demos.",
+      publishedIntro: "Eight complete FrontTaste style Skills with rendered ecommerce, admin, login, and profile demos.",
       samePromptBody:
         "The point is not changing a color token. Each Skill changes layout rhythm, density, typography, and product detail.",
       viewAll: "View all",
@@ -62,7 +62,7 @@ export const copy = {
       folderTitle: "Folder format",
       folderBody: "Each Skill contains SKILL.md with style DNA, layout, component, material, motion, and checklist rules.",
       previewTitle: "Preview before install",
-      previewBody: "Use the landing, dashboard, and settings demos to decide whether the style fits your product.",
+      previewBody: "Use the ecommerce, admin, login, and profile demos to decide whether the style fits your product.",
     },
     home: {
       stylePickerLabel: "Choose a FrontTaste style",
@@ -76,13 +76,21 @@ export const copy = {
       cssDriven: "CSS-driven",
     },
     demo: {
-      kicker: "MemoPilot demos",
+      kicker: "Rendered demos",
       title: "Same prompt, different products",
       open: "Open",
+      promptLabel: "Prompt used",
       labels: {
-        landing: "Landing",
-        dashboard: "Dashboard",
-        settings: "Settings",
+        commerce: "Ecommerce home",
+        admin: "Admin nav",
+        auth: "Login",
+        profile: "Profile",
+      },
+      prompts: {
+        commerce: "Build an ecommerce homepage for a premium desk setup store named DeskFlow.",
+        admin: "Build an admin settings page with a left sidebar menu and workspace forms.",
+        auth: "Build a registration and login page for a SaaS product with email, password, and trust cues.",
+        profile: "Build a personal profile page where a user can review account details, plan status, and security.",
       },
     },
     docsWhat: {
@@ -92,7 +100,7 @@ export const copy = {
         { title: "Reuse", body: "Keep AI-generated frontend consistent." },
       ],
     },
-    sharedPrompt: "Build a landing page for an AI meeting notes app.",
+    sharedPrompt: "Same prompt, different products.",
     cta: {
       preview: "View demo",
       download: "Download Skill",
@@ -103,7 +111,7 @@ export const copy = {
     },
     collections: {
       originals: "FrontTaste Originals",
-      originalsIntro: "Eight downloadable style Skills written for FrontTaste, each with landing, dashboard, and settings demos.",
+      originalsIntro: "Eight downloadable style Skills written for FrontTaste, each with ecommerce, admin, login, and profile demos.",
     },
   },
   zh: {
@@ -130,7 +138,7 @@ export const copy = {
       styleListIntro:
         "从 8 个特色鲜明的 frontend Skill 中选择一个。首页、demo、安装区和请求区都会按当前风格实时渲染。",
       plannedIntro: "后续可以根据请求继续补充更多 FrontTaste 自写风格。",
-      publishedIntro: "8 个完整 FrontTaste 风格 Skill，每个都有 landing、dashboard、settings 预渲染 demo。",
+      publishedIntro: "8 个完整 FrontTaste 风格 Skill，每个都有电商首页、后台导航、登录注册和个人信息 demo。",
       samePromptBody:
         "重点不是换一套颜色，而是让布局节奏、信息密度、字体层级和产品细节都跟着审美一起变化。",
       viewAll: "查看全部",
@@ -167,7 +175,7 @@ export const copy = {
       folderTitle: "文件夹格式",
       folderBody: "每个 Skill 都包含 SKILL.md，里面写清 style DNA、布局、组件、材质、动效和输出 checklist。",
       previewTitle: "先预览再安装",
-      previewBody: "用 landing、dashboard、settings demo 判断这个风格是否适合你的产品。",
+      previewBody: "用电商首页、后台导航、登录注册和个人信息 demo 判断这个风格是否适合你的产品。",
     },
     home: {
       stylePickerLabel: "选择一个 FrontTaste 风格",
@@ -181,13 +189,21 @@ export const copy = {
       cssDriven: "CSS 驱动",
     },
     demo: {
-      kicker: "MemoPilot 演示",
-      title: "同一个 prompt，不同产品气质",
+      kicker: "实时渲染 demo",
+      title: "Same prompt, different products",
       open: "打开",
+      promptLabel: "当前渲染 prompt",
       labels: {
-        landing: "落地页",
-        dashboard: "仪表盘",
-        settings: "设置页",
+        commerce: "电商首页",
+        admin: "后台导航页",
+        auth: "登录注册页",
+        profile: "个人信息页",
+      },
+      prompts: {
+        commerce: "为名为 DeskFlow 的高端桌面装备商店构建一个电商网站首页。",
+        admin: "构建一个后台管理页面：左侧是菜单，右侧是工作区表单。",
+        auth: "构建一个 SaaS 产品的注册登录页，包含邮箱、密码和信任提示。",
+        profile: "构建一个个人信息页面，让用户查看账号资料、套餐状态和安全信息。",
       },
     },
     docsWhat: {
@@ -197,7 +213,7 @@ export const copy = {
         { title: "复用", body: "让 AI 生成的后续前端保持同一审美方向。" },
       ],
     },
-    sharedPrompt: "为 AI 会议纪要应用构建一个落地页。",
+    sharedPrompt: "Same prompt, different products.",
     cta: {
       preview: "查看 demo",
       download: "下载 Skill",
@@ -208,7 +224,7 @@ export const copy = {
     },
     collections: {
       originals: "FrontTaste 自写风格",
-      originalsIntro: "8 个由 FrontTaste 整理的可下载风格 Skill，每个都有 landing、dashboard、settings demo。",
+      originalsIntro: "8 个由 FrontTaste 整理的可下载风格 Skill，每个都有电商首页、后台导航、登录注册和个人信息 demo。",
     },
   },
 } satisfies Record<Locale, Record<string, unknown>>;

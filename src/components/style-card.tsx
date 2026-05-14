@@ -56,7 +56,7 @@ export function StyleCard({ style, locale }: { style: StyleSkill; locale: Locale
             {t.cta.details}
             <ArrowRight className="size-4" />
           </ButtonLink>
-          <ButtonLink href={previewPath(style.slug, "landing")} size="sm" variant="outline">
+          <ButtonLink href={previewPath(style.slug, "commerce")} size="sm" variant="outline">
             {t.cta.preview}
           </ButtonLink>
           <ButtonLink href={downloadPath(style.slug)} size="sm" variant="ghost">

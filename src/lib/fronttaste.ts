@@ -12,7 +12,7 @@ import {
 
 export type Locale = "en" | "zh";
 export type StyleStatus = "published" | "planned";
-export type PreviewType = "landing" | "dashboard" | "settings";
+export type PreviewType = "commerce" | "admin" | "auth" | "profile";
 
 export const styleSlugs = [
   "pixel-arcade",
@@ -71,7 +71,6 @@ export type StyleSkill = {
     motion: string;
     density: string;
   };
-  demoScreenshots: Record<PreviewType, string>;
   skillMeta: {
     fileSize: string;
     hasScripts: boolean;
@@ -82,7 +81,7 @@ export type StyleSkill = {
 };
 
 export const locales: Locale[] = ["en", "zh"];
-export const previewTypes: PreviewType[] = ["landing", "dashboard", "settings"];
+export const previewTypes: PreviewType[] = ["commerce", "admin", "auth", "profile"];
 export const defaultStyleSlug: StyleSlug = "pixel-arcade";
 
 export function isLocale(value: string): value is Locale {
@@ -91,14 +90,6 @@ export function isLocale(value: string): value is Locale {
 
 export function isStyleSlug(value: string | null | undefined): value is StyleSlug {
   return Boolean(value && styleSlugs.includes(value as StyleSlug));
-}
-
-function demoScreenshots(slug: StyleSlug): Record<PreviewType, string> {
-  return {
-    landing: `/demos/${slug}-landing.png`,
-    dashboard: `/demos/${slug}-dashboard.png`,
-    settings: `/demos/${slug}-settings.png`,
-  };
 }
 
 const common = {
@@ -114,12 +105,11 @@ const common = {
   },
 };
 
-function style(skill: Omit<StyleSkill, keyof typeof common | "localDownloadPath" | "demoScreenshots">): StyleSkill {
+function style(skill: Omit<StyleSkill, keyof typeof common | "localDownloadPath">): StyleSkill {
   return {
     ...skill,
     ...common,
     localDownloadPath: downloadPath(skill.slug),
-    demoScreenshots: demoScreenshots(skill.slug),
   };
 }
 
@@ -487,10 +477,6 @@ export const styleSkills = fronttasteStyles;
 export const fronttasteOriginals = fronttasteStyles;
 export const publishedStyles = fronttasteStyles;
 export const plannedStyles: StyleSkill[] = [];
-
-export const allDemoScreenshots = fronttasteStyles.flatMap((style) =>
-  previewTypes.map((type) => style.demoScreenshots[type]),
-);
 
 export function getStyle(slug: string) {
   return styleSkills.find((style) => style.slug === slug);

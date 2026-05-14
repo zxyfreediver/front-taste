@@ -2,7 +2,6 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import {
-  allDemoScreenshots,
   defaultStyleSlug,
   fronttasteStyles,
   getStyle,
@@ -62,22 +61,6 @@ export function StyleProvider({ children }: { children: React.ReactNode }) {
 
     window.localStorage.setItem(STORAGE_KEY, selectedStyle);
   }, [hasHydrated, selectedStyle]);
-
-  useEffect(() => {
-    const decodedImages: HTMLImageElement[] = [];
-
-    for (const src of allDemoScreenshots) {
-      const image = new Image();
-      image.decoding = "async";
-      image.src = src;
-      void image.decode?.().catch(() => undefined);
-      decodedImages.push(image);
-    }
-
-    return () => {
-      decodedImages.length = 0;
-    };
-  }, []);
 
   const setSelectedStyle = useCallback((slug: StyleSlug) => {
     setSelectedStyleState(slug);

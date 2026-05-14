@@ -7,7 +7,7 @@ import {
   Sparkles,
   Zap,
 } from "lucide-react";
-import { PreviewCarousel } from "@/components/preview-carousel";
+import { PreviewTabs } from "@/components/preview-tabs";
 import { useFronttasteStyle } from "@/components/style-provider";
 import { copy } from "@/lib/copy";
 import { downloadPath, fronttasteStyles, type Locale } from "@/lib/fronttaste";
@@ -61,7 +61,7 @@ export function ImmersiveHome({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <PreviewCarousel locale={locale} />
+      <PreviewTabs locale={locale} />
 
       <section id="install" className="ft-install" data-ui="install">
         <div className="ft-section-heading">
