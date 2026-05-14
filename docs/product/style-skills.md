@@ -2,7 +2,7 @@
 
 ## FrontTaste Originals
 
-These are written and packaged by FrontTaste. Each one has a local `SKILL.md`, a local zip download, and three pre-rendered MemoPilot demos: landing, dashboard, and settings.
+These are written and packaged by FrontTaste. Each one has a local `SKILL.md`, a local zip download, and four rendered demos: ecommerce, admin, login, and profile.
 
 | Slug | Name | Scenario | Visual Keywords |
 |---|---|---|---|
@@ -12,5 +12,5 @@ These are written and packaged by FrontTaste. Each one has a local `SKILL.md`, a
 | `neon-cyberpunk` | Neon Cyberpunk | Game HUDs, technical launches | neon, scanlines, angled HUD, mission |
 | `fresh-minimal` | Fresh Minimal | SaaS, productivity, team tools | white space, soft green, thin lines |
 | `vintage-computing` | Vintage Computing | Developer utilities, retro apps | beige desktop, CRT, window chrome |
-| `clay-play` | Clay Play | Consumer AI, education, creators | soft 3D, plush shadows, pastel |
+| `industrial-blue` | Industrial Blue | Enterprise tools, admin dashboards | corporate blue, white surfaces, structured |
 | `luxury-noir` | Luxury Noir | Executive tools, finance, premium AI | black-gold, cinematic, premium |

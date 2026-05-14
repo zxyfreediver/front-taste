@@ -5,6 +5,12 @@ description: Create calm modern SaaS frontend UI — generous whitespace, hairli
 
 # Fresh Minimal Style
 
+## Structure lock
+
+When applying this taste to an existing product, preserve the product's current DOM/content structure, paragraph order, component logic, responsive breakpoints, semantic roles, and control behavior. Do not split or merge paragraphs, reorder sections, add/drop product cards, or change a flow unless the user explicitly asks.
+
+Keep the host application's font sizes, line heights, spacing scale, grid ratios, and control dimensions. Apply Fresh Minimal through font-family choices, color tokens, surfaces, borders, shadows, texture, icon treatment, and other non-structural visual details. Treat any sizing or layout values in examples below as illustrative recipes for new work, not overrides for an existing app.
+
 This is the **Linear / Anthropic / Stripe Press** SaaS look: extremely calm, almost no chrome, but with one elegant editorial moment — a serif italic hero line — that gives it a designer-magazine feel rather than generic Tailwind. Every interaction is gentle, not springy. Every border is hairline. The page should feel like a sheet of paper that's barely-there.
 
 ## The two-line rule

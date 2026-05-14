@@ -5,6 +5,12 @@ description: Create mechanical neon-cyberpunk frontend UI — clipped panels wit
 
 # Neon Cyberpunk Style
 
+## Structure lock
+
+When applying this taste to an existing product, preserve the product's current DOM/content structure, paragraph order, component logic, responsive breakpoints, semantic roles, and control behavior. Do not split or merge paragraphs, reorder sections, add/drop product cards, or change a flow unless the user explicitly asks.
+
+Keep the host application's font sizes, line heights, spacing scale, grid ratios, and control dimensions. Apply Neon Cyberpunk through font-family choices, color tokens, surfaces, borders, shadows, texture, icon treatment, and other non-structural visual details. Treat any sizing or layout values in examples below as illustrative recipes for new work, not overrides for an existing app.
+
 Not "dark site with neon accent colors". This style is a **mechanical HUD**: every card looks like a piece of hardware, every button looks like a stamped slab in an arcade cabinet, every heading flickers with RGB misregistration. Static surfaces are sharp and angular. **Motion is reserved for hover and one slow background scan beam** — no constantly spinning lights, no flickering ambient effects (those just look ugly and distracting).
 
 ## The four pillars

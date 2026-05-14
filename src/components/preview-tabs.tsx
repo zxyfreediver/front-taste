@@ -40,7 +40,7 @@ export function PreviewTabs({ locale }: { locale: Locale }) {
                 data-active={isActive}
                 onClick={() => setActiveType(type)}
               >
-                {t.demo.labels[type]}
+                <span>{t.demo.labels[type]}</span>
               </button>
             );
           })}

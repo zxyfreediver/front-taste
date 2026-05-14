@@ -5,6 +5,12 @@ description: Create clean corporate blue-white frontend UI — standard system f
 
 # Industrial Blue Style
 
+## Structure lock
+
+When applying this taste to an existing product, preserve the product's current DOM/content structure, paragraph order, component logic, responsive breakpoints, semantic roles, and control behavior. Do not split or merge paragraphs, reorder sections, add/drop product cards, or change a flow unless the user explicitly asks.
+
+Keep the host application's font sizes, line heights, spacing scale, grid ratios, and control dimensions. Apply Industrial Blue through font-family choices, color tokens, surfaces, borders, shadows, texture, icon treatment, and other non-structural visual details. Treat any sizing or layout values in examples below as illustrative recipes for new work, not overrides for an existing app.
+
 Clean corporate enterprise UI. The defining visual is **white card surfaces with fine gray borders, corporate blue (#2563eb) accents, and structured grid layouts** — the kind of UI you'd find in a professional B2B SaaS dashboard. Nothing playful, nothing trendy. Just clean, professional, and readable.
 
 ## The two-line rule

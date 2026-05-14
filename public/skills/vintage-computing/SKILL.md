@@ -5,6 +5,12 @@ description: Create retro desktop frontend UI — beige plastic shell, beveled k
 
 # Vintage Computing Style
 
+## Structure lock
+
+When applying this taste to an existing product, preserve the product's current DOM/content structure, paragraph order, component logic, responsive breakpoints, semantic roles, and control behavior. Do not split or merge paragraphs, reorder sections, add/drop product cards, or change a flow unless the user explicitly asks.
+
+Keep the host application's font sizes, line heights, spacing scale, grid ratios, and control dimensions. Apply Vintage Computing through font-family choices, color tokens, surfaces, borders, shadows, texture, icon treatment, and other non-structural visual details. Treat any sizing or layout values in examples below as illustrative recipes for new work, not overrides for an existing app.
+
 This is **1980s/early-90s desktop hardware**, not generic "retro". Cards look like beige plastic windows. Buttons look like injection-molded keycaps that physically push in when pressed. Terminal panels are dark with green phosphor text and visible CRT scanlines. The page should feel like it could boot DOS.
 
 ## The four pillars

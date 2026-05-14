@@ -15,13 +15,13 @@ export type StyleStatus = "published" | "planned";
 export type PreviewType = "commerce" | "admin" | "auth" | "profile";
 
 export const styleSlugs = [
-  "pixel-arcade",
+  "fresh-minimal",
   "liquid-glass",
   "mono-ink",
   "neon-cyberpunk",
-  "fresh-minimal",
+  "pixel-arcade",
   "vintage-computing",
-  "clay-play",
+  "industrial-blue",
   "luxury-noir",
 ] as const;
 
@@ -82,7 +82,7 @@ export type StyleSkill = {
 
 export const locales: Locale[] = ["en", "zh"];
 export const previewTypes: PreviewType[] = ["commerce", "admin", "auth", "profile"];
-export const defaultStyleSlug: StyleSlug = "pixel-arcade";
+export const defaultStyleSlug: StyleSlug = "fresh-minimal";
 
 export function isLocale(value: string): value is Locale {
   return locales.includes(value as Locale);
@@ -383,7 +383,7 @@ export const fronttasteStyles: StyleSkill[] = [
     },
   }),
   style({
-    slug: "clay-play",
+    slug: "industrial-blue",
     name: "Industrial Blue",
     tagline: {
       en: "Clean corporate blue-white UI with structured layouts and professional clarity.",
@@ -411,7 +411,7 @@ export const fronttasteStyles: StyleSkill[] = [
       density: "balanced",
     },
     styleSignature: {
-      variant: "clay-play",
+      variant: "industrial-blue",
       typography: "standard sans-serif, clear hierarchy, professional labels",
       texture: "clean white surfaces, fine borders, subtle shadows",
       componentShape: "rectangular cards, standard inputs, professional controls",
@@ -474,6 +474,9 @@ export const fronttasteStyles: StyleSkill[] = [
 ];
 
 export const styleSkills = fronttasteStyles;
+export const stylePickerStyles = styleSlugs
+  .map((slug) => fronttasteStyles.find((style) => style.slug === slug))
+  .filter((style): style is StyleSkill => Boolean(style));
 export const fronttasteOriginals = fronttasteStyles;
 export const publishedStyles = fronttasteStyles;
 export const plannedStyles: StyleSkill[] = [];

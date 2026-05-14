@@ -74,6 +74,8 @@ export const copy = {
       downloadsTitle: "All 8 downloads",
       noScripts: "No scripts",
       cssDriven: "CSS-driven",
+      autoSwitchOn: "Auto switching on",
+      autoSwitchOff: "Auto switching off",
     },
     demo: {
       kicker: "Rendered demos",
@@ -187,6 +189,8 @@ export const copy = {
       downloadsTitle: "全部 8 个下载",
       noScripts: "无脚本",
       cssDriven: "CSS 驱动",
+      autoSwitchOn: "自动切换开",
+      autoSwitchOff: "自动切换关",
     },
     demo: {
       kicker: "实时渲染 demo",

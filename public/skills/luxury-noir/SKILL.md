@@ -5,6 +5,12 @@ description: Create black-gold magazine frontend UI — Bodoni Moda gold-foil di
 
 # Luxury Noir Style
 
+## Structure lock
+
+When applying this taste to an existing product, preserve the product's current DOM/content structure, paragraph order, component logic, responsive breakpoints, semantic roles, and control behavior. Do not split or merge paragraphs, reorder sections, add/drop product cards, or change a flow unless the user explicitly asks.
+
+Keep the host application's font sizes, line heights, spacing scale, grid ratios, and control dimensions. Apply Luxury Noir through font-family choices, color tokens, surfaces, borders, shadows, texture, icon treatment, and other non-structural visual details. Treat any sizing or layout values in examples below as illustrative recipes for new work, not overrides for an existing app.
+
 This is **Vogue / Hermès / private-bank annual report** territory. Premium isn't "dark theme with a gold button" — it's the **typography**, **the gold-foil text effect**, **hairline gold rules** as section dividers, and slow cinematic transitions. If it could appear in a perfume ad, it's right.
 
 ## The two-line rule

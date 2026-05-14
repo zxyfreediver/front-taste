@@ -12,14 +12,14 @@ Ship a public, bilingual website with eight complete FrontTaste frontend style S
 - Neon Cyberpunk
 - Fresh Minimal
 - Vintage Computing
-- Clay Play
+- Industrial Blue
 - Luxury Noir
 
 ## In Scope
 
-- Immersive home page with style switcher, MemoPilot hero, demo carousel, install panel, and request panel.
-- Pre-rendered landing, dashboard, and settings demo images for every published style.
-- Hidden preview routes used for QA and screenshot generation.
+- Immersive home page with style switcher, rendered demo tabs, install panel, and request panel.
+- Rendered ecommerce, admin, login, and profile demos for every published style.
+- Preview routes used for QA and direct demo inspection.
 - Static downloads for published style Skills.
 - Bilingual main site content in English and Chinese.
 

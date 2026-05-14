@@ -12,10 +12,10 @@ FrontTaste is a bilingual, CSS-driven gallery of reusable frontend style Skills 
 - Neon Cyberpunk
 - Fresh Minimal
 - Vintage Computing
-- Clay Play
+- Industrial Blue
 - Luxury Noir
 
-The homepage uses the same MemoPilot prompt for every style and shows pre-rendered landing, dashboard, and settings demos.
+The homepage uses the same prompts across every style and renders ecommerce, admin, login, and profile demos in-page.
 
 ## Routes
 
@@ -24,10 +24,11 @@ The homepage uses the same MemoPilot prompt for every style and shows pre-render
 - `/[locale]/request` redirects to the homepage request section
 - `/[locale]/styles` redirects to the homepage
 - `/[locale]/styles/[slug]` redirects to `/?style=[slug]#demo`
-- `/previews/[slug]/landing`
-- `/previews/[slug]/dashboard`
-- `/previews/[slug]/settings`
-- `/downloads/[slug]`
+- `/previews/[slug]/commerce`
+- `/previews/[slug]/admin`
+- `/previews/[slug]/auth`
+- `/previews/[slug]/profile`
+- `/downloads/[slug].skill.zip`
 
 ## Development
 

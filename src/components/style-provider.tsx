@@ -6,6 +6,7 @@ import {
   fronttasteStyles,
   getStyle,
   isStyleSlug,
+  stylePickerStyles,
   type StyleSkill,
   type StyleSlug,
 } from "@/lib/fronttaste";
@@ -13,10 +14,12 @@ import {
 type StyleContextValue = {
   selectedStyle: StyleSlug;
   style: StyleSkill;
+  isAutoSwitching: boolean;
   setSelectedStyle: (slug: StyleSlug) => void;
+  setAutoSwitching: (enabled: boolean) => void;
 };
 
-const STORAGE_KEY = "fronttaste:selected-style";
+const AUTO_SWITCH_STORAGE_KEY = "fronttaste:auto-switch";
 const StyleContext = createContext<StyleContextValue | null>(null);
 
 function readInitialStyle() {
@@ -29,12 +32,15 @@ function readInitialStyle() {
     return urlStyle;
   }
 
-  const storedStyle = window.localStorage.getItem(STORAGE_KEY);
-  if (isStyleSlug(storedStyle)) {
-    return storedStyle;
+  return defaultStyleSlug;
+}
+
+function readInitialAutoSwitching() {
+  if (typeof window === "undefined") {
+    return true;
   }
 
-  return defaultStyleSlug;
+  return window.localStorage.getItem(AUTO_SWITCH_STORAGE_KEY) !== "false";
 }
 
 function writeStyleToUrl(slug: StyleSlug) {
@@ -43,13 +49,21 @@ function writeStyleToUrl(slug: StyleSlug) {
   window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
 }
 
+function nextStyleSlug(current: StyleSlug) {
+  const currentIndex = stylePickerStyles.findIndex((style) => style.slug === current);
+  const nextIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % stylePickerStyles.length;
+  return stylePickerStyles[nextIndex]?.slug ?? defaultStyleSlug;
+}
+
 export function StyleProvider({ children }: { children: React.ReactNode }) {
   const [selectedStyle, setSelectedStyleState] = useState<StyleSlug>(defaultStyleSlug);
+  const [isAutoSwitching, setAutoSwitchingState] = useState(true);
   const [hasHydrated, setHasHydrated] = useState(false);
 
   useEffect(() => {
     queueMicrotask(() => {
       setSelectedStyleState(readInitialStyle());
+      setAutoSwitchingState(readInitialAutoSwitching());
       setHasHydrated(true);
     });
   }, []);
@@ -59,22 +73,44 @@ export function StyleProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    window.localStorage.setItem(STORAGE_KEY, selectedStyle);
-  }, [hasHydrated, selectedStyle]);
+    window.localStorage.setItem(AUTO_SWITCH_STORAGE_KEY, String(isAutoSwitching));
+  }, [hasHydrated, isAutoSwitching]);
+
+  useEffect(() => {
+    if (!hasHydrated || !isAutoSwitching) {
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      setSelectedStyleState((current) => {
+        const next = nextStyleSlug(current);
+        writeStyleToUrl(next);
+        return next;
+      });
+    }, 10000);
+
+    return () => window.clearInterval(timer);
+  }, [hasHydrated, isAutoSwitching]);
 
   const setSelectedStyle = useCallback((slug: StyleSlug) => {
     setSelectedStyleState(slug);
-    window.localStorage.setItem(STORAGE_KEY, slug);
     writeStyleToUrl(slug);
+  }, []);
+
+  const setAutoSwitching = useCallback((enabled: boolean) => {
+    setAutoSwitchingState(enabled);
+    window.localStorage.setItem(AUTO_SWITCH_STORAGE_KEY, String(enabled));
   }, []);
 
   const value = useMemo<StyleContextValue>(() => {
     return {
       selectedStyle,
-      style: getStyle(selectedStyle) ?? fronttasteStyles[0],
+      style: getStyle(selectedStyle) ?? getStyle(defaultStyleSlug) ?? fronttasteStyles[0],
+      isAutoSwitching,
       setSelectedStyle,
+      setAutoSwitching,
     };
-  }, [selectedStyle, setSelectedStyle]);
+  }, [isAutoSwitching, selectedStyle, setAutoSwitching, setSelectedStyle]);
 
   return (
     <StyleContext.Provider value={value}>

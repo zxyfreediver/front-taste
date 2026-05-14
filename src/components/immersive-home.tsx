@@ -3,6 +3,8 @@
 import {
   Download,
   Mail,
+  Pause,
+  Play,
   ShieldCheck,
   Sparkles,
   Zap,
@@ -10,10 +12,10 @@ import {
 import { PreviewTabs } from "@/components/preview-tabs";
 import { useFronttasteStyle } from "@/components/style-provider";
 import { copy } from "@/lib/copy";
-import { downloadPath, fronttasteStyles, type Locale } from "@/lib/fronttaste";
+import { downloadPath, stylePickerStyles, type Locale } from "@/lib/fronttaste";
 
 export function ImmersiveHome({ locale }: { locale: Locale }) {
-  const { selectedStyle, setSelectedStyle, style } = useFronttasteStyle();
+  const { isAutoSwitching, selectedStyle, setAutoSwitching, setSelectedStyle, style } = useFronttasteStyle();
   const t = copy[locale];
   const contactEmail = "zxyfreediver@gmail.com";
   const subject = encodeURIComponent("FrontTaste style request");
@@ -39,25 +41,37 @@ export function ImmersiveHome({ locale }: { locale: Locale }) {
           </h1>
           <p>{t.hero.body}</p>
         </div>
-        <div className="ft-style-buttons" role="list" aria-label={t.home.stylePickerLabel}>
-          {fronttasteStyles.map((item) => {
-            const ItemIcon = item.theme.icon;
-            const isSelected = item.slug === selectedStyle;
+        <div className="ft-style-controls">
+          <div className="ft-style-buttons" role="list" aria-label={t.home.stylePickerLabel}>
+            {stylePickerStyles.map((item) => {
+              const ItemIcon = item.theme.icon;
+              const isSelected = item.slug === selectedStyle;
 
-            return (
-              <button
-                key={item.slug}
-                type="button"
-                className="ft-style-button"
-                data-active={isSelected}
-                aria-pressed={isSelected}
-                onClick={() => setSelectedStyle(item.slug)}
-              >
-                <ItemIcon className="size-4" />
-                <span>{item.name}</span>
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={item.slug}
+                  type="button"
+                  className="ft-style-button"
+                  data-active={isSelected}
+                  aria-pressed={isSelected}
+                  onClick={() => setSelectedStyle(item.slug)}
+                >
+                  <ItemIcon className="size-4" />
+                  <span>{item.name}</span>
+                </button>
+              );
+            })}
+          </div>
+          <button
+            type="button"
+            className="ft-auto-switch"
+            aria-pressed={isAutoSwitching}
+            data-active={isAutoSwitching}
+            onClick={() => setAutoSwitching(!isAutoSwitching)}
+          >
+            {isAutoSwitching ? <Pause className="size-4" /> : <Play className="size-4" />}
+            <span>{isAutoSwitching ? t.home.autoSwitchOn : t.home.autoSwitchOff}</span>
+          </button>
         </div>
       </section>
 
@@ -93,7 +107,7 @@ export function ImmersiveHome({ locale }: { locale: Locale }) {
           <div className="ft-download-list" data-ui="panel">
             <h3>{t.home.downloadsTitle}</h3>
             <div>
-              {fronttasteStyles.map((item) => (
+              {stylePickerStyles.map((item) => (
                 <a key={item.slug} href={downloadPath(item.slug)} data-active={item.slug === selectedStyle}>
                   <item.theme.icon className="size-4" />
                   {item.name}

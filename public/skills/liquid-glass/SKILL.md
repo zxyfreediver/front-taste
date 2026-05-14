@@ -5,6 +5,12 @@ description: Create iOS 26 liquid glass frontend UI — highly translucent surfa
 
 # Liquid Glass Style (iOS 26)
 
+## Structure lock
+
+When applying this taste to an existing product, preserve the product's current DOM/content structure, paragraph order, component logic, responsive breakpoints, semantic roles, and control behavior. Do not split or merge paragraphs, reorder sections, add/drop product cards, or change a flow unless the user explicitly asks.
+
+Keep the host application's font sizes, line heights, spacing scale, grid ratios, and control dimensions. Apply Liquid Glass through font-family choices, color tokens, surfaces, borders, shadows, texture, icon treatment, and other non-structural visual details. Treat any sizing or layout values in examples below as illustrative recipes for new work, not overrides for an existing app.
+
 The defining feature of liquid glass is **see-through translucency**. The colorful page background must clearly read THROUGH every card, button, and chip — not be hidden behind frosted white. Get this wrong and it just looks like opaque cards. Get it right and the UI feels alive.
 
 ## The two-line rule

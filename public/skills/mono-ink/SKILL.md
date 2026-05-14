@@ -5,6 +5,12 @@ description: Create antique manuscript / e-ink reader frontend UI — warm paper
 
 # Mono Ink Style
 
+## Structure lock
+
+When applying this taste to an existing product, preserve the product's current DOM/content structure, paragraph order, component logic, responsive breakpoints, semantic roles, and control behavior. Do not split or merge paragraphs, reorder sections, add/drop product cards, or change a flow unless the user explicitly asks.
+
+Keep the host application's font sizes, line heights, spacing scale, grid ratios, and control dimensions. Apply Mono Ink through font-family choices, color tokens, surfaces, borders, shadows, texture, icon treatment, and other non-structural visual details. Treat any sizing or layout values in examples below as illustrative recipes for new work, not overrides for an existing app.
+
 This is **not** a "modern minimal black-and-white editorial" style. It's a **17th-century book / e-ink reader** style — the page should feel like aged paper or a Kindle in dim light, set in a serif type that visibly remembers being pressed by ink onto paper.
 
 ## The two-line rule
