@@ -841,7 +841,6 @@
   width: 100%;
   max-width: 100%;
   font-size: clamp(2.7rem, 4.55vw, 4rem) !important;
-  white-space: nowrap;
 }
 
 .ft-demo-card {

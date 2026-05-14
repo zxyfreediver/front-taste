@@ -95,6 +95,7 @@ export function StyleProvider({ children }: { children: React.ReactNode }) {
   const setSelectedStyle = useCallback((slug: StyleSlug) => {
     setSelectedStyleState(slug);
     writeStyleToUrl(slug);
+    setAutoSwitchingState(false);
   }, []);
 
   const setAutoSwitching = useCallback((enabled: boolean) => {

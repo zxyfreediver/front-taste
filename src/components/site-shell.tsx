@@ -38,7 +38,7 @@ export function SiteShell({
             <div className="ft-header-actions">
               <LanguageSwitch locale={locale} label={t.nav.language} />
               <a
-                href="https://github.com/fronttaste/frontend-style-skills"
+                href="https://github.com/zxyfreediver/front-taste"
                 target="_blank"
                 rel="noreferrer"
                 className="ft-header-action"
