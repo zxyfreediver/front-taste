@@ -12,17 +12,13 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { useFronttasteStyle } from "@/components/style-provider";
-import { previewTypes, type PreviewType } from "@/lib/fronttaste";
+import { copy } from "@/lib/copy";
+import { previewTypes, type Locale } from "@/lib/fronttaste";
 
-const labels: Record<PreviewType, string> = {
-  landing: "Landing",
-  dashboard: "Dashboard",
-  settings: "Settings",
-};
-
-export function PreviewCarousel() {
+export function PreviewCarousel({ locale }: { locale: Locale }) {
   const [api, setApi] = useState<CarouselApi>();
   const { style } = useFronttasteStyle();
+  const t = copy[locale];
 
   useEffect(() => {
     if (!api) return;
@@ -41,8 +37,8 @@ export function PreviewCarousel() {
   return (
     <section id="demo" className="ft-demo" data-ui="demo">
       <div className="ft-section-heading">
-        <span className="ft-section-kicker">MemoPilot demos</span>
-        <h2 className="ft-single-line-heading">Same prompt, different products</h2>
+        <span className="ft-section-kicker">{t.demo.kicker}</span>
+        <h2 className="ft-single-line-heading">{t.demo.title}</h2>
       </div>
       <Carousel setApi={setApi} opts={{ align: "start", loop: true }} className="ft-carousel">
         <CarouselContent>
@@ -52,7 +48,7 @@ export function PreviewCarousel() {
                 <div className="ft-demo-shot-frame" data-ui="window">
                   <Image
                     src={style.demoScreenshots[type]}
-                    alt={`${style.name} ${labels[type]} demo for MemoPilot`}
+                    alt={`${style.name} ${t.demo.labels[type]} demo for MemoPilot`}
                     className="ft-demo-shot"
                     width={1280}
                     height={820}
@@ -63,11 +59,11 @@ export function PreviewCarousel() {
                 </div>
                 <div className="ft-demo-caption" data-ui="row">
                   <div>
-                    <span>{labels[type]}</span>
-                    <p>Build a landing page for an AI meeting notes app.</p>
+                    <span>{t.demo.labels[type]}</span>
+                    <p>{t.sharedPrompt}</p>
                   </div>
                   <a href={`/previews/${style.slug}/${type}`} className="ft-secondary-action" data-ui="button">
-                    Open
+                    {t.demo.open}
                     <ArrowRight className="size-4" />
                   </a>
                 </div>

@@ -12,12 +12,6 @@ import { useFronttasteStyle } from "@/components/style-provider";
 import { copy } from "@/lib/copy";
 import { downloadPath, fronttasteStyles, type Locale } from "@/lib/fronttaste";
 
-const installSteps = [
-  ["Download", "Save the selected .skill.zip package."],
-  ["Install", "Add SKILL.md to your AI coding workflow."],
-  ["Prompt", "Use the same product prompt and let the style rules shape the UI."],
-];
-
 export function ImmersiveHome({ locale }: { locale: Locale }) {
   const { selectedStyle, setSelectedStyle, style } = useFronttasteStyle();
   const t = copy[locale];
@@ -45,7 +39,7 @@ export function ImmersiveHome({ locale }: { locale: Locale }) {
           </h1>
           <p>{t.hero.body}</p>
         </div>
-        <div className="ft-style-buttons" role="list" aria-label="Choose a FrontTaste style">
+        <div className="ft-style-buttons" role="list" aria-label={t.home.stylePickerLabel}>
           {fronttasteStyles.map((item) => {
             const ItemIcon = item.theme.icon;
             const isSelected = item.slug === selectedStyle;
@@ -67,7 +61,7 @@ export function ImmersiveHome({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <PreviewCarousel />
+      <PreviewCarousel locale={locale} />
 
       <section id="install" className="ft-install" data-ui="install">
         <div className="ft-section-heading">
@@ -86,7 +80,7 @@ export function ImmersiveHome({ locale }: { locale: Locale }) {
             </a>
           </div>
           <div className="ft-step-list" data-ui="panel">
-            {installSteps.map(([title, body], index) => (
+            {t.home.installSteps.map(({ title, body }, index) => (
               <div key={title} className="ft-step" data-ui="row">
                 <span>{index + 1}</span>
                 <div>
@@ -97,7 +91,7 @@ export function ImmersiveHome({ locale }: { locale: Locale }) {
             ))}
           </div>
           <div className="ft-download-list" data-ui="panel">
-            <h3>All 8 downloads</h3>
+            <h3>{t.home.downloadsTitle}</h3>
             <div>
               {fronttasteStyles.map((item) => (
                 <a key={item.slug} href={downloadPath(item.slug)} data-active={item.slug === selectedStyle}>
@@ -143,8 +137,8 @@ export function ImmersiveHome({ locale }: { locale: Locale }) {
           <p>{style.visualDNA.layout}</p>
           <div className="ft-chip-row">
             <span>{style.theme.density}</span>
-            <span>No scripts</span>
-            <span>CSS-driven</span>
+            <span>{t.home.noScripts}</span>
+            <span>{t.home.cssDriven}</span>
           </div>
         </div>
       </section>

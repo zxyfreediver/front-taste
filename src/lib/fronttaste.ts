@@ -1,11 +1,11 @@
 import {
   Apple,
+  Building2,
   Gamepad2,
   Gem,
   Monitor,
   Newspaper,
   ScanLine,
-  Shapes,
   Sparkles,
   type LucideIcon,
 } from "lucide-react";
@@ -333,14 +333,14 @@ export const fronttasteStyles: StyleSkill[] = [
     },
     styleSignature: {
       variant: "fresh-minimal",
-      typography: "modern sans, generous leading, quiet product labels",
+      typography: "clean sans-serif, generous leading, quiet product labels",
       texture: "clean white space, thin dividers, pale green wash",
       componentShape: "rounded cards, precise pills, fine-line controls",
       motif: "breathable workspace, calm summaries, focused product clarity",
       promptEffect: "The prompt feels simple, fresh, and immediately useful.",
     },
     visualDNA: {
-      typography: "Clean product hierarchy with relaxed spacing and readable body text.",
+      typography: "Clean sans-serif product hierarchy with relaxed spacing and readable body text.",
       color: "White and pale mint with one confident green action color.",
       layout: "Large whitespace, thin dividers, simple grids, calm summary rows.",
       motion: "Soft fades and tiny hover lifts only.",
@@ -394,47 +394,46 @@ export const fronttasteStyles: StyleSkill[] = [
   }),
   style({
     slug: "clay-play",
-    name: "Clay Play",
+    name: "Industrial Blue",
     tagline: {
-      en: "Soft 3D clay UI with rounded modules, plush shadows, and playful depth.",
-      zh: "软 3D 黏土 UI：厚圆角、柔和投影和玩具感层次。",
+      en: "Clean corporate blue-white UI with structured layouts and professional clarity.",
+      zh: "简洁企业蓝白 UI：结构化布局和专业清晰度。",
     },
     description: {
-      en: "Turns MemoPilot into a friendly clay-like product with chunky controls, pill dashboards, soft 3D cards, and playful but usable states.",
-      zh: "把 MemoPilot 变成友好的黏土产品：厚控件、胶囊 dashboard、软 3D 卡片和可用的玩具感状态。",
+      en: "Turns MemoPilot into a professional enterprise tool with clean white surfaces, blue accents, structured grids, and no-nonsense corporate clarity.",
+      zh: "把 MemoPilot 变成专业企业工具：干净白色表面、蓝色强调、结构化网格和务实的企业清晰度。",
     },
-    tags: ["Clay", "3D", "Playful", "Soft"],
-    useCases: ["Consumer AI", "Creator apps", "Education", "Friendly onboarding"],
+    tags: ["Corporate", "Enterprise", "Blue", "Professional"],
+    useCases: ["Enterprise tools", "Admin dashboards", "Business apps", "Internal tools"],
     theme: {
-      icon: Shapes,
-      bg: "#fff1e6",
+      icon: Building2,
+      bg: "#f4f6f9",
       surface: "#ffffff",
-      surfaceAlt: "#ffd6e8",
-      text: "#272038",
-      muted: "#7b6c86",
-      border: "#f0c8b5",
-      accent: "#ff7a59",
-      accentText: "#271725",
-      radius: "28px",
-      shadow: "0 16px 0 rgba(103, 74, 92, 0.18), 0 28px 70px rgba(255, 122, 89, 0.18)",
-      pattern:
-        "radial-gradient(circle at 16% 14%, rgba(255,122,89,.20), transparent 25%), radial-gradient(circle at 86% 12%, rgba(116,211,255,.18), transparent 24%)",
+      surfaceAlt: "#e4e8f0",
+      text: "#131a26",
+      muted: "#5e6d82",
+      border: "#d4d8e0",
+      accent: "#2563eb",
+      accentText: "#ffffff",
+      radius: "6px",
+      shadow: "0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)",
+      pattern: "none",
       density: "balanced",
     },
     styleSignature: {
       variant: "clay-play",
-      typography: "rounded friendly hierarchy, warm labels, clear numbers",
-      texture: "soft 3D clay, plush shadows, pastel surfaces",
-      componentShape: "chunky pills, inflated cards, tactile toggles",
-      motif: "toy-like productivity desk, friendly AI helper",
-      promptEffect: "The prompt feels approachable, playful, and touchable.",
+      typography: "standard sans-serif, clear hierarchy, professional labels",
+      texture: "clean white surfaces, fine borders, subtle shadows",
+      componentShape: "rectangular cards, standard inputs, professional controls",
+      motif: "enterprise dashboard, business tool, professional workspace",
+      promptEffect: "The prompt feels like a professional enterprise application.",
     },
     visualDNA: {
-      typography: "Rounded friendly headings with clear operational labels.",
-      color: "Pastel peach, pink, sky blue, and coral action color.",
-      layout: "Soft 3D modules, chunky controls, playful staggered panels.",
-      motion: "Tactile press and plush lift transitions.",
-      density: "Medium density with generous touch targets.",
+      typography: "Standard system sans-serif with clear professional hierarchy.",
+      color: "White surfaces, navy text, corporate blue accents, light gray borders.",
+      layout: "Structured grids, clear sections, professional spacing.",
+      motion: "Minimal transitions, professional and restrained.",
+      density: "Medium density with clear information hierarchy.",
     },
   }),
   style({
@@ -511,5 +510,5 @@ export function previewPath(slug: string, type: PreviewType) {
 }
 
 export function downloadPath(slug: string) {
-  return `/downloads/${slug}`;
+  return `/downloads/${slug}.skill.zip`;
 }

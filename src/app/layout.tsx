@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import {
   Bodoni_Moda,
   EB_Garamond,
-  Fredoka,
   Geist,
   Geist_Mono,
   IM_Fell_English,
-  Instrument_Serif,
   Silkscreen,
   VT323,
 } from "next/font/google";
+import { HtmlLangSync } from "@/components/html-lang-sync";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
@@ -43,23 +43,10 @@ const ebGaramond = EB_Garamond({
   style: ["normal", "italic"],
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
-});
-
 const vt323 = VT323({
   variable: "--font-vt323",
   subsets: ["latin"],
   weight: ["400"],
-});
-
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
 });
 
 const bodoniModa = Bodoni_Moda({
@@ -75,6 +62,9 @@ export const metadata: Metadata = {
     "Preview frontend taste before installing the Skill. A curated gallery of frontend style Skills for AI coding agents.",
 };
 
+const langInitScript =
+  'document.documentElement.lang=location.pathname.split("/")[1]==="zh"?"zh":"en";';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -83,9 +73,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${silkscreen.variable} ${imFellEnglish.variable} ${ebGaramond.variable} ${instrumentSerif.variable} ${vt323.variable} ${fredoka.variable} ${bodoniModa.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} ${silkscreen.variable} ${imFellEnglish.variable} ${ebGaramond.variable} ${vt323.variable} ${bodoniModa.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <Script id="fronttaste-lang" strategy="beforeInteractive">
+          {langInitScript}
+        </Script>
+        <HtmlLangSync />
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>

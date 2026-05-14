@@ -64,6 +64,34 @@ export const copy = {
       previewTitle: "Preview before install",
       previewBody: "Use the landing, dashboard, and settings demos to decide whether the style fits your product.",
     },
+    home: {
+      stylePickerLabel: "Choose a FrontTaste style",
+      installSteps: [
+        { title: "Download", body: "Save the selected .skill.zip package." },
+        { title: "Install", body: "Add SKILL.md to your AI coding workflow." },
+        { title: "Prompt", body: "Use the same product prompt and let the style rules shape the UI." },
+      ],
+      downloadsTitle: "All 8 downloads",
+      noScripts: "No scripts",
+      cssDriven: "CSS-driven",
+    },
+    demo: {
+      kicker: "MemoPilot demos",
+      title: "Same prompt, different products",
+      open: "Open",
+      labels: {
+        landing: "Landing",
+        dashboard: "Dashboard",
+        settings: "Settings",
+      },
+    },
+    docsWhat: {
+      cards: [
+        { title: "Preview", body: "See real pages before installation." },
+        { title: "Install", body: "Download Markdown-only Skill files." },
+        { title: "Reuse", body: "Keep AI-generated frontend consistent." },
+      ],
+    },
     sharedPrompt: "Build a landing page for an AI meeting notes app.",
     cta: {
       preview: "View demo",
@@ -141,7 +169,35 @@ export const copy = {
       previewTitle: "先预览再安装",
       previewBody: "用 landing、dashboard、settings demo 判断这个风格是否适合你的产品。",
     },
-    sharedPrompt: "Build a landing page for an AI meeting notes app.",
+    home: {
+      stylePickerLabel: "选择一个 FrontTaste 风格",
+      installSteps: [
+        { title: "下载", body: "保存当前选中的 .skill.zip 包。" },
+        { title: "安装", body: "把 SKILL.md 加入你的 AI 编程工作流。" },
+        { title: "提示", body: "复用同一个产品 prompt，让风格规则塑造界面。" },
+      ],
+      downloadsTitle: "全部 8 个下载",
+      noScripts: "无脚本",
+      cssDriven: "CSS 驱动",
+    },
+    demo: {
+      kicker: "MemoPilot 演示",
+      title: "同一个 prompt，不同产品气质",
+      open: "打开",
+      labels: {
+        landing: "落地页",
+        dashboard: "仪表盘",
+        settings: "设置页",
+      },
+    },
+    docsWhat: {
+      cards: [
+        { title: "预览", body: "安装前先查看真实页面效果。" },
+        { title: "安装", body: "下载只包含 Markdown 的 Skill 文件。" },
+        { title: "复用", body: "让 AI 生成的后续前端保持同一审美方向。" },
+      ],
+    },
+    sharedPrompt: "为 AI 会议纪要应用构建一个落地页。",
     cta: {
       preview: "查看 demo",
       download: "下载 Skill",

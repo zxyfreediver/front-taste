@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import { copy } from "@/lib/copy";
 import type { Locale } from "@/lib/fronttaste";
 
 export default async function WhatIsSkillPage({
@@ -8,6 +9,7 @@ export default async function WhatIsSkillPage({
 }) {
   const { locale } = await params;
   const isZh = locale === "zh";
+  const cards = copy[locale].docsWhat.cards;
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-14 sm:px-6 lg:px-8">
@@ -27,11 +29,7 @@ export default async function WhatIsSkillPage({
         </p>
       </div>
       <div className="mt-10 grid gap-4 md:grid-cols-3">
-        {[
-          ["Preview", "See real pages before installation."],
-          ["Install", "Download Markdown-only Skill files."],
-          ["Reuse", "Keep AI-generated frontend consistent."],
-        ].map(([title, body]) => (
+        {cards.map(({ title, body }) => (
           <Card key={title} className="border-zinc-200 bg-white p-5">
             <h2 className="font-semibold">{title}</h2>
             <p className="mt-2 text-sm leading-6 text-zinc-600">{body}</p>

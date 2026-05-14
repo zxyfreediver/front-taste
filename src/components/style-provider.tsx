@@ -46,19 +46,22 @@ function writeStyleToUrl(slug: StyleSlug) {
 
 export function StyleProvider({ children }: { children: React.ReactNode }) {
   const [selectedStyle, setSelectedStyleState] = useState<StyleSlug>(defaultStyleSlug);
+  const [hasHydrated, setHasHydrated] = useState(false);
 
   useEffect(() => {
     queueMicrotask(() => {
-      const initialStyle = readInitialStyle();
-      if (initialStyle !== defaultStyleSlug) {
-        setSelectedStyleState(initialStyle);
-      }
+      setSelectedStyleState(readInitialStyle());
+      setHasHydrated(true);
     });
   }, []);
 
   useEffect(() => {
+    if (!hasHydrated) {
+      return;
+    }
+
     window.localStorage.setItem(STORAGE_KEY, selectedStyle);
-  }, [selectedStyle]);
+  }, [hasHydrated, selectedStyle]);
 
   useEffect(() => {
     const decodedImages: HTMLImageElement[] = [];

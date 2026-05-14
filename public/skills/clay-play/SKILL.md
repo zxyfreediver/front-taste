@@ -1,235 +1,137 @@
 ---
-name: clay-play
-description: Create soft 3D claymorphism frontend UI — pillow-inflated cards via 4-layer shadow system, Fredoka rounded-friendly typography, squashy press feedback, gentle idle wobble on primary CTA, pastel cloud-blob background.
+name: industrial-blue
+description: Create clean corporate blue-white frontend UI — standard system fonts, white surfaces with fine borders, corporate blue accents, structured grids, professional and plain.
 ---
 
-# Clay Play Style
+# Industrial Blue Style
 
-Real claymorphism, not "rounded corners and a pastel color". The defining visual is **a 4-layer shadow system** that makes every surface look genuinely 3D-pillow-inflated, like it's molded from soft clay rather than drawn on a screen. Every interaction is tactile — buttons squash on press, the primary CTA wobbles gently like it's alive.
+Clean corporate enterprise UI. The defining visual is **white card surfaces with fine gray borders, corporate blue (#2563eb) accents, and structured grid layouts** — the kind of UI you'd find in a professional B2B SaaS dashboard. Nothing playful, nothing trendy. Just clean, professional, and readable.
 
 ## The two-line rule
 
-1. **4 shadow layers per surface, always.** A single shadow gives you flat tinted cards. Real clay needs an inner top highlight + inner bottom shade + outer ground shadow + soft floor blur. **Skip any one layer and it stops looking 3D.**
-2. **Fredoka, not Inter.** The font is half the personality. Rounded glyph terminals + warm proportions are what make the surface look soft. A sans-serif modernist font on a clay layout looks like a confused ad.
+1. **White cards with 1px borders, always.** Cards aren't floating — they're contained in fine gray (`#d4d8e0`) borders with subtle shadows. No border-radius over 6px. No borderless surfaces.
+2. **System sans-serif, not a display font.** Use the OS-native sans-serif stack (`Geist`, `Inter`, `system-ui`). No serif, no rounded fonts, no monospace for body text.
 
-## Required: pastel blob background
-
-Cards need vibrant pastel space behind them to feel cheerful:
+## Required: clean gray-blue background
 
 ```css
 body {
-  background-color: #fff1e6;
-  background-image:
-    radial-gradient(circle at 14% 16%, rgba(255, 122,  89, 0.30), transparent 28%),
-    radial-gradient(circle at 86% 12%, rgba(116, 211, 255, 0.26), transparent 26%),
-    radial-gradient(circle at 22% 92%, rgba(255, 211, 110, 0.22), transparent 28%),
-    radial-gradient(circle at 82% 80%, rgba(196, 110, 255, 0.22), transparent 26%);
-  color: #272038;
-  font-family: "Fredoka", "Quicksand", "Nunito", system-ui, sans-serif;
-  font-weight: 500;
+  background-color: #f4f6f9;
+  color: #131a26;
+  font-family: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
   min-height: 100vh;
 }
 ```
 
-## Required: load Fredoka
-
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
-```
-
-Or for Next.js:
-```ts
-import { Fredoka } from "next/font/google";
-const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
-```
-
-## The 4-layer pillow shadow (the entire visual identity)
-
-Every clay surface uses this exact shadow structure, scaled up or down:
-
-```css
-.clay {
-  border: 0;                               /* clay surfaces never have borders */
-  border-radius: 32px;                     /* big radius — pillows aren't sharp */
-  background: #ffffff;
-  box-shadow:
-    inset 0 3px 0  rgba(255, 255, 255, 0.95),  /* 1. inner top highlight (rim of light) */
-    inset 0 -4px 0 rgba(103, 74, 92, 0.18),    /* 2. inner bottom shade (rim of shadow) */
-    0 2px 0 rgba(255, 255, 255, 0.6),           /* 3. outer top rim       */
-    0 14px 0 rgba(103, 74, 92, 0.18),           /* 4a. ground shadow (hard offset) */
-    0 32px 70px rgba(255, 122, 89, 0.22);       /* 4b. floor blur (soft scatter) */
-}
-```
-
-The two `inset` shadows are what give the pillow shape. The outer `0 14px 0` is what makes the whole surface look like it's resting *on top of* something. The `32px 70px` blur is the warm floor halo.
-
 ## Color palette
 
-| Token              | Value                    | Purpose                                  |
-|--------------------|--------------------------|------------------------------------------|
-| `--bg`             | `#fff1e6`                | Cream page background                    |
-| `--surface`        | `#ffffff`                | Card / button surface                    |
-| `--surface-strong` | `#ffd6e8`                | Pink accent surface                      |
-| `--surface-weak`   | `#fff8f1`                | Hover surface                            |
-| `--text`           | `#272038`                | Body text (warm purple-black)            |
-| `--muted`          | `#7b6c86`                | Secondary text                           |
-| `--accent`         | `#ff7a59`                | Coral primary accent                     |
-| `--accent-2`       | `#74d3ff`                | Sky-blue secondary accent                |
-| `--clay-highlight` | `rgba(255, 255, 255, 0.95)` | Inner top highlight              |
-| `--clay-shade`     | `rgba(103, 74, 92, 0.18)` | Inner bottom shade / ground         |
-| `--clay-deep`      | `rgba(103, 74, 92, 0.30)` | Deep accent shade for primary       |
+| Token           | Value    | Purpose                    |
+|-----------------|----------|----------------------------|
+| `--bg`          | `#f4f6f9` | Page background            |
+| `--surface`     | `#ffffff` | Card / panel surface       |
+| `--surface-alt` | `#e4e8f0` | Secondary surface          |
+| `--text`        | `#131a26` | Body text (near-black)     |
+| `--muted`       | `#5e6d82` | Secondary text             |
+| `--border`      | `#d4d8e0` | Card / input borders       |
+| `--accent`      | `#2563eb` | Corporate blue accent      |
+| `--accent-2`    | `#3b82f6` | Lighter blue               |
 
 ## Component recipes
 
-### Card — full pillow
+### Card
 
 ```css
 .card {
   background: #ffffff;
-  border: 0;
-  border-radius: 32px;
-  padding: 28px;
-  box-shadow:
-    inset 0 3px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -4px 0 rgba(103, 74, 92, 0.18),
-    0 2px 0 rgba(255, 255, 255, 0.6),
-    0 14px 0 rgba(103, 74, 92, 0.18),
-    0 32px 70px rgba(255, 122, 89, 0.22);
-  transition: transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 220ms ease;
+  border: 1px solid #d4d8e0;
+  border-radius: 6px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 .card:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    inset 0 3px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -4px 0 rgba(103, 74, 92, 0.18),
-    0 2px 0 rgba(255, 255, 255, 0.6),
-    0 18px 0 rgba(103, 74, 92, 0.18),
-    0 40px 80px rgba(255, 122, 89, 0.28);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
 }
 ```
 
-### Button — squash on press
+### Button
 
 ```css
 .btn {
   background: #ffffff;
-  border: 0;
-  border-radius: 999px;
-  padding: 12px 24px;
-  color: #272038;
-  font-family: "Fredoka", system-ui, sans-serif;
-  font-weight: 600;
+  border: 1px solid #d4d8e0;
+  border-radius: 6px;
+  padding: 10px 20px;
+  color: #131a26;
+  font-family: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
   cursor: pointer;
-  box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -3px 0 rgba(103, 74, 92, 0.18),
-    0 6px 0 rgba(103, 74, 92, 0.18),
-    0 14px 28px rgba(255, 122, 89, 0.20);
-  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 200ms ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
 }
 .btn:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -3px 0 rgba(103, 74, 92, 0.18),
-    0 8px 0 rgba(103, 74, 92, 0.18),
-    0 18px 36px rgba(255, 122, 89, 0.26);
+  transform: translateY(-1px);
+  background: #f8f9fb;
+  border-color: #2563eb;
+  box-shadow: 0 2px 6px rgba(37,99,235,0.10);
 }
 .btn:active {
-  /* squash — collapse vertical shadow as button compresses */
-  transform: translateY(4px) scale(0.97);
-  box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -2px 0 rgba(103, 74, 92, 0.18),
-    0 1px 0 rgba(103, 74, 92, 0.18),
-    0 4px 12px rgba(255, 122, 89, 0.18);
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
 }
 ```
 
-### Primary CTA — coral pillow with idle wobble
+### Primary CTA
 
 ```css
-@keyframes clay-wobble {
-  0%, 100% { transform: rotate(0deg); }
-  25%      { transform: rotate(-1deg); }
-  50%      { transform: rotate(0deg); }
-  75%      { transform: rotate(1deg); }
-}
-
 .btn--primary {
-  background: #ff7a59;
+  background: #2563eb;
   color: #ffffff;
-  font-weight: 700;
-  box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.55),
-    inset 0 -4px 0 rgba(180, 50, 30, 0.30),
-    0 8px 0 rgba(180, 50, 30, 0.30),
-    0 22px 44px rgba(255, 122, 89, 0.36);
-  animation: clay-wobble 4.6s ease-in-out infinite;
-  transform-origin: center;
+  border: 1px solid #2563eb;
+  border-radius: 6px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.20);
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
 }
 .btn--primary:hover {
-  animation: none;                          /* hold still on hover */
-  transform: translateY(-3px) scale(1.03);
+  transform: translateY(-1px);
+  background: #1d4ed8;
+  box-shadow: 0 4px 14px rgba(37,99,235,0.30);
 }
 .btn--primary:active {
-  animation: none;
-  transform: translateY(4px) scale(0.96);
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(37,99,235,0.20);
 }
 ```
 
-### Chip / tag — small pillow
-
-Same skeleton as `.btn`, smaller padding (`4px 14px`), smaller shadow (`0 4px 0` ground), keep the inset highlight + shade. Looks like a pressable jelly bean.
-
-### Header — translucent pillow band
+### Header
 
 ```css
 .header {
-  background: rgba(255, 255, 255, 0.65);
-  border: 0;
-  backdrop-filter: blur(12px) saturate(1.4);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    inset 0 -1px 0 rgba(255, 122, 89, 0.16),
-    0 6px 24px rgba(255, 122, 89, 0.10);
+  background: #ffffff;
+  border-bottom: 1px solid #d4d8e0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 ```
 
-## Common mistakes (and what's wrong)
-
-| Symptom                              | Cause                                  | Fix                                            |
-|--------------------------------------|----------------------------------------|------------------------------------------------|
-| Looks like flat pastel cards          | Single drop shadow                     | Add ALL 4 shadow layers (highlight + shade + ground + floor) |
-| Looks like a kid's app                | Comic Sans, primary RGB colors          | Fredoka + muted pastels (`#ff7a59`, `#74d3ff`) |
-| Buttons feel like generic Material   | Same shadow on idle/hover/active        | Squash on `:active`: collapse `0 6px 0` → `0 1px 0` and `translateY(4px) scale(0.97)` |
-| Borders look weird                   | Has a `border` declaration              | Remove all borders — clay is borderless        |
-| Hover feels stiff                    | Linear easing, no scale                 | Spring `cubic-bezier(0.34, 1.56, 0.64, 1)` 220ms |
-| Primary CTA feels dead               | No idle motion                          | Add `clay-wobble` rotate animation             |
-| Cards look bumpy / harsh             | Border radius < 24px                    | Use 28–32px on cards, 999px on buttons         |
-
 ## Layout & motion rules
 
-- **Layout:** asymmetric stagger (offset alternating cards `translateY(18px)`) for friendly hand-arranged feel. Use big radius (32px), generous padding (24–32px).
-- **Numbers:** Fredoka regular weight — don't use tabular figures (kills the friendly feel).
+- **Layout:** Structured grids, clear section hierarchy, professional spacing (24–32px gaps). Cards align to a clean grid — no staggered offsets.
+- **Typography:** Single sans-serif stack. Headings at 600 weight. Body at 400. Muted text at `#5e6d82`.
 - **Motion budget:**
-  - Cards: hover lift (3px) — spring easing.
-  - Buttons: hover lift (2px) + squash on `:active` (translateY 4px, scale 0.97).
-  - Primary CTA: continuous gentle wobble (rotate ±1deg over 4.6s) — pauses on hover.
-  - Wrap wobble in `prefers-reduced-motion: reduce`.
-- **Avoid:** sharp corners, hairline borders, cool grays, drop shadows under 0.10 alpha (won't show), stiff easing.
+  - Cards: 2px hover lift, 180ms ease.
+  - Buttons: 1px hover lift, 160ms ease.
+  - No animations, no wobbles, no spring physics.
+- **Avoid:** border-radius over 8px, borderless cards, playful shadows, display fonts, bright/saturated colors, gradients.
 
 ## Output checklist
 
-- [ ] Body has 3–4 saturated pastel cloud blobs.
-- [ ] Fredoka loaded as the only font.
-- [ ] Every card has the **4-layer shadow** (top highlight + bottom shade + ground offset + floor blur).
-- [ ] Cards have NO border, `border-radius: 28–32px`.
-- [ ] Buttons squash on `:active` (translate down + scale 0.97 + collapsed shadow).
-- [ ] Primary CTA has idle `clay-wobble` rotation animation.
-- [ ] Spring easing `cubic-bezier(0.34, 1.56, 0.64, 1)` everywhere.
-- [ ] Asymmetric stagger on dashboard cards (every other one offset 18px).
-- [ ] No sharp corners, no hairlines, no monospace, no muted grays.
-- [ ] `prefers-reduced-motion` disables the CTA wobble.
+- [ ] Body has clean gray-blue background (`#f4f6f9`).
+- [ ] System sans-serif font only — no display or rounded fonts.
+- [ ] Every card has 1px `#d4d8e0` border + subtle shadow.
+- [ ] Border-radius never exceeds 6px.
+- [ ] Corporate blue (`#2563eb`) used only for accents and primary actions.
+- [ ] Standard ease transitions — no spring or bounce.
+- [ ] Clean grid alignment — no staggered/offset cards.
+- [ ] Header is white with bottom border.
