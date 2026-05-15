@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import {
   Bodoni_Moda,
   EB_Garamond,
@@ -82,6 +83,7 @@ export default function RootLayout({
         </Script>
         <HtmlLangSync />
         <TooltipProvider>{children}</TooltipProvider>
+        <Analytics />
       </body>
     </html>
   );
